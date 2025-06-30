@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Резюме - ineedmypills</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
             --primary: #7c3aed;
@@ -17,7 +18,6 @@
             --success: #10b981;
             --warning: #f59e0b;
             --info: #3b82f6;
-            --transition: all 0.3s ease;
         }
 
         [data-theme="light"] {
@@ -34,16 +34,6 @@
             --info: #2563eb;
         }
 
-        /* Добавлено для светлой темы */
-        [data-theme="light"] .education-card {
-            background: rgba(241, 245, 249, 0.7) !important;
-        }
-
-        [data-theme="light"] .contact-card {
-            background: rgba(241, 245, 249, 0.7) !important;
-            border: 1px solid #e2e8f0 !important;
-        }
-
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
             background-color: var(--bg);
@@ -51,7 +41,7 @@
             margin: 0;
             padding: 20px;
             line-height: 1.6;
-            transition: var(--transition);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .container {
@@ -93,6 +83,7 @@
             background: var(--card-bg);
             border-radius: 0 0 12px 12px;
             box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease;
         }
 
         section {
@@ -137,6 +128,8 @@
             font-size: 0.95rem;
             white-space: nowrap;
             text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
         }
 
         .project-card {
@@ -145,10 +138,11 @@
             padding: 15px;
             margin-bottom: 15px;
             border: 1px solid var(--card-border);
-            transition: var(--transition);
             position: relative;
             padding-bottom: 60px;
             cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .project-card:hover {
@@ -183,6 +177,7 @@
             right: 15px;
             font-size: 0.85rem;
             text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .awards-container {
@@ -205,14 +200,32 @@
             text-decoration: none;
             text-shadow: 0 1px 1px rgba(0,0,0,0.2);
             pointer-events: auto;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .education-card {
-            background: rgba(30, 41, 59, 0.3);
+            background: rgba(30, 41, 59, 0.1);
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 12px;
             position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        [data-theme="light"] .education-card {
+            background: rgba(241, 245, 249, 0.3);
+        }
+
+        .education-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .education-divider {
+            height: 1px;
+            background: var(--card-border);
+            margin: 20px 0;
+            opacity: 0.3;
         }
 
         .achievement-badge {
@@ -222,11 +235,12 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
             font-size: 0.85rem;
             text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: 8px;
+            margin-right: 10px;
+            display: inline-block;
         }
 
         .contacts-container {
@@ -239,12 +253,16 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(30, 41, 59, 0.3);
-            padding: 15px;
+            background: rgba(30, 41, 59, 0.1);
             border-radius: 10px;
+            padding: 15px;
             border: 1px solid var(--card-border);
-            transition: var(--transition);
             cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        [data-theme="light"] .contact-card {
+            background: rgba(241, 245, 249, 0.3);
         }
 
         .contact-card:hover {
@@ -261,6 +279,7 @@
             justify-content: center;
             background: var(--info);
             flex-shrink: 0;
+            transition: background-color 0.3s ease;
         }
 
         .contact-label {
@@ -276,15 +295,16 @@
             color: var(--info);
             font-size: 1.1rem;
             text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            transition: color 0.3s ease;
         }
 
         .theme-switch {
             position: absolute;
             top: 15px;
             right: 15px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             border: none;
-            width: 45px;
+            width: 50px;
             height: 24px;
             border-radius: 12px;
             cursor: pointer;
@@ -292,13 +312,19 @@
             align-items: center;
             padding: 0 3px;
             z-index: 10;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        [data-theme="light"] .theme-switch {
+            background: rgba(0, 0, 0, 0.1);
         }
 
         .lang-switch {
             position: absolute;
             top: 15px;
             right: 70px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
             border: none;
             padding: 5px 12px;
             border-radius: 12px;
@@ -307,18 +333,34 @@
             font-weight: 600;
             font-size: 0.85rem;
             z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+
+        [data-theme="light"] .lang-switch {
+            background: rgba(0, 0, 0, 0.1);
+            color: #1e293b;
+        }
+
+        .lang-switch:hover {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        [data-theme="light"] .lang-switch:hover {
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .theme-slider {
             width: 18px;
             height: 18px;
-            background: white;
+            background: #0f172a;
             border-radius: 50%;
-            transition: var(--transition);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            position: relative;
         }
 
         [data-theme="light"] .theme-slider {
-            transform: translateX(21px);
+            transform: translateX(26px);
+            background: white;
         }
 
         .github-badge {
@@ -337,6 +379,7 @@
             font-size: 0.85rem;
             text-shadow: 0 1px 1px rgba(0,0,0,0.2);
             pointer-events: auto;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         a {
@@ -358,13 +401,94 @@
             text-shadow: 0 1px 1px rgba(0,0,0,0.1);
         }
 
-        /* Градиент для Davinci Resolve */
-        .gradient-text {
-            background: linear-gradient(90deg, #ff9999, #ffff99, #99ff99, #99ffff, #9999ff, #ff99ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        /* Иконки для переключателя темы */
+        .theme-icon {
+            position: absolute;
+            font-size: 14px;
+            transition: opacity 0.3s ease;
+            color: white;
+            z-index: 2;
+        }
+
+        .moon-icon {
+            left: 5px; /* Сдвинуто левее */
+        }
+
+        .sun-icon {
+            right: 5px; /* Сдвинуто правее */
+        }
+
+        [data-theme="dark"] .sun-icon {
+            opacity: 0;
+        }
+
+        [data-theme="light"] .moon-icon {
+            opacity: 0;
+        }
+
+        [data-theme="light"] .theme-icon {
+            color: #1e293b;
+        }
+
+        /* Изменение цвета для Davinci Resolve */
+        .davinci-skill {
+            background: #0a0a2a !important;
+            color: white !important;
+        }
+
+        /* Изменение цветов для Java и Python */
+        .java-skill {
+            background: #5382a1 !important;
+            color: #f0f0f0 !important;
+        }
+
+        .python-skill {
+            background: #3776ab !important;
+            color: #f0f0f0 !important;
+        }
+
+        /* Стили для курсов */
+        .course-container {
+            margin-top: 15px;
+            border-top: 1px solid var(--card-border);
+            padding-top: 15px;
+        }
+
+        .course-item {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        .course-item:not(:last-child) {
+            border-bottom: 1px dashed var(--card-border);
+        }
+
+        /* Анимация для смены языка */
+        .translate-element {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .course-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            position: absolute;
+            bottom: 5px;
+            right: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .course-achievements {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         /* Адаптация для мобильных устройств */
@@ -450,7 +574,7 @@
             }
 
             [data-theme="light"] .theme-slider {
-                transform: translateX(24px);
+                transform: translateX(26px);
             }
 
             .achievement-badge {
@@ -459,6 +583,22 @@
 
             .github-badge {
                 font-size: 1rem;
+            }
+
+            .education-divider {
+                margin: 25px 0;
+            }
+
+            .theme-icon {
+                font-size: 16px;
+            }
+
+            .moon-icon {
+                left: 6px; /* Сдвинуто левее */
+            }
+
+            .sun-icon {
+                right: 2px; /* Сдвинуто правее */
             }
         }
 
@@ -503,20 +643,22 @@
                 padding-bottom: 70px;
             }
 
-            /* Исправление для плашки "1 место в группе" */
-            .education-card .achievement-badge {
-                position: static;
-                margin-top: 10px;
-                margin-bottom: 5px;
-                display: block;
-                width: 100%;
-            }
-
             .lang-switch {
                 top: 15px;
                 right: 65px;
                 padding: 4px 10px;
                 font-size: 0.8rem;
+            }
+
+            .course-achievements {
+                flex-direction: column;
+            }
+
+            .course-status {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 10px;
             }
         }
     </style>
@@ -525,12 +667,14 @@
 <div class="container">
     <!-- Шапка с градиентом -->
     <header>
-        <h1>ineedmypills</h1>
-        <p class="name-subtitle" data-key="full-name">Глухих Егор Алексеевич</p>
-        <p class="subtitle" data-key="specialist">Многосторонне развитый IT-специалист</p>
+        <h1 class="translate-element">ineedmypills</h1>
+        <p class="name-subtitle translate-element" data-key="full-name">Глухих Егор Алексеевич</p>
+        <p class="subtitle translate-element" data-key="specialist">Многосторонне развитый IT-"специалист"</p>
 
-        <!-- Переключатель темы -->
+        <!-- Переключатель темы с иконками -->
         <button class="theme-switch" id="themeToggle">
+            <span class="theme-icon material-icons moon-icon">dark_mode</span>
+            <span class="theme-icon material-icons sun-icon">light_mode</span>
             <span class="theme-slider"></span>
         </button>
 
@@ -542,13 +686,13 @@
     <div class="content">
         <!-- Навыки -->
         <section>
-            <h2 class="section-title" data-key="skills-title">
+            <h2 class="section-title translate-element" data-key="skills-title">
                 <span class="section-icon">💻</span>
                 Технические навыки
             </h2>
 
             <div class="skills-category">
-                <div class="category-title" data-key="lang-title">Языки программирования</div>
+                <div class="category-title translate-element" data-key="lang-title">Языки программирования</div>
                 <div class="skills-container">
                     <!-- C++ -->
                     <div class="skill" style="background: #00599c; color: white;">
@@ -556,24 +700,24 @@
                     </div>
 
                     <!-- Java -->
-                    <div class="skill" style="background: #5382a1; color: #f29111;">
+                    <div class="skill java-skill">
                         Java
                     </div>
 
                     <!-- Python -->
-                    <div class="skill" style="background: #3776ab; color: #ffd343;">
+                    <div class="skill python-skill">
                         Python
                     </div>
 
                     <!-- SQL -->
-                    <div class="skill" style="background: #00a9ff; color: #adff2f;">
+                    <div class="skill" style="background: #00a9ff; color: #005073;">
                         SQL
                     </div>
                 </div>
             </div>
 
             <div class="skills-category">
-                <div class="category-title" data-key="software-title">Программное обеспечение</div>
+                <div class="category-title translate-element" data-key="software-title">Программное обеспечение</div>
                 <div class="skills-container">
                     <!-- Unity -->
                     <div class="skill" style="background: #0e1120; color: white;">
@@ -591,18 +735,18 @@
                     </div>
 
                     <!-- FL Studio -->
-                    <div class="skill" style="background: #ff9800; color: #00cc00;">
+                    <div class="skill" style="background: #ff9800; color: #803d00;">
                         FL Studio
                     </div>
 
                     <!-- Davinci Resolve -->
-                    <div class="skill" style="background: #0a0a2a;">
-                        <span class="gradient-text">Davinci Resolve</span>
+                    <div class="skill davinci-skill">
+                        Davinci Resolve
                     </div>
 
                     <!-- ИИ -->
                     <div class="skill" style="background: #8e44ad; color: white;">
-                        <span data-key="ai-skill">Владение ИИ</span>
+                        <span class="translate-element" data-key="ai-skill">Владение ИИ</span>
                     </div>
                 </div>
             </div>
@@ -610,21 +754,21 @@
 
         <!-- Проекты -->
         <section>
-            <h2 class="section-title" data-key="projects-title">
+            <h2 class="section-title translate-element" data-key="projects-title">
                 <span class="section-icon">🚀</span>
                 Ключевые проекты
             </h2>
 
             <!-- Final Hours 3 REDUX -->
             <div class="project-card" data-url="https://gamejolt.com/games/fh3redux/727752">
-                <h3 class="project-title">Final Hours 3 REDUX</h3>
-                <p class="project-desc" data-key="fh3-desc">Неофициальное переиздание игры Final Hours 3</p>
+                <h3 class="project-title translate-element">Final Hours 3 REDUX</h3>
+                <p class="project-desc translate-element" data-key="fh3-desc">Неофициальное переиздание игры Final Hours 3</p>
 
                 <div class="status-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                     </svg>
-                    <span data-key="completed">Завершенный проект</span>
+                    <span class="translate-element" data-key="completed">Завершенный проект</span>
                 </div>
             </div>
 
@@ -636,7 +780,7 @@
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                             </svg>
-                            <span data-key="judges-5th">5 место (судьи)</span>
+                            <span class="translate-element" data-key="judges-5th">5 место (судьи)</span>
                         </div>
                     </a>
                     <a href="https://itch.io/jam/maxters-jam-2024/results?page=2#:~:text=%D0%BE%D1%82%20ineedmypills-,28th%20%D0%BC%D0%B5%D1%81%D1%82%D0%BE,-%D1%81%2014%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BA%D0%B0%D0%BC%D0%B8" target="_blank" class="award-link">
@@ -644,15 +788,15 @@
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                             </svg>
-                            <span data-key="players-28th">28 место (игроки)</span>
+                            <span class="translate-element" data-key="players-28th">28 место (игроки)</span>
                         </div>
                     </a>
                 </div>
 
-                <h3 class="project-title">Non-Playable Character</h3>
-                <p class="project-desc" data-key="npc-desc">"Почувствуйте, каково это - быть неигровым персонажем."</p>
+                <h3 class="project-title translate-element">Non-Playable Character</h3>
+                <p class="project-desc translate-element" data-key="npc-desc">"Почувствуйте, каково это - быть неигровым персонажем."</p>
                 <p style="margin: 10px 0; color: var(--text-secondary);">
-                    <span data-key="npc-jam">Игра для</span>
+                    <span class="translate-element" data-key="npc-jam">Игра для</span>
                     <a href="https://itch.io/jam/maxters-jam-2024" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 500;">
                         maxter's JAM 2024
                     </a>
@@ -662,20 +806,20 @@
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                     </svg>
-                    <span data-key="completed">Завершенный проект</span>
+                    <span class="translate-element" data-key="completed">Завершенный проект</span>
                 </div>
             </div>
 
             <!-- Kolobok -->
             <div class="project-card" data-url="https://ineedmypills.itch.io/kolobok">
-                <h3 class="project-title">Kolobok</h3>
-                <p class="project-desc" data-key="kolobok-desc">Увлекательный 3D шутер-платформер, вдохновлённый игрой "My Friend Pedro", с видом сбоку в стилистике "Киберпанка"</p>
+                <h3 class="project-title translate-element">Kolobok</h3>
+                <p class="project-desc translate-element" data-key="kolobok-desc">Увлекательный 3D шутер-платформер, вдохновлённый игрой "My Friend Pedro", с видом сбоку в стилистике "Киберпанка"</p>
 
                 <div class="status-badge" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
                     </svg>
-                    <span data-key="in-progress">В разработке</span>
+                    <span class="translate-element" data-key="in-progress">В разработке</span>
                 </div>
 
                 <a href="https://github.com/ineedmypills/Kolobok" target="_blank" class="github-badge">
@@ -689,43 +833,87 @@
 
         <!-- Образование -->
         <section>
-            <h2 class="section-title" data-key="education-title">
+            <h2 class="section-title translate-element" data-key="education-title">
                 <span class="section-icon">🎓</span>
                 Образование
             </h2>
 
             <!-- Среднее образование -->
             <div class="education-card">
-                <h3 style="margin: 0 0 10px; font-size: 1.1rem; color: var(--text);" data-key="secondary-edu">Среднее образование</h3>
-                <p style="color: var(--text-secondary); margin: 0;" data-key="11-classes">11 классов</p>
+                <h3 style="margin: 0 0 10px; font-size: 1.1rem; color: var(--text);" class="translate-element" data-key="secondary-edu">Среднее образование</h3>
+                <p style="color: var(--text-secondary); margin: 0;" class="translate-element" data-key="11-classes">11 классов</p>
             </div>
+
+            <!-- Разделитель -->
+            <div class="education-divider"></div>
 
             <!-- Академия -->
             <div class="education-card">
                 <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 10px;">
-                    <h3 style="margin: 0; font-size: 1.1rem; color: var(--text);">Компьютерная Академия "ТОП"</h3>
-                    <div class="achievement-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--info); top: 15px; right: 15px; bottom: auto;">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1z"/>
-                        </svg>
-                        <span data-key="first-place">1 место в группе</span>
-                    </div>
+                    <h3 style="margin: 0; font-size: 1.1rem; color: var(--text);" class="translate-element" data-key="computer-academy">Компьютерная Академия "ТОП"</h3>
                 </div>
-                <p style="color: var(--text-secondary); margin: 8px 0; font-size: 0.95rem;" data-key="specialization">Специализация: разработка программного обеспечения</p>
-                <p style="margin: 8px 0 0; font-weight: 500; color: var(--text); font-size: 0.95rem;" data-key="first-year">Студент 1 курса</p>
+                <p style="color: var(--text-secondary); margin: 8px 0; font-size: 0.95rem;" class="translate-element" data-key="specialization">Специализация: разработка программного обеспечения</p>
 
-                <div class="achievement-badge" style="background: rgba(14, 165, 233, 0.1); color: var(--secondary);">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-                    </svg>
-                    <span data-key="project-defense">Защитил проект по Unreal Engine (Kolobok)</span>
+                <!-- Контейнер для курсов -->
+                <div class="course-container">
+                    <!-- Курс 1 -->
+                    <div class="course-item">
+                        <p style="margin: 0 0 10px; font-weight: 500; color: var(--text); font-size: 0.95rem;" class="translate-element" data-key="first-year">1 курс</p>
+
+                        <!-- Достижения слева -->
+                        <div class="course-achievements">
+                            <div class="achievement-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--info);">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1z"/>
+                                </svg>
+                                <span class="translate-element" data-key="first-place">1 место в группе</span>
+                            </div>
+
+                            <div class="achievement-badge" style="background: rgba(14, 165, 233, 0.1); color: var(--secondary);">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                                </svg>
+                                <span class="translate-element" data-key="project-defense">Защитил проект по Unreal Engine</span>
+                            </div>
+                        </div>
+
+                        <!-- Статус справа снизу -->
+                        <div class="course-status" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            <span class="translate-element" data-key="course-completed">Завершил</span>
+                        </div>
+                    </div>
+
+                    <!-- Курс 2 -->
+                    <div class="course-item">
+                        <p style="margin: 0 0 10px; font-weight: 500; color: var(--text); font-size: 0.95rem;" class="translate-element" data-key="second-year">2 курс</p>
+                        <div class="course-status" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+                            </svg>
+                            <span class="translate-element" data-key="course-in-progress">В процессе</span>
+                        </div>
+                    </div>
+
+                    <!-- Курс 3 -->
+                    <div class="course-item">
+                        <p style="margin: 0 0 10px; font-weight: 500; color: var(--text); font-size: 0.95rem;" class="translate-element" data-key="third-year">3 курс</p>
+                        <div class="course-status" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+                            </svg>
+                            <span class="translate-element" data-key="course-in-progress">В процессе</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Контакты -->
         <section>
-            <h2 class="section-title" data-key="contacts-title">
+            <h2 class="section-title translate-element" data-key="contacts-title">
                 <span class="section-icon">📱</span>
                 Контакты
             </h2>
@@ -735,7 +923,7 @@
                     <div class="contact-card">
                         <div class="contact-icon">
                             <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.140.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
                             </svg>
                         </div>
                         <div>
@@ -790,7 +978,7 @@
     const translations = {
         ru: {
             "full-name": "Глухих Егор Алексеевич",
-            "specialist": "Многосторонне развитый IT-специалист",
+            "specialist": "Многосторонне развитый IT-\"специалист\"",
             "skills-title": "Технические навыки",
             "lang-title": "Языки программирования",
             "software-title": "Программное обеспечение",
@@ -804,18 +992,23 @@
             "kolobok-desc": "Увлекательный 3D шутер-платформер, вдохновлённый игрой \"My Friend Pedro\", с видом сбоку в стилистике \"Киберпанка\"",
             "completed": "Завершенный проект",
             "in-progress": "В разработке",
+            "course-completed": "Завершил",
+            "course-in-progress": "В процессе",
             "education-title": "Образование",
             "secondary-edu": "Среднее образование",
             "11-classes": "11 классов",
+            "computer-academy": "Компьютерная Академия \"ТОП\"",
             "specialization": "Специализация: разработка программного обеспечения",
-            "first-year": "Студент 1 курса",
+            "first-year": "1 курс",
+            "second-year": "2 курс",
+            "third-year": "3 курс",
             "first-place": "1 место в группе",
-            "project-defense": "Защитил проект по Unreal Engine (Kolobok)",
+            "project-defense": "Защитил проект по Unreal Engine",
             "contacts-title": "Контакты"
         },
         en: {
             "full-name": "Glukhikh Egor Alekseevich",
-            "specialist": "Versatile IT Specialist",
+            "specialist": "Versatile IT \"specialist\"",
             "skills-title": "Technical Skills",
             "lang-title": "Programming Languages",
             "software-title": "Software",
@@ -829,30 +1022,50 @@
             "kolobok-desc": "Engaging 3D shooter-platformer inspired by \"My Friend Pedro\", with a side view in \"Cyberpunk\" style",
             "completed": "Completed project",
             "in-progress": "In development",
+            "course-completed": "Completed",
+            "course-in-progress": "In progress",
             "education-title": "Education",
             "secondary-edu": "Secondary education",
             "11-classes": "11 grades",
+            "computer-academy": "TOP Computer Academy",
             "specialization": "Specialization: software development",
-            "first-year": "1st year student",
+            "first-year": "1st course",
+            "second-year": "2nd course",
+            "third-year": "3rd course",
             "first-place": "1st place in the group",
-            "project-defense": "Defended Unreal Engine project (Kolobok)",
+            "project-defense": "Defended Unreal Engine project",
             "contacts-title": "Contacts"
         }
     };
 
-    // Применение языка
+    // Применение языка с анимацией
     function applyLanguage() {
         const lang = localStorage.getItem('language');
-        const elements = document.querySelectorAll('[data-key]');
+        const elements = document.querySelectorAll('.translate-element');
 
+        // Анимация исчезновения
         elements.forEach(el => {
-            const key = el.getAttribute('data-key');
-            if (translations[lang] && translations[lang][key]) {
-                el.textContent = translations[lang][key];
-            }
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(5px)';
         });
 
-        langToggle.textContent = lang === 'ru' ? 'EN' : 'RU';
+        // Задержка перед сменой текста
+        setTimeout(() => {
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (key && translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+
+                // Анимация появления
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 50);
+            });
+
+            langToggle.textContent = lang === 'ru' ? 'EN' : 'RU';
+        }, 300);
     }
 
     // Переключение темы
