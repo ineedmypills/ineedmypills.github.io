@@ -1,10 +1,10 @@
 ﻿<!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="ru" data-theme="dark" class="rjghdzur idc0_350">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Резюме - ineedmypills</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z' fill='%237c3aed'/></svg>">
+    <title>ineedmypills - Портфолио</title>
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 24 24&#39;&gt;&lt;path d=&#39;M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z&#39; fill=&#39;%237c3aed&#39;/&gt;&lt;/svg&gt;">
     <style>
         :root {
             --primary: #7c4dff;
@@ -19,6 +19,7 @@
             --warning: #f59e0b;
             --info: #3b82f6;
             --easing: cubic-bezier(0.42, 0, 0.58, 1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         [data-theme="light"] {
@@ -56,6 +57,7 @@
             text-align: center;
             border-radius: 12px 12px 0 0;
             position: relative;
+            overflow: hidden;
         }
 
         h1 {
@@ -89,6 +91,16 @@
 
         section {
             margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s var(--easing) forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .section-title {
@@ -98,7 +110,24 @@
             margin-bottom: 15px;
             color: var(--text);
             font-size: 1.3rem;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 0.4s var(--easing);
+        }
+
+        .section-title:hover::after {
+            width: 120px;
         }
 
         .skills-container {
@@ -116,17 +145,36 @@
             align-items: center;
             gap: 8px;
             font-size: 0.95rem;
-            white-space: nowrap;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: var(--transition);
             cursor: pointer;
             transform: translateY(0);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .skill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            opacity: 0.3;
+            z-index: -1;
+            transition: opacity 0.3s ease;
         }
 
         .skill:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .skill:hover::before {
+            opacity: 0.5;
         }
 
         .project-card {
@@ -138,13 +186,14 @@
             padding: 15px;
             cursor: pointer;
             box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: var(--transition);
             min-height: 160px;
+            overflow: hidden;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
         .project-header {
@@ -156,7 +205,23 @@
             margin: 0 0 8px;
             font-size: 1.2rem;
             color: var(--text);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            position: relative;
+            display: inline-block;
+        }
+
+        .project-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.4s var(--easing);
+        }
+
+        .project-card:hover .project-title::after {
+            width: 100%;
         }
 
         .project-desc {
@@ -164,7 +229,6 @@
             margin: 0 0 12px;
             font-style: italic;
             font-size: 0.95rem;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
         }
 
         .status-badge {
@@ -178,8 +242,7 @@
             bottom: 15px;
             right: 15px;
             font-size: 0.85rem;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: var(--transition);
             cursor: default;
         }
 
@@ -201,13 +264,16 @@
             align-items: center;
             gap: 5px;
             text-decoration: none;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
             pointer-events: auto;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             transform-origin: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transform: scale(1);
+            z-index: 1;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .award-badge::before {
@@ -219,10 +285,16 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             transition: all 0.6s ease;
+            z-index: -1;
         }
 
         .award-badge:hover::before {
             left: 100%;
+        }
+
+        .award-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .education-card {
@@ -232,10 +304,7 @@
             margin-bottom: 12px;
             position: relative;
             border: 1px solid var(--card-border);
-        }
-
-        [data-theme="light"] .education-card {
-            background: rgba(241, 245, 249, 0.3);
+            transition: var(--transition);
         }
 
         .education-divider {
@@ -252,12 +321,12 @@
             align-items: center;
             gap: 5px;
             font-size: 0.85rem;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: var(--transition);
             margin-top: 8px;
             margin-right: 10px;
             display: inline-block;
             cursor: default;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .contacts-container {
@@ -275,7 +344,23 @@
             padding: 15px;
             border: 1px solid var(--card-border);
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            opacity: 0.3;
+            z-index: -1;
+            transition: opacity 0.3s ease;
         }
 
         [data-theme="light"] .contact-card {
@@ -287,16 +372,46 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
+        .contact-card:hover::before {
+            opacity: 0.5;
+        }
+
         .contact-icon {
+            position: relative;
             width: 40px;
             height: 40px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--info);
             flex-shrink: 0;
-            transition: background-color 0.3s ease;
+        }
+
+        .contact-icon .icon-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            z-index: 0;
+            background: var(--info);
+        }
+
+        .contact-icon svg {
+            position: relative;
+            z-index: 1;
+            transition: none !important;
+        }
+
+        .contact-card:hover .contact-icon .icon-bg {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .contact-label {
@@ -304,14 +419,12 @@
             font-weight: 700;
             font-size: 1rem;
             color: var(--text);
-            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
         }
 
         .contact-value {
             margin: 0;
             color: var(--info);
             font-size: 1.1rem;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
             transition: color 0.3s ease;
         }
 
@@ -330,7 +443,13 @@
             padding: 0 3px;
             z-index: 10;
             overflow: hidden;
-            transition: background-color 0.3s ease;
+            transition: var(--transition);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .theme-switch:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         [data-theme="light"] .theme-switch {
@@ -340,7 +459,7 @@
         .lang-switch {
             position: absolute;
             top: 15px;
-            right: 70px;
+            left: 15px;
             background: rgba(0, 0, 0, 0.3);
             border: none;
             padding: 5px 12px;
@@ -350,16 +469,19 @@
             font-weight: 600;
             font-size: 0.85rem;
             z-index: 10;
-            transition: background-color 0.3s ease;
+            transition: var(--transition);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .lang-switch:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.4);
         }
 
         [data-theme="light"] .lang-switch {
             background: rgba(0, 0, 0, 0.1);
             color: #1e293b;
-        }
-
-        .lang-switch:hover {
-            background: rgba(0, 0, 0, 0.4);
         }
 
         [data-theme="light"] .lang-switch:hover {
@@ -371,13 +493,57 @@
             height: 18px;
             background: #0f172a;
             border-radius: 50%;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            transition: var(--transition);
             position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         [data-theme="light"] .theme-slider {
             transform: translateX(26px);
             background: white;
+        }
+
+        .theme-icon {
+            position: absolute;
+            transition: opacity 0.3s ease;
+            color: white;
+            width: 14px;
+            height: 14px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        [data-theme="light"] .theme-icon {
+            color: #1e293b;
+        }
+
+        .moon-icon {
+            opacity: 1;
+            left: 2px;
+        }
+
+        .sun-icon {
+            opacity: 0;
+            right: 2px;
+        }
+
+        [data-theme="dark"] .sun-icon {
+            opacity: 0;
+        }
+
+        [data-theme="dark"] .moon-icon {
+            opacity: 1;
+        }
+
+        [data-theme="light"] .sun-icon {
+            opacity: 1;
+        }
+
+        [data-theme="light"] .moon-icon {
+            opacity: 0;
         }
 
         .github-badge {
@@ -394,10 +560,15 @@
             left: 15px;
             text-decoration: none;
             font-size: 0.85rem;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
             pointer-events: auto;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: var(--transition);
             cursor: default;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .github-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         a {
@@ -416,36 +587,6 @@
             color: var(--text);
             font-weight: 600;
             padding-left: 5px;
-            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
-        }
-
-        .theme-icon {
-            position: absolute;
-            transition: opacity 0.3s ease;
-            color: white;
-            z-index: 2;
-            width: 16px;
-            height: 16px;
-        }
-
-        .moon-icon {
-            left: 5px;
-        }
-
-        .sun-icon {
-            right: 5px;
-        }
-
-        [data-theme="dark"] .sun-icon {
-            opacity: 0;
-        }
-
-        [data-theme="light"] .moon-icon {
-            opacity: 0;
-        }
-
-        [data-theme="light"] .theme-icon {
-            color: #1e293b;
         }
 
         .davinci-skill {
@@ -497,6 +638,7 @@
             right: 0;
             transition: background-color 0.3s ease, color 0.3s ease;
             cursor: default;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .course-achievements {
@@ -511,7 +653,7 @@
             border-radius: 10px;
             padding: 20px;
             border: 1px solid var(--card-border);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: var(--transition);
         }
 
         [data-theme="light"] .about-card {
@@ -535,13 +677,14 @@
             border-radius: 20px;
             font-weight: 500;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
         }
 
         .interest-badge:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
         .personal-info {
@@ -558,6 +701,124 @@
             align-items: center;
             gap: 8px;
             font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .support-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .support-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(30, 41, 59, 0.1);
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+            cursor: pointer;
+            gap: 15px;
+        }
+
+        [data-theme="light"] .support-item {
+            background: rgba(241, 245, 249, 0.3);
+        }
+
+        .support-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .support-icon {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .support-icon .icon-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            z-index: 0;
+        }
+
+        .support-icon svg {
+            position: relative;
+            z-index: 1;
+            transition: none !important;
+        }
+
+        .support-item:hover .support-icon .icon-bg {
+            transform: rotate(5deg) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .support-details {
+            flex: 1;
+            position: relative;
+        }
+
+        .support-label {
+            margin: 0 0 3px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .support-commission {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .tbank-commission {
+            color: #10B981;
+        }
+
+        .donatty-commission {
+            color: #0EA5E9;
+        }
+
+        .donationalerts-commission {
+            color: #8B5CF6;
+        }
+
+        .recommended-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .recommended-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--success);
         }
 
         @media (min-width: 768px) {
@@ -635,7 +896,7 @@
 
             .lang-switch {
                 top: 20px;
-                right: 85px;
+                left: 20px;
                 padding: 6px 15px;
                 font-size: 0.9rem;
             }
@@ -646,7 +907,7 @@
             }
 
             [data-theme="light"] .theme-slider {
-                transform: translateX(26px);
+                transform: translateX(24px);
             }
 
             .achievement-badge {
@@ -662,16 +923,19 @@
             }
 
             .theme-icon {
-                width: 18px;
-                height: 18px;
+                width: 16px;
+                height: 16px;
             }
 
-            .moon-icon {
-                left: 6px;
+            .support-item {
+                padding: 18px;
+                gap: 20px;
             }
 
-            .sun-icon {
-                right: 2px;
+            .support-icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 12px;
             }
         }
 
@@ -715,7 +979,7 @@
 
             .lang-switch {
                 top: 15px;
-                right: 65px;
+                left: 15px;
                 padding: 4px 10px;
                 font-size: 0.8rem;
             }
@@ -755,6 +1019,25 @@
             .project-card {
                 min-height: auto;
             }
+
+            .support-item {
+                padding: 12px;
+                gap: 12px;
+            }
+
+            .support-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .recommended-badge {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-top: 8px;
+                font-size: 0.85rem;
+                padding: 5px 10px;
+            }
         }
     </style>
 </head>
@@ -766,23 +1049,22 @@
         <p class="subtitle translate-element" data-key="specialist" style="opacity: 1; transform: translateY(0px);">Многосторонне развитый IT-"специалист"</p>
 
         <button class="theme-switch" id="themeToggle">
-            <svg class="theme-icon moon-icon" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z"></path>
-            </svg>
-
-            <svg class="theme-icon sun-icon" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
-                <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"></line>
-                <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"></line>
-                <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"></line>
-                <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"></line>
-            </svg>
-
-            <span class="theme-slider"></span>
+            <span class="theme-slider">
+                <svg class="theme-icon moon-icon" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z"></path>
+                </svg>
+                <svg class="theme-icon sun-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"></line>
+                    <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"></line>
+                    <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"></line>
+                    <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"></line>
+                </svg>
+            </span>
         </button>
 
         <button class="lang-switch" id="langToggle">EN</button>
@@ -933,7 +1215,7 @@
 
             <div class="education-card">
                 <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 10px;">
-                    <h3 style="margin: 0px; font-size: 1.1rem; color: var(--text); opacity: 1; transform: translateY(0px);" class="translate-element" data-key="computer-academy">Компьютерная Академия "ТОП"</h3>
+                    <h3 style="margin: 0px; font-size: 1.1rem; color: var(--text); opacity: 1; transform: translateY(0px);" class="translate-element" data-key="computer-academy">Компьютерная Академия \"ТОП\"</h3>
                 </div>
                 <p style="color: var(--text-secondary); margin: 8px 0px; font-size: 0.95rem; opacity: 1; transform: translateY(0px);" class="translate-element" data-key="specialization">Специализация: разработка программного обеспечения</p>
 
@@ -992,13 +1274,10 @@
             <h2 class="section-title translate-element" data-key="about-title" style="opacity: 1; transform: translateY(0px);">О себе</h2>
 
             <div class="about-card">
-                <p class="translate-element" data-key="about-text" style="opacity: 1; transform: translateY(0px);">
-                    Увлеченный геймдевелопер с разносторонним техническим бэкграундом. Страстно увлечен созданием игр - от концепции до релиза. Участвую в Game Jams для оттачивания навыков работы в сжатые сроки. Экспериментирую с интеграцией ИИ в творческие процессы. Обладаю упорством в доведении проектов до завершения и креативным подходом к решению технических задач. Постоянно осваиваю новые технологии и инструменты разработки.
-                </p>
+                <p class="translate-element" data-key="about-text" style="opacity: 1; transform: translateY(0px);">Увлеченный геймдевелопер с разносторонним техническим бэкграундом. Страстно увлечен созданием игр - от концепции до релиза. Участвую в Game Jams для оттачивания навыков работы в сжатые сроки. Экспериментирую с интеграцией ИИ в творческие процессы. Обладаю упорством в доведении проектов до завершения и креативным подходом к решению технических задач. Постоянно осваиваю новые технологии и инструменты разработки.</p>
 
                 <div class="interests-container">
-                    <div class="interest-badge" style="background: rgba(124, 58, 237, 0.1); color: var(--primary);"
-                         onclick="scrollToProjects()">
+                    <div class="interest-badge" style="background: rgba(124, 58, 237, 0.1); color: var(--primary);" onclick="scrollToProjects()">
                         <span class="translate-element" data-key="interest-gamedev" style="opacity: 1; transform: translateY(0px);">Разработка инди-игр</span>
                     </div>
                     <div class="interest-badge" style="background: rgba(142, 68, 173, 0.1); color: #8e44ad;">
@@ -1014,9 +1293,9 @@
                 <div class="personal-info">
                     <div class="info-item">
                         <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M19,4H18V2H16V4H8V2H6V4H5C3.89,4 3,4.9 3,6V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V6A2,2 0 0,0 19,4M19,20H5V10H19V20M19,8H5V6H19V8M12,13H17V18H12V13"/>
+                            <path d="M19,4H18V2H16V4H8V2H6V4H5C3.89,4 3,4.9 3,6V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V6A2,2 0 0,0 19,4M19,20H5V10H19V20M19,8H5V6H19V8M12,13H17V18H12V13"></path>
                         </svg>
-                        <span id="agePlaceholder">Возраст: </span>
+                        <span id="agePlaceholder">Возраст: 19 лет</span>
                     </div>
 
                     <div class="info-item">
@@ -1035,6 +1314,7 @@
                 <a href="https://t.me/ineedmypills" target="_blank" class="contact-link">
                     <div class="contact-card">
                         <div class="contact-icon">
+                            <div class="icon-bg"></div>
                             <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                                 <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.140.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.640.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z"></path>
                             </svg>
@@ -1049,6 +1329,7 @@
                 <a href="https://github.com/ineedmypills" target="_blank" class="contact-link">
                     <div class="contact-card">
                         <div class="contact-icon">
+                            <div class="icon-bg"></div>
                             <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
                                 <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
                             </svg>
@@ -1056,6 +1337,65 @@
                         <div>
                             <p class="contact-label">GitHub</p>
                             <p class="contact-value">@ineedmypills</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title translate-element" data-key="support-title" style="opacity: 1; transform: translateY(0px);">Поддержать</h2>
+
+            <div class="support-list">
+                <a href="https://www.tbank.ru/cf/3xlXUdjZzLW" target="_blank" class="support-link">
+                    <div class="support-item">
+                        <div class="support-icon">
+                            <div class="icon-bg" style="background: #10B981;"></div>
+                            <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                            </svg>
+                        </div>
+                        <div class="support-details">
+                            <div class="support-label">
+                                Т-Банк
+                            </div>
+                            <p class="support-commission tbank-commission translate-element" data-key="no-commission" style="opacity: 1; transform: translateY(0px);">Без комиссии</p>
+                            <div class="recommended-badge translate-element" data-key="recommended" style="opacity: 1; transform: translateY(0px);">
+                                <svg width="16" height="16" viewBox="0 0 24 24">
+                                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                                </svg>
+                                Рекомендуется
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://donatty.com/clubberrymilkshake" target="_blank" class="support-link">
+                    <div class="support-item">
+                        <div class="support-icon">
+                            <div class="icon-bg" style="background: #0EA5E9;"></div>
+                            <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                            </svg>
+                        </div>
+                        <div class="support-details">
+                            <div class="support-label">Donatty</div>
+                            <p class="support-commission donatty-commission translate-element" data-key="commission-3.5" style="opacity: 1; transform: translateY(0px);">Комиссия 3,5%</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://donationalerts.com/r/shizaphaziya" target="_blank" class="support-link">
+                    <div class="support-item">
+                        <div class="support-icon">
+                            <div class="icon-bg" style="background: #8B5CF6;"></div>
+                            <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                            </svg>
+                        </div>
+                        <div class="support-details">
+                            <div class="support-label">DonationAlerts</div>
+                            <p class="support-commission donationalerts-commission translate-element" data-key="commission-10" style="opacity: 1; transform: translateY(0px);">Комиссия 10%</p>
                         </div>
                     </div>
                 </a>
@@ -1116,7 +1456,12 @@
             "about-text": "Увлеченный геймдевелопер с разносторонним техническим бэкграундом. Страстно увлечен созданием игр - от концепции до релиза. Участвую в Game Jams для оттачивания навыков работы в сжатые сроки. Экспериментирую с интеграцией ИИ в творческие процессы. Обладаю упорством в доведении проектов до завершения и креативным подходом к решению технических задач. Постоянно осваиваю новые технологии и инструменты разработки.",
             "interest-gamedev": "Разработка инди-игр",
             "interest-ai": "Генеративное искусство и нейросети",
-            "interest-music": "Создание электронной музыки"
+            "interest-music": "Создание электронной музыки",
+            "support-title": "Поддержать",
+            "no-commission": "Без комиссии",
+            "commission-3.5": "Комиссия 3,5%",
+            "commission-10": "Комиссия 10%",
+            "recommended": "Рекомендуется"
         },
         en: {
             "full-name": "Glukhikh Egor Alekseevich",
@@ -1151,7 +1496,12 @@
             "about-text": "Passionate game developer with a versatile technical background. Deeply engaged in game creation from concept to release. Participate in Game Jams to hone skills in tight deadlines. Experiment with AI integration in creative processes. Possess persistence in completing projects and a creative approach to solving technical challenges. Continuously learning new technologies and development tools.",
             "interest-gamedev": "Indie Game Development",
             "interest-ai": "Generative Art and Neural Networks",
-            "interest-music": "Electronic Music Creation"
+            "interest-music": "Electronic Music Creation",
+            "support-title": "Support",
+            "no-commission": "No commission",
+            "commission-3.5": "Commission 3.5%",
+            "commission-10": "Commission 10%",
+            "recommended": "Recommended"
         }
     };
 
@@ -1275,6 +1625,5 @@
     applyLanguage();
     displayAge();
 </script>
-
 </body>
 </html>
