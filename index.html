@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<html lang="ru" data-theme="dark" class="rjghdzur idc0_350">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- saved from url=(0031)https://ineedmypills.github.io/ -->
+<html lang="ru" data-theme="dark" class="rjghdzur idc0_350 ksxmcwhvtq scwmnime"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>ineedmypills - Портфолио</title>
+    <title id="pageTitle">ineedmypills - Портфолио</title>
     <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 24 24&#39;&gt;&lt;path d=&#39;M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z&#39; fill=&#39;%237c3aed&#39;/&gt;&lt;/svg&gt;">
     <style>
         :root {
@@ -813,6 +813,7 @@
             color: var(--success);
             transition: var(--transition);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1; /* Исправление: добавлен z-index */
         }
 
         .recommended-badge svg {
@@ -1040,13 +1041,13 @@
             }
         }
     </style>
-</head>
+    <link rel="prefetch"></head>
 <body>
 <div class="container">
     <header>
         <h1 class="translate-element" style="opacity: 1; transform: translateY(0px);">ineedmypills</h1>
         <p class="name-subtitle translate-element" data-key="full-name" style="opacity: 1; transform: translateY(0px);">Глухих Егор Алексеевич</p>
-        <p class="subtitle translate-element" data-key="specialist" style="opacity: 1; transform: translateY(0px);">Многосторонне развитый IT-"специалист"</p>
+        <p class="subtitle translate-element" data-key="specialist" style="opacity: 1; transform: translateY(0px);">Начинающий многосторонне развитый IT-"специалист"</p>
 
         <button class="theme-switch" id="themeToggle">
             <span class="theme-slider">
@@ -1215,7 +1216,7 @@
 
             <div class="education-card">
                 <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 10px;">
-                    <h3 style="margin: 0px; font-size: 1.1rem; color: var(--text); opacity: 1; transform: translateY(0px);" class="translate-element" data-key="computer-academy">Компьютерная Академия \"ТОП\"</h3>
+                    <h3 style="margin: 0px; font-size: 1.1rem; color: var(--text); opacity: 1; transform: translateY(0px);" class="translate-element" data-key="computer-academy">Компьютерная Академия "ТОП"</h3>
                 </div>
                 <p style="color: var(--text-secondary); margin: 8px 0px; font-size: 0.95rem; opacity: 1; transform: translateY(0px);" class="translate-element" data-key="specialization">Специализация: разработка программного обеспечения</p>
 
@@ -1356,15 +1357,16 @@
                             </svg>
                         </div>
                         <div class="support-details">
-                            <div class="support-label">
+                            <div class="support-label translate-element" data-key="t-bank" style="opacity: 1; transform: translateY(0px);">
                                 Т-Банк
                             </div>
                             <p class="support-commission tbank-commission translate-element" data-key="no-commission" style="opacity: 1; transform: translateY(0px);">Без комиссии</p>
-                            <div class="recommended-badge translate-element" data-key="recommended" style="opacity: 1; transform: translateY(0px);">
-                                <svg width="16" height="16" viewBox="0 0 24 24">
-                                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                            <!-- Исправленная плашка с иконкой звезды -->
+                            <div class="recommended-badge" style="opacity: 1; transform: translateY(0px);">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
                                 </svg>
-                                Рекомендуется
+                                <span class="translate-element" data-key="recommended">Рекомендуется</span>
                             </div>
                         </div>
                     </div>
@@ -1408,6 +1410,7 @@
     const themeToggle = document.getElementById('themeToggle');
     const langToggle = document.getElementById('langToggle');
     const html = document.documentElement;
+    const pageTitle = document.getElementById('pageTitle');
 
     if (!localStorage.getItem('theme')) {
         localStorage.setItem('theme', 'dark');
@@ -1424,8 +1427,9 @@
 
     const translations = {
         ru: {
+            "page-title": "ineedmypills - Портфолио",
             "full-name": "Глухих Егор Алексеевич",
-            "specialist": "Многосторонне развитый IT-\"специалист\"",
+            "specialist": "Начинающий многосторонне развитый IT-\"специалист\"",
             "skills-title": "Технические навыки",
             "lang-title": "Языки программирования",
             "software-title": "Программное обеспечение",
@@ -1458,14 +1462,16 @@
             "interest-ai": "Генеративное искусство и нейросети",
             "interest-music": "Создание электронной музыки",
             "support-title": "Поддержать",
+            "t-bank": "Т-Банк",
             "no-commission": "Без комиссии",
             "commission-3.5": "Комиссия 3,5%",
             "commission-10": "Комиссия 10%",
             "recommended": "Рекомендуется"
         },
         en: {
+            "page-title": "ineedmypills - Portfolio",
             "full-name": "Glukhikh Egor Alekseevich",
-            "specialist": "Versatile IT \"specialist\"",
+            "specialist": "Beginning versatile IT \"specialist\"",
             "skills-title": "Technical Skills",
             "lang-title": "Programming Languages",
             "software-title": "Software",
@@ -1498,6 +1504,7 @@
             "interest-ai": "Generative Art and Neural Networks",
             "interest-music": "Electronic Music Creation",
             "support-title": "Support",
+            "t-bank": "T-Bank",
             "no-commission": "No commission",
             "commission-3.5": "Commission 3.5%",
             "commission-10": "Commission 10%",
@@ -1508,6 +1515,9 @@
     function applyLanguage() {
         const lang = localStorage.getItem('language');
         const elements = document.querySelectorAll('.translate-element');
+
+        // Обновление заголовка страницы
+        pageTitle.textContent = translations[lang]["page-title"];
 
         elements.forEach(el => {
             el.style.opacity = '0';
@@ -1625,5 +1635,7 @@
     applyLanguage();
     displayAge();
 </script>
-</body>
-</html>
+
+</body></html>t>
+
+</body></html>
