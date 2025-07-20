@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
-<!-- saved from url=(0031)https://ineedmypills.github.io/ -->
-<html lang="ru" data-theme="dark" class="rjghdzur idc0_350 ksxmcwhvtq scwmnime"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="ru" data-theme="dark">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title id="pageTitle">ineedmypills - Портфолио</title>
     <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 24 24&#39;&gt;&lt;path d=&#39;M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z&#39; fill=&#39;%237c3aed&#39;/&gt;&lt;/svg&gt;">
@@ -18,13 +18,15 @@
             --success: #10b981;
             --warning: #f59e0b;
             --info: #3b82f6;
-            --easing: cubic-bezier(0.42, 0, 0.58, 1);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --danger: #ef4444;
+            --easing-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --easing-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition: all 0.4s var(--easing-bounce);
         }
 
         [data-theme="light"] {
-            --primary: #a18cd1;
-            --primary-dark: #fbc2eb;
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
             --secondary: #0284c7;
             --text: #1e293b;
             --text-secondary: #64748b;
@@ -34,31 +36,90 @@
             --success: #059669;
             --warning: #d97706;
             --info: #2563eb;
+            --danger: #dc2626;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
             padding: 20px;
             line-height: 1.6;
             transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            filter: blur(150px);
+            z-index: -1;
+            animation: move-blob 25s infinite alternate;
+            transition: background 0.5s ease;
+        }
+
+        body::before {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            top: -15%;
+            left: -15%;
+            animation-direction: alternate-reverse;
+        }
+
+        body::after {
+            background: linear-gradient(135deg, var(--primary-dark), var(--warning));
+            bottom: -15%;
+            right: -15%;
+            animation-delay: -12s;
+        }
+
+        @keyframes move-blob {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            33% { transform: translate(100px, -50px) scale(1.2) rotate(120deg); }
+            66% { transform: translate(-80px, 100px) scale(0.9) rotate(240deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(360deg); }
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: rgba(30, 41, 59, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             padding: 25px 20px;
             text-align: center;
-            border-radius: 12px 12px 0 0;
+            border-radius: 12px;
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--card-border);
+            margin-bottom: 20px;
         }
+
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        [data-theme="light"] header {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(0,0,0,0.05);
+        }
+
+        [data-theme="light"] header::before { opacity: 0.3; }
 
         h1 {
             margin: 0;
@@ -83,35 +144,30 @@
 
         .content {
             padding: 20px;
-            background: var(--card-bg);
-            border-radius: 0 0 12px 12px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--card-border);
             transition: background-color 0.3s ease;
         }
 
-        section {
-            margin-bottom: 30px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s var(--easing) forwards;
+        [data-theme="light"] .content {
+            background: rgba(255, 255, 255, 0.5);
+            border-color: rgba(0,0,0,0.05);
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        section { margin-bottom: 30px; }
+        section:last-child { margin-bottom: 0; }
 
         .section-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            display: inline-block;
             color: var(--text);
             font-size: 1.3rem;
             position: relative;
             padding-bottom: 8px;
+            margin-bottom: 15px;
         }
 
         .section-title::after {
@@ -119,22 +175,22 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 50px;
+            width: 0;
             height: 3px;
-            background: var(--primary);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 3px;
-            transition: width 0.4s var(--easing);
+            transition: width 0.8s var(--easing-smooth);
         }
 
-        .section-title:hover::after {
-            width: 120px;
+        .section-title.is-visible::after {
+            width: 60%;
         }
 
         .skills-container {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         .skill {
@@ -146,51 +202,47 @@
             gap: 8px;
             font-size: 0.95rem;
             box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-            transition: var(--transition);
+            transition: transform 0.3s var(--easing-smooth), box-shadow 0.3s var(--easing-smooth);
             cursor: pointer;
-            transform: translateY(0);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .skill::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-            opacity: 0.3;
-            z-index: -1;
-            transition: opacity 0.3s ease;
         }
 
         .skill:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
-        .skill:hover::before {
-            opacity: 0.5;
-        }
+        .skill-cpp { background: #00599c; color: white; }
+        .skill-java { background: #5382a1; color: #f0f0f0; }
+        .skill-python { background: #3776ab; color: #f0f0f0; }
+        .skill-sql { background: #00a9ff; color: #005073; }
+        .skill-unity { background: #0e1120; color: white; }
+        .skill-unreal { background: #000000; color: white; }
+        .skill-android { background: #3ddc84; color: #0c3b2e; }
+        .skill-fl { background: #ff9800; color: #803d00; }
+        .skill-davinci { background: #0a0a2a; color: white; }
+        .skill-ai { background: #8e44ad; color: white; }
+
+        .project-list { margin-top: 20px; }
 
         .project-card {
-            background: var(--card-bg);
+            background: rgba(30, 41, 59, 0.1);
             border-radius: 10px;
-            margin-bottom: 15px;
             border: 1px solid var(--card-border);
             position: relative;
             padding: 15px;
             cursor: pointer;
             box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-            transition: var(--transition);
+            transition: transform 0.3s var(--easing-smooth), box-shadow 0.3s var(--easing-smooth);
             min-height: 160px;
             overflow: hidden;
         }
 
+        [data-theme="light"] .project-card {
+            background: rgba(241, 245, 249, 0.3);
+            border-color: rgba(0,0,0,0.05);
+        }
+
+        .project-list .project-card:not(:first-child) { margin-top: 20px; }
         .project-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
@@ -216,19 +268,31 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary);
-            transition: width 0.4s var(--easing);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.4s var(--easing-smooth);
         }
 
-        .project-card:hover .project-title::after {
-            width: 100%;
-        }
+        .project-card:hover .project-title::after { width: 100%; }
 
         .project-desc {
             color: var(--text-secondary);
             margin: 0 0 12px;
             font-style: italic;
             font-size: 0.95rem;
+        }
+
+        .project-jam-info {
+            margin: 10px 0;
+            color: var(--text-secondary);
+        }
+        .jam-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .jam-link:hover {
+            color: var(--primary-dark);
         }
 
         .status-badge {
@@ -242,9 +306,10 @@
             bottom: 15px;
             right: 15px;
             font-size: 0.85rem;
-            transition: var(--transition);
             cursor: default;
         }
+        .status-badge--completed { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status-badge--in-progress { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
 
         .awards-container {
             display: flex;
@@ -256,63 +321,19 @@
         }
 
         .award-badge {
-            padding: 5px 10px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-weight: 500;
             font-size: 0.8rem;
             display: flex;
             align-items: center;
             gap: 5px;
-            text-decoration: none;
-            pointer-events: auto;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
             cursor: pointer;
-            transition: var(--transition);
-            transform-origin: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transform: scale(1);
-            z-index: 1;
-            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s var(--easing-smooth);
         }
-
-        .award-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: all 0.6s ease;
-            z-index: -1;
-        }
-
-        .award-badge:hover::before {
-            left: 100%;
-        }
-
-        .award-badge:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .education-card {
-            background: rgba(30, 41, 59, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 12px;
-            position: relative;
-            border: 1px solid var(--card-border);
-            transition: var(--transition);
-        }
-
-        .education-divider {
-            height: 1px;
-            background: var(--card-border);
-            margin: 20px 0;
-            opacity: 0.3;
-        }
+        .award-badge:hover { transform: scale(1.05); }
 
         .achievement-badge {
             padding: 4px 10px;
@@ -321,97 +342,25 @@
             align-items: center;
             gap: 5px;
             font-size: 0.85rem;
-            transition: var(--transition);
             margin-top: 8px;
             margin-right: 10px;
             display: inline-block;
             cursor: default;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        .achievement-badge--first-place { background: rgba(59, 130, 246, 0.1); color: var(--info); }
+        .achievement-badge--defense { background: rgba(14, 165, 233, 0.1); color: var(--secondary); }
+
+        .specialization-desc {
+            color: var(--text-secondary);
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
 
         .contacts-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
             gap: 15px;
-        }
-
-        .contact-card {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(30, 41, 59, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            border: 1px solid var(--card-border);
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-            opacity: 0.3;
-            z-index: -1;
-            transition: opacity 0.3s ease;
-        }
-
-        [data-theme="light"] .contact-card {
-            background: rgba(241, 245, 249, 0.3);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .contact-card:hover::before {
-            opacity: 0.5;
-        }
-
-        .contact-icon {
-            position: relative;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .contact-icon .icon-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            z-index: 0;
-            background: var(--info);
-        }
-
-        .contact-icon svg {
-            position: relative;
-            z-index: 1;
-            transition: none !important;
-        }
-
-        .contact-card:hover .contact-icon .icon-bg {
-            transform: rotate(10deg) scale(1.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .contact-label {
@@ -428,72 +377,40 @@
             transition: color 0.3s ease;
         }
 
-        .theme-switch {
-            position: absolute;
-            top: 15px;
-            right: 15px;
+        .theme-switch, .lang-switch {
             background: rgba(0, 0, 0, 0.3);
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             width: 50px;
-            height: 24px;
-            border-radius: 12px;
+            height: 26px;
+            border-radius: 13px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 0 3px;
-            z-index: 10;
-            overflow: hidden;
+            padding: 3px;
             transition: var(--transition);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        }
-
-        .theme-switch:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        [data-theme="light"] .theme-switch {
-            background: rgba(0, 0, 0, 0.1);
-        }
-
-        .lang-switch {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: none;
-            padding: 5px 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            color: white;
-            font-weight: 600;
-            font-size: 0.85rem;
-            z-index: 10;
-            transition: var(--transition);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
         }
 
-        .lang-switch:hover {
+        .theme-switch { top: 20px; right: 20px; }
+        .lang-switch { top: 20px; left: 20px; }
+
+        .theme-switch:hover, .lang-switch:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            background: rgba(0, 0, 0, 0.4);
         }
 
+        [data-theme="light"] .theme-switch,
         [data-theme="light"] .lang-switch {
             background: rgba(0, 0, 0, 0.1);
-            color: #1e293b;
+            border-color: rgba(0,0,0,0.05);
         }
 
-        [data-theme="light"] .lang-switch:hover {
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .theme-slider {
-            width: 18px;
-            height: 18px;
-            background: #0f172a;
+        .theme-slider, .lang-slider {
+            width: 20px;
+            height: 20px;
+            background: var(--card-bg);
             border-radius: 50%;
-            transition: var(--transition);
+            transition: transform 0.3s var(--easing-smooth);
             position: relative;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             display: flex;
@@ -501,55 +418,38 @@
             justify-content: center;
         }
 
-        [data-theme="light"] .theme-slider {
-            transform: translateX(26px);
-            background: white;
-        }
+        [data-theme="light"] .theme-slider { transform: translateX(0); }
+        [data-theme="dark"] .theme-slider { transform: translateX(24px); }
+        .lang-switch[data-lang="en"] .lang-slider { transform: translateX(0); }
+        .lang-switch[data-lang="ru"] .lang-slider { transform: translateX(24px); }
 
-        .theme-icon {
+        .theme-icon, .lang-icon {
             position: absolute;
             transition: opacity 0.3s ease;
-            color: white;
-            width: 14px;
-            height: 14px;
-            z-index: 2;
+            color: var(--text);
             pointer-events: none;
         }
 
-        [data-theme="light"] .theme-icon {
-            color: #1e293b;
-        }
+        .theme-icon { width: 14px; height: 14px; z-index: 2; }
+        .lang-icon { font-size: 0.7rem; font-weight: 700; line-height: 1; }
 
-        .moon-icon {
-            opacity: 1;
-            left: 2px;
-        }
+        [data-theme="light"] .theme-icon,
+        [data-theme="light"] .lang-icon { color: #1e293b; }
 
-        .sun-icon {
-            opacity: 0;
-            right: 2px;
-        }
+        .sun-icon { opacity: 1; }
+        .moon-icon { opacity: 0; }
+        [data-theme="dark"] .sun-icon { opacity: 0; }
+        [data-theme="dark"] .moon-icon { opacity: 1; }
 
-        [data-theme="dark"] .sun-icon {
-            opacity: 0;
-        }
-
-        [data-theme="dark"] .moon-icon {
-            opacity: 1;
-        }
-
-        [data-theme="light"] .sun-icon {
-            opacity: 1;
-        }
-
-        [data-theme="light"] .moon-icon {
-            opacity: 0;
-        }
+        .lang-en { opacity: 1; }
+        .lang-ru { opacity: 0; }
+        .lang-switch[data-lang="ru"] .lang-en { opacity: 0; }
+        .lang-switch[data-lang="ru"] .lang-ru { opacity: 1; }
 
         .github-badge {
             background: rgba(14, 165, 233, 0.1);
             color: var(--secondary);
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-weight: 500;
             display: flex;
@@ -559,50 +459,66 @@
             bottom: 15px;
             left: 15px;
             text-decoration: none;
-            font-size: 0.85rem;
-            pointer-events: auto;
-            transition: var(--transition);
-            cursor: default;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: transform 0.3s var(--easing-smooth);
+        }
+        .github-badge:hover { transform: scale(1.05); }
+
+        a { text-decoration: none; color: inherit; }
+
+        .content-group {
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.5s var(--easing-smooth);
+        }
+        [data-theme="light"] .content-group { background: rgba(255, 255, 255, 0.6); }
+
+        .content-divider {
+            height: 1px;
+            background: var(--card-border);
+            margin: 25px 0;
+            opacity: 0.5;
         }
 
-        .github-badge:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .skills-category {
-            margin-bottom: 15px;
-            width: 100%;
-        }
-
-        .category-title {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: var(--text);
+        .group-title {
+            font-size: 1.2rem;
             font-weight: 600;
-            padding-left: 5px;
+            margin-bottom: 0;
+            padding-bottom: 8px;
+            display: inline-block;
+            color: var(--text);
+            position: relative;
         }
 
-        .davinci-skill {
-            background: #0a0a2a !important;
-            color: white !important;
+        .group-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
         }
 
-        .java-skill {
-            background: #5382a1 !important;
-            color: #f0f0f0 !important;
+        .tech-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            font-size: 0.85rem;
+            cursor: default;
         }
-
-        .python-skill {
-            background: #3776ab !important;
-            color: #f0f0f0 !important;
-        }
+        .python-tech { background: rgba(55, 118, 171, 0.15); color: #4B8BBE; }
+        [data-theme="light"] .python-tech { background: rgba(55, 118, 171, 0.1); color: #3776ab; }
 
         .course-container {
             margin-top: 15px;
@@ -615,13 +531,15 @@
             padding-bottom: 10px;
             position: relative;
         }
+        .course-item:not(:last-child) { border-bottom: 1px dashed var(--card-border); }
 
-        .course-item:not(:last-child) {
-            border-bottom: 1px dashed var(--card-border);
+        body.lang-switching .translate-element {
+            opacity: 0;
+            filter: blur(5px);
+            transform: translateY(15px);
         }
-
         .translate-element {
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.4s var(--easing-smooth), transform 0.4s var(--easing-smooth), filter 0.4s var(--easing-smooth);
         }
 
         .course-status {
@@ -640,29 +558,14 @@
             cursor: default;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        .course-status--completed { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .course-status--in-progress { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
 
         .course-achievements {
             margin-top: 10px;
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-        }
-
-        .about-card {
-            background: rgba(30, 41, 59, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            border: 1px solid var(--card-border);
-            transition: var(--transition);
-        }
-
-        [data-theme="light"] .about-card {
-            background: rgba(241, 245, 249, 0.3);
-        }
-
-        .about-card p {
-            margin: 0 0 15px;
-            line-height: 1.7;
         }
 
         .interests-container {
@@ -677,15 +580,18 @@
             border-radius: 20px;
             font-weight: 500;
             font-size: 0.9rem;
-            transition: var(--transition);
+            transition: transform 0.3s var(--easing-smooth), box-shadow 0.3s var(--easing-smooth);
             cursor: pointer;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
         }
-
         .interest-badge:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
+        .interest-badge--gamedev { background: rgba(124, 58, 237, 0.1); color: var(--primary); }
+        .interest-badge--software { background: rgba(59, 130, 246, 0.1); color: var(--info); }
+        .interest-badge--ai { background: rgba(142, 68, 173, 0.1); color: #8e44ad; }
+        .interest-badge--music { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
 
         .personal-info {
             display: flex;
@@ -701,7 +607,6 @@
             align-items: center;
             gap: 8px;
             font-size: 0.95rem;
-            transition: var(--transition);
         }
 
         .support-list {
@@ -710,27 +615,31 @@
             gap: 12px;
         }
 
+        .contact-card,
         .support-item {
             display: flex;
             align-items: center;
-            padding: 15px;
+            gap: 15px;
             background: rgba(30, 41, 59, 0.1);
             border-radius: 10px;
+            padding: 15px;
             border: 1px solid var(--card-border);
-            transition: var(--transition);
             cursor: pointer;
-            gap: 15px;
+            transition: transform 0.3s var(--easing-smooth), box-shadow 0.3s var(--easing-smooth);
+            will-change: transform;
+            position: relative; /* For side-badge positioning */
         }
 
-        [data-theme="light"] .support-item {
-            background: rgba(241, 245, 249, 0.3);
-        }
+        [data-theme="light"] .contact-card,
+        [data-theme="light"] .support-item { background: rgba(241, 245, 249, 0.3); }
 
+        .contact-card:hover,
         .support-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
+        .contact-icon,
         .support-icon {
             position: relative;
             width: 40px;
@@ -742,35 +651,35 @@
             flex-shrink: 0;
         }
 
+        .contact-icon .icon-bg,
         .support-icon .icon-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: var(--transition);
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            z-index: 0;
+            z-index: -1;
         }
 
+        .contact-icon svg,
         .support-icon svg {
             position: relative;
             z-index: 1;
-            transition: none !important;
         }
 
+        .contact-card:hover .contact-icon .icon-bg,
         .support-item:hover .support-icon .icon-bg {
-            transform: rotate(5deg) scale(1.1);
+            transform: rotate(10deg) scale(1.1);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
+        .contact-icon .icon-bg { background: var(--info); }
+        .support-tbank .icon-bg { background: var(--secondary); } /* Changed */
+        .support-donatty .icon-bg { background: var(--success); } /* Changed */
+        .support-donationalerts .icon-bg { background: var(--danger); }
+
         .support-details {
             flex: 1;
-            position: relative;
         }
 
         .support-label {
@@ -786,275 +695,161 @@
             font-weight: 600;
         }
 
-        .tbank-commission {
-            color: #10B981;
-        }
+        .tbank-commission { color: var(--secondary); } /* Changed */
+        .donatty-commission { color: var(--success); } /* Changed */
+        .donationalerts-commission { color: var(--danger); }
 
-        .donatty-commission {
-            color: #0EA5E9;
-        }
-
-        .donationalerts-commission {
-            color: #8B5CF6;
-        }
-
-        .recommended-badge {
+        .side-badge {
             position: absolute;
-            top: 0;
-            right: 0;
-            padding: 6px 12px;
+            top: 15px;
+            right: 15px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-weight: 500;
-            font-size: 0.95rem;
-            display: flex;
+            font-size: 0.85rem;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+        .side-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+        .side-badge--success {
             background: rgba(16, 185, 129, 0.2);
             color: var(--success);
-            transition: var(--transition);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 1; /* Исправление: добавлен z-index */
+        }
+        .side-badge--success svg {
+            fill: var(--success);
+        }
+        .side-badge--danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+        .side-badge--danger svg {
+            fill: var(--danger);
+        }
+        .side-badge--secondary {
+            background: rgba(14, 165, 233, 0.2);
+            color: var(--secondary);
+        }
+        .side-badge--secondary svg {
+            fill: var(--secondary);
         }
 
-        .recommended-badge svg {
-            width: 16px;
-            height: 16px;
-            fill: var(--success);
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s var(--easing-smooth), transform 0.6s var(--easing-smooth);
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-child {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s var(--easing-smooth), transform 0.5s var(--easing-smooth);
+        }
+        .is-visible .stagger-child {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(124, 77, 255, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(124, 77, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(124, 77, 255, 0); }
+        }
+        .project-card.pulse-highlight {
+            animation: pulse 1.5s;
+        }
+
+        .about-paragraph {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .secondary-edu-text {
+            margin-top: 15px;
+        }
+
+        .course-year-title {
+            margin: 0 0 10px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text);
         }
 
         @media (min-width: 768px) {
-            header {
-                padding: 35px 30px;
-            }
-
-            h1 {
-                font-size: 2.2rem;
-            }
-
-            .subtitle {
-                font-size: 1.25rem;
-            }
-
-            .content {
-                padding: 30px;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-                margin-bottom: 20px;
-            }
-
-            .skills-container {
-                gap: 12px;
-            }
-
-            .skill {
-                padding: 10px 18px;
-                font-size: 1rem;
-            }
-
-            .project-card {
-                margin-bottom: 20px;
-                padding: 20px;
-                min-height: 160px;
-            }
-
-            .project-header {
-                padding-right: 50%;
-            }
-
-            .project-title {
-                font-size: 1.3rem;
-            }
-
-            .status-badge {
-                padding: 6px 12px;
-                font-size: 1rem;
-            }
-
-            .contacts-container {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
-            }
-
-            .contact-card {
-                padding: 20px;
-                gap: 15px;
-            }
-
-            .contact-icon {
-                width: 50px;
-                height: 50px;
-                border-radius: 12px;
-            }
-
-            .theme-switch {
-                top: 20px;
-                right: 20px;
-                width: 50px;
-                height: 26px;
-            }
-
-            .lang-switch {
-                top: 20px;
-                left: 20px;
-                padding: 6px 15px;
-                font-size: 0.9rem;
-            }
-
-            .theme-slider {
-                width: 20px;
-                height: 20px;
-            }
-
-            [data-theme="light"] .theme-slider {
-                transform: translateX(24px);
-            }
-
-            .achievement-badge {
-                font-size: 1rem;
-            }
-
-            .github-badge {
-                font-size: 1rem;
-            }
-
-            .education-divider {
-                margin: 25px 0;
-            }
-
-            .theme-icon {
-                width: 16px;
-                height: 16px;
-            }
-
-            .support-item {
-                padding: 18px;
-                gap: 20px;
-            }
-
-            .support-icon {
-                width: 50px;
-                height: 50px;
-                border-radius: 12px;
-            }
+            header { padding: 35px 30px; }
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.25rem; }
+            .content { padding: 30px; }
+            .section-title { font-size: 1.5rem; margin-bottom: 20px; }
+            .skills-container { gap: 12px; }
+            .skill { padding: 10px 18px; font-size: 1rem; }
+            .project-card { padding: 20px; min-height: 160px; }
+            .project-header { padding-right: 50%; }
+            .project-title { font-size: 1.3rem; }
+            .status-badge { padding: 6px 12px; font-size: 1rem; }
+            .contacts-container { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+            .contact-card, .support-item { padding: 20px; gap: 15px; }
+            .contact-icon, .support-icon { width: 50px; height: 50px; border-radius: 12px; }
+            .theme-switch { top: 20px; right: 20px; }
+            .lang-switch { top: 20px; left: 20px; }
+            .theme-slider, .lang-slider { width: 20px; height: 20px; }
+            [data-theme="dark"] .theme-slider { transform: translateX(24px); }
+            .lang-switch[data-lang="ru"] .lang-slider { transform: translateX(24px); }
+            .achievement-badge { font-size: 1rem; }
+            .github-badge, .tech-badge { font-size: 1rem; }
+            .content-divider { margin: 25px 0; }
+            .support-item { padding: 18px; gap: 20px; }
+            .support-icon { width: 50px; height: 50px; border-radius: 12px; }
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                max-width: 100%;
-            }
-
-            header {
-                padding: 20px 15px;
-                border-radius: 10px 10px 0 0;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-                padding-right: 40px;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-                padding-right: 40px;
-            }
-
-            .section-title {
-                font-size: 1.2rem;
-            }
-
-            .project-header {
-                padding-right: 0;
-                margin-bottom: 5px;
-            }
-
-            .awards-container {
-                position: static;
-                margin-bottom: 10px;
-            }
-
-            .lang-switch {
-                top: 15px;
-                left: 15px;
-                padding: 4px 10px;
-                font-size: 0.8rem;
-            }
-
-            .course-achievements {
-                flex-direction: column;
-            }
-
-            .course-status {
-                position: relative;
-                bottom: auto;
-                right: auto;
-                margin-top: 10px;
-            }
-
-            .personal-info {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .github-badge {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                margin-top: 10px;
-                display: inline-flex;
-            }
-
-            .status-badge {
-                position: relative;
-                bottom: auto;
-                right: auto;
-                margin-top: 10px;
-                display: inline-flex;
-            }
-
-            .project-card {
-                min-height: auto;
-            }
-
-            .support-item {
-                padding: 12px;
-                gap: 12px;
-            }
-
-            .support-icon {
-                width: 40px;
-                height: 40px;
-            }
-
-            .recommended-badge {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin-top: 8px;
-                font-size: 0.85rem;
-                padding: 5px 10px;
-            }
+            body { padding: 10px; }
+            .container { max-width: 100%; }
+            header { padding: 20px 15px; }
+            h1 { font-size: 1.5rem; }
+            .subtitle { font-size: 1rem; }
+            .section-title { font-size: 1.2rem; }
+            .project-header { padding-right: 0; margin-bottom: 5px; }
+            .awards-container { position: static; margin-bottom: 10px; }
+            .theme-switch { top: 15px; right: 15px; height: 24px; }
+            .lang-switch { top: 15px; left: 15px; height: 24px; width: 50px; }
+            .theme-slider, .lang-slider { width: 18px; height: 18px; }
+            [data-theme="dark"] .theme-slider { transform: translateX(26px); }
+            .lang-switch[data-lang="ru"] .lang-slider { transform: translateX(26px); }
+            .course-achievements { flex-direction: column; }
+            .course-status { position: relative; bottom: auto; right: auto; margin-top: 10px; }
+            .personal-info { flex-direction: column; gap: 10px; }
+            .github-badge, .tech-badge { position: relative; bottom: auto; left: auto; margin-top: 10px; display: inline-flex; }
+            .status-badge { position: relative; bottom: auto; right: auto; margin-top: 10px; display: inline-flex; }
+            .project-card { min-height: auto; }
+            .support-item { padding: 12px; gap: 12px; }
+            .support-icon { width: 40px; height: 40px; }
+            .side-badge { position: relative; top: auto; right: auto; margin-top: 8px; font-size: 0.85rem; padding: 5px 10px; display: inline-flex; }
         }
     </style>
-    <link rel="prefetch"></head>
+</head>
 <body>
+
 <div class="container">
     <header>
-        <h1 class="translate-element" style="opacity: 1; transform: translateY(0px);">ineedmypills</h1>
-        <p class="name-subtitle translate-element" data-key="full-name" style="opacity: 1; transform: translateY(0px);">Глухих Егор Алексеевич</p>
-        <p class="subtitle translate-element" data-key="specialist" style="opacity: 1; transform: translateY(0px);">Начинающий многосторонне развитый IT-"специалист"</p>
-
-        <button class="theme-switch" id="themeToggle">
+        <button class="lang-switch" id="langToggle" aria-label="Переключить язык">
+            <span class="lang-slider">
+                <span class="lang-icon lang-en">EN</span>
+                <span class="lang-icon lang-ru">RU</span>
+            </span>
+        </button>
+        <button class="theme-switch" id="themeToggle" aria-label="Переключить тему">
             <span class="theme-slider">
-                <svg class="theme-icon moon-icon" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z"></path>
-                </svg>
-                <svg class="theme-icon sun-icon" viewBox="0 0 24 24">
+                <svg class="theme-icon sun-icon" viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
                     <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"></line>
                     <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"></line>
@@ -1065,206 +860,40 @@
                     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"></line>
                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"></line>
                 </svg>
+                <svg class="theme-icon moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z"></path>
+                </svg>
             </span>
         </button>
-
-        <button class="lang-switch" id="langToggle">EN</button>
+        <h1 class="translate-element">ineedmypills</h1>
+        <p class="name-subtitle translate-element" data-key="full-name">Глухих Егор Алексеевич</p>
+        <p class="subtitle translate-element" data-key="specialist">Начинающий многосторонне развитый IT-"специалист"</p>
     </header>
 
     <div class="content">
         <section>
-            <h2 class="section-title translate-element" data-key="skills-title" style="opacity: 1; transform: translateY(0px);">Технические навыки</h2>
-
-            <div class="skills-category">
-                <div class="category-title translate-element" data-key="lang-title" style="opacity: 1; transform: translateY(0px);">Языки программирования</div>
-                <div class="skills-container">
-                    <div class="skill" style="background: #00599c; color: white;" data-url="https://isocpp.org/">
-                        C++
-                    </div>
-
-                    <div class="skill java-skill" data-url="https://www.java.com/">
-                        Java
-                    </div>
-
-                    <div class="skill python-skill" data-url="https://www.python.org/">
-                        Python
-                    </div>
-
-                    <div class="skill" style="background: #00a9ff; color: #005073;" data-url="https://www.w3schools.com/sql/">
-                        SQL
+            <h2 class="section-title translate-element animate-on-scroll" data-key="skills-title">Технические навыки</h2>
+            <div class="content-group animate-on-scroll">
+                <div class="stagger-child">
+                    <h3 class="group-title translate-element" data-key="lang-title">Языки программирования</h3>
+                    <div class="skills-container">
+                        <div class="skill skill-cpp" data-url="https://isocpp.org/">C++</div>
+                        <div class="skill skill-java" data-url="https://www.java.com/">Java</div>
+                        <div class="skill skill-python" data-url="https://www.python.org/">Python</div>
+                        <div class="skill skill-sql" data-url="https://www.w3schools.com/sql/">SQL</div>
                     </div>
                 </div>
-            </div>
-
-            <div class="skills-category">
-                <div class="category-title translate-element" data-key="software-title" style="opacity: 1; transform: translateY(0px);">Программное обеспечение</div>
-                <div class="skills-container">
-                    <div class="skill" style="background: #0e1120; color: white;" data-url="https://unity.com/">
-                        Unity
-                    </div>
-
-                    <div class="skill" style="background: #000000; color: white;" data-url="https://www.unrealengine.com/">
-                        Unreal Engine
-                    </div>
-
-                    <div class="skill" style="background: #3ddc84; color: #0c3b2e;" data-url="https://developer.android.com/studio">
-                        Android Studio
-                    </div>
-
-                    <div class="skill" style="background: #ff9800; color: #803d00;" data-url="https://www.image-line.com/">
-                        FL Studio
-                    </div>
-
-                    <div class="skill davinci-skill" data-url="https://www.blackmagicdesign.com/products/davinciresolve">
-                        Davinci Resolve
-                    </div>
-
-                    <div class="skill" style="background: #8e44ad; color: white;" data-url="https://www.deepseek.com/">
-                        <span class="translate-element" data-key="ai-skill" style="opacity: 1; transform: translateY(0px);">Владение ИИ</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects-section">
-            <h2 class="section-title translate-element" data-key="projects-title" style="opacity: 1; transform: translateY(0px);">Ключевые проекты</h2>
-
-            <div class="project-card" data-url="https://gamejolt.com/games/fh3redux/727752">
-                <div class="project-header">
-                    <h3 class="project-title translate-element" style="opacity: 1; transform: translateY(0px);">Final Hours 3 REDUX</h3>
-                    <p class="project-desc translate-element" data-key="fh3-desc" style="opacity: 1; transform: translateY(0px);">Неофициальное переиздание игры Final Hours 3</p>
-                </div>
-
-                <div class="status-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
-                    </svg>
-                    <span class="translate-element" data-key="completed" style="opacity: 1; transform: translateY(0px);">Завершенный проект</span>
-                </div>
-            </div>
-
-            <div class="project-card" data-url="https://ineedmypills.itch.io/non-playable-character">
-                <div class="awards-container">
-                    <a href="https://t.me/m4xter/81" target="_blank" class="award-link">
-                        <div class="award-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
-                            </svg>
-                            <span class="translate-element" data-key="judges-5th" style="opacity: 1; transform: translateY(0px);">5 место (судьи)</span>
-                        </div>
-                    </a>
-                    <a href="https://itch.io/jam/maxters-jam-2024/results?page=2#:~:text=%D0%BE%D1%82%20ineedmypills-,28th%20%D0%BC%D0%B5%D1%81%D1%82%D0%BE,-%D1%81%2014%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BA%D0%B0%D0%BC%D0%B8" target="_blank" class="award-link">
-                        <div class="award-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                            </svg>
-                            <span class="translate-element" data-key="players-28th" style="opacity: 1; transform: translateY(0px);">28 место (игроки)</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="project-header">
-                    <h3 class="project-title translate-element" style="opacity: 1; transform: translateY(0px);">Non-Playable Character</h3>
-                    <p class="project-desc translate-element" data-key="npc-desc" style="opacity: 1; transform: translateY(0px);">"Почувствуйте, каково это - быть неигровым персонажем."</p>
-                    <p style="margin: 10px 0; color: var(--text-secondary);">
-                        <span class="translate-element" data-key="npc-jam" style="opacity: 1; transform: translateY(0px);">Игра для</span>
-                        <a href="https://itch.io/jam/maxters-jam-2024" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 500;">
-                            maxter's JAM 2024
-                        </a>
-                    </p>
-                </div>
-
-                <div class="status-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
-                    </svg>
-                    <span class="translate-element" data-key="completed" style="opacity: 1; transform: translateY(0px);">Завершенный проект</span>
-                </div>
-            </div>
-
-            <div class="project-card" data-url="https://ineedmypills.itch.io/kolobok">
-                <div class="project-header">
-                    <h3 class="project-title translate-element" style="opacity: 1; transform: translateY(0px);">Kolobok</h3>
-                    <p class="project-desc translate-element" data-key="kolobok-desc" style="opacity: 1; transform: translateY(0px);">Увлекательный 3D шутер-платформер, вдохновлённый игрой "My Friend Pedro", с видом сбоку в стилистике "Киберпанка"</p>
-                </div>
-
-                <div class="status-badge" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"></path>
-                    </svg>
-                    <span class="translate-element" data-key="in-progress" style="opacity: 1; transform: translateY(0px);">В разработке</span>
-                </div>
-
-                <a href="https://github.com/ineedmypills/Kolobok" target="_blank" class="github-badge">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
-                    </svg>
-                    GitHub
-                </a>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="section-title translate-element" data-key="education-title" style="opacity: 1; transform: translateY(0px);">Образование</h2>
-
-            <div class="education-card">
-                <h3 style="margin: 0px 0px 10px; font-size: 1.1rem; color: var(--text); opacity: 1; transform: translateY(0px);" class="translate-element" data-key="secondary-edu">Среднее образование</h3>
-                <p style="color: var(--text-secondary); margin: 0px; opacity: 1; transform: translateY(0px);" class="translate-element" data-key="11-classes">11 классов</p>
-            </div>
-
-            <div class="education-divider"></div>
-
-            <div class="education-card">
-                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 10px;">
-                    <h3 style="margin: 0px; font-size: 1.1rem; color: var(--text); opacity: 1; transform: translateY(0px);" class="translate-element" data-key="computer-academy">Компьютерная Академия "ТОП"</h3>
-                </div>
-                <p style="color: var(--text-secondary); margin: 8px 0px; font-size: 0.95rem; opacity: 1; transform: translateY(0px);" class="translate-element" data-key="specialization">Специализация: разработка программного обеспечения</p>
-
-                <div class="course-container">
-                    <div class="course-item">
-                        <p style="margin: 0px 0px 10px; font-weight: 500; color: var(--text); font-size: 0.95rem; opacity: 1; transform: translateY(0px);" class="translate-element" data-key="first-year">1 курс</p>
-
-                        <div class="course-achievements">
-                            <div class="achievement-badge" style="background: rgba(59, 130, 246, 0.1); color: var(--info);">
-                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1z"></path>
-                                </svg>
-                                <span class="translate-element" data-key="first-place" style="opacity: 1; transform: translateY(0px);">1 место в группе</span>
-                            </div>
-
-                            <div class="achievement-badge" style="background: rgba(14, 165, 233, 0.1); color: var(--secondary);">
-                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"></path>
-                                </svg>
-                                <span class="translate-element" data-key="project-defense" style="opacity: 1; transform: translateY(0px);">Защитил проект по Unreal Engine</span>
-                            </div>
-                        </div>
-
-                        <div class="course-status" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
-                            </svg>
-                            <span class="translate-element" data-key="course-completed" style="opacity: 1; transform: translateY(0px);">Окончил</span>
-                        </div>
-                    </div>
-
-                    <div class="course-item">
-                        <p style="margin: 0px 0px 10px; font-weight: 500; color: var(--text); font-size: 0.95rem; opacity: 1; transform: translateY(0px);" class="translate-element" data-key="second-year">2 курс</p>
-                        <div class="course-status" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"></path>
-                            </svg>
-                            <span class="translate-element" data-key="course-in-progress" style="opacity: 1; transform: translateY(0px);">В процессе</span>
-                        </div>
-                    </div>
-
-                    <div class="course-item">
-                        <p style="margin: 0px 0px 10px; font-weight: 500; color: var(--text); font-size: 0.95rem; opacity: 1; transform: translateY(0px);" class="translate-element" data-key="third-year">3 курс</p>
-                        <div class="course-status" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"></path>
-                            </svg>
-                            <span class="translate-element" data-key="course-in-progress" style="opacity: 1; transform: translateY(0px);">В процессе</span>
+                <div class="content-divider stagger-child"></div>
+                <div class="stagger-child">
+                    <h3 class="group-title translate-element" data-key="software-title">Программное обеспечение</h3>
+                    <div class="skills-container">
+                        <div class="skill skill-unity" data-url="https://unity.com/">Unity</div>
+                        <div class="skill skill-unreal" data-url="https://www.unrealengine.com/">Unreal Engine</div>
+                        <div class="skill skill-android" data-url="https://developer.android.com/studio">Android Studio</div>
+                        <div class="skill skill-fl" data-url="https://www.image-line.com/">FL Studio</div>
+                        <div class="skill skill-davinci" data-url="https://www.blackmagicdesign.com/products/davinciresolve">Davinci Resolve</div>
+                        <div class="skill skill-ai" data-url="https://gemini.google.com/">
+                            <span class="translate-element" data-key="ai-skill">Владение ИИ</span>
                         </div>
                     </div>
                 </div>
@@ -1272,37 +901,161 @@
         </section>
 
         <section>
-            <h2 class="section-title translate-element" data-key="about-title" style="opacity: 1; transform: translateY(0px);">О себе</h2>
-
-            <div class="about-card">
-                <p class="translate-element" data-key="about-text" style="opacity: 1; transform: translateY(0px);">Увлеченный геймдевелопер с разносторонним техническим бэкграундом. Страстно увлечен созданием игр - от концепции до релиза. Участвую в Game Jams для оттачивания навыков работы в сжатые сроки. Экспериментирую с интеграцией ИИ в творческие процессы. Обладаю упорством в доведении проектов до завершения и креативным подходом к решению технических задач. Постоянно осваиваю новые технологии и инструменты разработки.</p>
-
-                <div class="interests-container">
-                    <div class="interest-badge" style="background: rgba(124, 58, 237, 0.1); color: var(--primary);" onclick="scrollToProjects()">
-                        <span class="translate-element" data-key="interest-gamedev" style="opacity: 1; transform: translateY(0px);">Разработка инди-игр</span>
-                    </div>
-                    <div class="interest-badge" style="background: rgba(142, 68, 173, 0.1); color: #8e44ad;">
-                        <span class="translate-element" data-key="interest-ai" style="opacity: 1; transform: translateY(0px);">Генеративное искусство и нейросети</span>
-                    </div>
-                    <a href="https://soundcloud.com/ineedmypills/" target="_blank" style="text-decoration: none;">
-                        <div class="interest-badge" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
-                            <span class="translate-element" data-key="interest-music" style="opacity: 1; transform: translateY(0px);">Создание электронной музыки</span>
+            <h2 class="section-title translate-element animate-on-scroll" data-key="projects-title">Ключевые проекты</h2>
+            <div class="content-group animate-on-scroll">
+                <div id="games-projects" class="stagger-child">
+                    <h3 class="group-title translate-element" data-key="games-category-title">Игры</h3>
+                    <div class="project-list">
+                        <div class="project-card" data-url="https://gamejolt.com/games/fh3redux/727752">
+                            <div class="project-header">
+                                <h3 class="project-title translate-element">Final Hours 3 REDUX</h3>
+                                <p class="project-desc translate-element" data-key="fh3-desc">Неофициальное переиздание игры Final Hours 3</p>
+                            </div>
+                            <div class="status-badge status-badge--completed">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                                <span class="translate-element" data-key="completed">Завершенный проект</span>
+                            </div>
                         </div>
+                        <div class="project-card" data-url="https://ineedmypills.itch.io/non-playable-character">
+                            <div class="awards-container">
+                                <a href="https://t.me/m4xter/81" target="_blank" class="award-link">
+                                    <div class="award-badge">
+                                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+                                        <span class="translate-element" data-key="judges-5th">5 место (судьи)</span>
+                                    </div>
+                                </a>
+                                <a href="https://itch.io/jam/maxters-jam-2024/results?page=2#:~:text=%D0%BE%D1%82%20ineedmypills-,28th%20%D0%BC%D0%B5%D1%81%D1%82%D0%BE,-%D1%81%2014%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BA%D0%B0%D0%BC%D0%B8" target="_blank" class="award-link">
+                                    <div class="award-badge">
+                                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                                        <span class="translate-element" data-key="players-28th">28 место (игроки)</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="project-header">
+                                <h3 class="project-title translate-element">Non-Playable Character</h3>
+                                <p class="project-desc translate-element" data-key="npc-desc">"Почувствуйте, каково это - быть неигровым персонажем."</p>
+                                <p class="project-jam-info">
+                                    <span class="translate-element" data-key="npc-jam">Игра для</span>
+                                    <a href="https://itch.io/jam/maxters-jam-2024" target="_blank" class="jam-link">maxter's JAM 2024</a>
+                                </p>
+                            </div>
+                            <div class="status-badge status-badge--completed">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                                <span class="translate-element" data-key="completed">Завершенный проект</span>
+                            </div>
+                        </div>
+                        <div class="project-card" data-url="https://ineedmypills.itch.io/kolobok">
+                            <div class="project-header">
+                                <h3 class="project-title translate-element">Kolobok</h3>
+                                <p class="project-desc translate-element" data-key="kolobok-desc">Увлекательный 3D шутер-платформер, вдохновлённый игрой "My Friend Pedro", с видом сбоку в стилистике "Киберпанка"</p>
+                            </div>
+                            <div class="status-badge status-badge--in-progress">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"></path></svg>
+                                <span class="translate-element" data-key="in-progress">В разработке</span>
+                            </div>
+                            <a href="https://github.com/ineedmypills/Kolobok" target="_blank" class="github-badge">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-divider stagger-child"></div>
+                <div id="software-projects" class="stagger-child">
+                    <h3 class="group-title translate-element" data-key="software-category-title">Программное обеспечение</h3>
+                    <div class="project-list">
+                        <div class="project-card" data-url="https://github.com/ineedmypills/OBS-Indicator">
+                            <div class="project-header">
+                                <h3 class="project-title translate-element">OBS Indicator</h3>
+                                <p class="project-desc translate-element" data-key="obs-desc">Компактный экранный индикатор для записи и буфера повтора в OBS Studio</p>
+                            </div>
+                            <div class="tech-badge python-tech">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></path></svg>
+                                Python
+                            </div>
+                            <div class="status-badge status-badge--completed">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                                <span class="translate-element" data-key="completed">Завершенный проект</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title translate-element animate-on-scroll" data-key="education-title">Образование</h2>
+            <div class="content-group animate-on-scroll">
+                <div class="stagger-child">
+                    <h3 class="group-title translate-element" data-key="secondary-edu">Среднее образование</h3>
+                    <p class="translate-element secondary-edu-text" data-key="11-classes">11 классов</p>
+                </div>
+                <div class="content-divider stagger-child"></div>
+                <div class="stagger-child">
+                    <h3 class="group-title translate-element" data-key="computer-academy">Компьютерная Академия "ТОП"</h3>
+                    <p class="specialization-desc translate-element" data-key="specialization">Специализация: разработка программного обеспечения</p>
+                    <div class="course-container">
+                        <div class="course-item">
+                            <p class="translate-element course-year-title" data-key="first-year">1 курс</p>
+                            <div class="course-achievements">
+                                <div class="achievement-badge achievement-badge--first-place">
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1z"></path></svg>
+                                    <span class="translate-element" data-key="first-place">1 место в группе</span>
+                                </div>
+                                <div class="achievement-badge achievement-badge--defense">
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"></path></svg>
+                                    <span class="translate-element" data-key="project-defense">Защитил проект по Unreal Engine</span>
+                                </div>
+                            </div>
+                            <div class="course-status course-status--completed">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+                                <span class="translate-element" data-key="course-completed">Окончил</span>
+                            </div>
+                        </div>
+                        <div class="course-item">
+                            <p class="translate-element course-year-title" data-key="second-year">2 курс</p>
+                            <div class="course-status course-status--in-progress">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"></path></svg>
+                                <span class="translate-element" data-key="course-in-progress">В процессе</span>
+                            </div>
+                        </div>
+                        <div class="course-item">
+                            <p class="translate-element course-year-title" data-key="third-year">3 курс</p>
+                            <div class="course-status course-status--in-progress">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"></path></svg>
+                                <span class="translate-element" data-key="course-in-progress">В процессе</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title translate-element animate-on-scroll" data-key="about-title">О себе</h2>
+            <div class="content-group animate-on-scroll">
+                <p class="translate-element stagger-child about-paragraph" data-key="about-text">Увлеченный геймдевелопер с разносторонним техническим бэкграундом. Страстно увлечен созданием игр - от концепции до релиза. Участвую в Game Jams для оттачивания навыков работы в сжатые сроки. Экспериментирую с интеграцией ИИ в творческие процессы. Обладаю упорством в доведении проектов до завершения и креативным подходом к решению технических задач. Постоянно осваиваю новые технологии и инструменты разработки.</p>
+                <div class="interests-container stagger-child">
+                    <div class="interest-badge interest-badge--gamedev" id="gamedev-interest-badge">
+                        <span class="translate-element" data-key="interest-gamedev">Разработка инди-игр</span>
+                    </div>
+                    <div class="interest-badge interest-badge--software" id="software-interest-badge">
+                        <span class="translate-element" data-key="interest-software">Разработка ПО</span>
+                    </div>
+                    <div class="interest-badge interest-badge--ai">
+                        <span class="translate-element" data-key="interest-ai">Генеративное искусство и нейросети</span>
+                    </div>
+                    <a href="https://soundcloud.com/ineedmypills/" target="_blank" class="interest-badge interest-badge--music">
+                        <span class="translate-element" data-key="interest-music">Создание электронной музыки</span>
                     </a>
                 </div>
-
-                <div class="personal-info">
+                <div class="personal-info stagger-child">
                     <div class="info-item">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M19,4H18V2H16V4H8V2H6V4H5C3.89,4 3,4.9 3,6V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V6A2,2 0 0,0 19,4M19,20H5V10H19V20M19,8H5V6H19V8M12,13H17V18H12V13"></path>
-                        </svg>
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19,4H18V2H16V4H8V2H6V4H5C3.89,4 3,4.9 3,6V20A2,2 0 0,0 5,22H19A2,2 0 0,0 21,20V6A2,2 0 0,0 19,4M19,20H5V10H19V20M19,8H5V6H19V8M12,13H17V18H12V13"></path></svg>
                         <span id="agePlaceholder">Возраст: 19 лет</span>
                     </div>
-
                     <div class="info-item">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
-                        </svg>
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></svg>
                         <span>Полевской, Свердловская область</span>
                     </div>
                 </div>
@@ -1310,121 +1063,96 @@
         </section>
 
         <section>
-            <h2 class="section-title translate-element" data-key="contacts-title" style="opacity: 1; transform: translateY(0px);">Контакты</h2>
-            <div class="contacts-container">
-                <a href="https://t.me/ineedmypills" target="_blank" class="contact-link">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <div class="icon-bg"></div>
-                            <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.140.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.640.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z"></path>
-                            </svg>
+            <h2 class="section-title translate-element animate-on-scroll" data-key="contacts-title">Контакты</h2>
+            <div class="content-group animate-on-scroll">
+                <div class="contacts-container">
+                    <a href="https://t.me/ineedmypills" target="_blank" class="contact-link stagger-child">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <div class="icon-bg"></div>
+                                <svg width="24" height="24" fill="white" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.140.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.640.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="contact-label">Telegram</p>
+                                <p class="contact-value">@ineedmypills</p>
+                            </div>
                         </div>
-                        <div>
-                            <p class="contact-label">Telegram</p>
-                            <p class="contact-value">@ineedmypills</p>
+                    </a>
+                    <a href="https://github.com/ineedmypills" target="_blank" class="contact-link stagger-child">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <div class="icon-bg"></div>
+                                <svg width="24" height="24" fill="white" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                            </div>
+                            <div>
+                                <p class="contact-label">GitHub</p>
+                                <p class="contact-value">@ineedmypills</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-
-                <a href="https://github.com/ineedmypills" target="_blank" class="contact-link">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <div class="icon-bg"></div>
-                            <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-                                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="contact-label">GitHub</p>
-                            <p class="contact-value">@ineedmypills</p>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </section>
 
         <section>
-            <h2 class="section-title translate-element" data-key="support-title" style="opacity: 1; transform: translateY(0px);">Поддержать</h2>
-
-            <div class="support-list">
-                <a href="https://www.tbank.ru/cf/3xlXUdjZzLW" target="_blank" class="support-link">
-                    <div class="support-item">
-                        <div class="support-icon">
-                            <div class="icon-bg" style="background: #10B981;"></div>
-                            <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                            </svg>
-                        </div>
-                        <div class="support-details">
-                            <div class="support-label translate-element" data-key="t-bank" style="opacity: 1; transform: translateY(0px);">
-                                Т-Банк
+            <h2 class="section-title translate-element animate-on-scroll" data-key="support-title">Поддержать</h2>
+            <div class="content-group animate-on-scroll">
+                <div class="support-list">
+                    <a href="https://www.tbank.ru/cf/3xlXUdjZzLW" target="_blank" class="support-link stagger-child">
+                        <div class="support-item support-tbank">
+                            <div class="support-icon">
+                                <div class="icon-bg"></div>
+                                <svg width="24" height="24" fill="white" viewBox="0 0 24 24" aria-hidden="true" role="img"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
                             </div>
-                            <p class="support-commission tbank-commission translate-element" data-key="no-commission" style="opacity: 1; transform: translateY(0px);">Без комиссии</p>
-                            <!-- Исправленная плашка с иконкой звезды -->
-                            <div class="recommended-badge" style="opacity: 1; transform: translateY(0px);">
-                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                                </svg>
+                            <div class="support-details">
+                                <div class="support-label translate-element" data-key="t-bank">Т-Банк</div>
+                                <p class="support-commission tbank-commission translate-element" data-key="no-commission">Без комиссии</p>
+                            </div>
+                            <div class="side-badge side-badge--secondary">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" role="img"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
                                 <span class="translate-element" data-key="recommended">Рекомендуется</span>
                             </div>
                         </div>
-                    </div>
-                </a>
-
-                <a href="https://donatty.com/clubberrymilkshake" target="_blank" class="support-link">
-                    <div class="support-item">
-                        <div class="support-icon">
-                            <div class="icon-bg" style="background: #0EA5E9;"></div>
-                            <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                            </svg>
+                    </a>
+                    <a href="https://donatty.com/clubberrymilkshake" target="_blank" class="support-link stagger-child">
+                        <div class="support-item support-donatty">
+                            <div class="support-icon">
+                                <div class="icon-bg"></div>
+                                <svg width="24" height="24" fill="white" viewBox="0 0 24 24" aria-hidden="true" role="img"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+                            </div>
+                            <div class="support-details">
+                                <div class="support-label">Donatty</div>
+                                <p class="support-commission donatty-commission translate-element" data-key="commission-3.5">Комиссия 3,5%</p>
+                            </div>
+                            <div class="side-badge side-badge--success">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" role="img"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"></path></svg>
+                                <span class="translate-element" data-key="backup-option">Запасной вариант</span>
+                            </div>
                         </div>
-                        <div class="support-details">
-                            <div class="support-label">Donatty</div>
-                            <p class="support-commission donatty-commission translate-element" data-key="commission-3.5" style="opacity: 1; transform: translateY(0px);">Комиссия 3,5%</p>
+                    </a>
+                    <a href="https://donationalerts.com/r/shizaphaziya" target="_blank" class="support-link stagger-child">
+                        <div class="support-item support-donationalerts">
+                            <div class="support-icon">
+                                <div class="icon-bg"></div>
+                                <svg width="24" height="24" fill="white" viewBox="0 0 24 24" aria-hidden="true" role="img"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+                            </div>
+                            <div class="support-details">
+                                <div class="support-label">DonationAlerts</div>
+                                <p class="support-commission donationalerts-commission translate-element" data-key="commission-10">Комиссия 10%</p>
+                            </div>
+                            <div class="side-badge side-badge--danger">
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" role="img"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
+                                <span class="translate-element" data-key="not-recommended-rf">не рекомендуется для РФ</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
-
-                <a href="https://donationalerts.com/r/shizaphaziya" target="_blank" class="support-link">
-                    <div class="support-item">
-                        <div class="support-icon">
-                            <div class="icon-bg" style="background: #8B5CF6;"></div>
-                            <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                            </svg>
-                        </div>
-                        <div class="support-details">
-                            <div class="support-label">DonationAlerts</div>
-                            <p class="support-commission donationalerts-commission translate-element" data-key="commission-10" style="opacity: 1; transform: translateY(0px);">Комиссия 10%</p>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </section>
     </div>
 </div>
 
 <script>
-    const themeToggle = document.getElementById('themeToggle');
-    const langToggle = document.getElementById('langToggle');
-    const html = document.documentElement;
-    const pageTitle = document.getElementById('pageTitle');
-
-    if (!localStorage.getItem('theme')) {
-        localStorage.setItem('theme', 'dark');
-    }
-
-    if (!localStorage.getItem('language')) {
-        localStorage.setItem('language', 'ru');
-    }
-
-    function applyTheme() {
-        const theme = localStorage.getItem('theme');
-        html.setAttribute('data-theme', theme);
-    }
-
     const translations = {
         ru: {
             "page-title": "ineedmypills - Портфолио",
@@ -1435,12 +1163,15 @@
             "software-title": "Программное обеспечение",
             "ai-skill": "Владение ИИ",
             "projects-title": "Ключевые проекты",
+            "games-category-title": "Игры",
+            "software-category-title": "Программное обеспечение",
             "fh3-desc": "Неофициальное переиздание игры Final Hours 3",
             "npc-desc": "\"Почувствуйте, каково это - быть неигровым персонажем.\"",
             "npc-jam": "Игра для",
             "judges-5th": "5 место (судьи)",
             "players-28th": "28 место (игроки)",
             "kolobok-desc": "Увлекательный 3D шутер-платформер, вдохновлённый игрой \"My Friend Pedro\", с видом сбоку в стилистике \"Киберпанка\"",
+            "obs-desc": "Компактный экранный индикатор для записи и буфера повтора в OBS Studio",
             "completed": "Завершенный проект",
             "in-progress": "В разработке",
             "course-completed": "Окончил",
@@ -1459,6 +1190,7 @@
             "about-title": "О себе",
             "about-text": "Увлеченный геймдевелопер с разносторонним техническим бэкграундом. Страстно увлечен созданием игр - от концепции до релиза. Участвую в Game Jams для оттачивания навыков работы в сжатые сроки. Экспериментирую с интеграцией ИИ в творческие процессы. Обладаю упорством в доведении проектов до завершения и креативным подходом к решению технических задач. Постоянно осваиваю новые технологии и инструменты разработки.",
             "interest-gamedev": "Разработка инди-игр",
+            "interest-software": "Разработка ПО",
             "interest-ai": "Генеративное искусство и нейросети",
             "interest-music": "Создание электронной музыки",
             "support-title": "Поддержать",
@@ -1466,7 +1198,9 @@
             "no-commission": "Без комиссии",
             "commission-3.5": "Комиссия 3,5%",
             "commission-10": "Комиссия 10%",
-            "recommended": "Рекомендуется"
+            "recommended": "Рекомендуется",
+            "not-recommended-rf": "не рекомендуется для РФ",
+            "backup-option": "Запасной вариант"
         },
         en: {
             "page-title": "ineedmypills - Portfolio",
@@ -1477,12 +1211,15 @@
             "software-title": "Software",
             "ai-skill": "AI Proficiency",
             "projects-title": "Key Projects",
+            "games-category-title": "Games",
+            "software-category-title": "Software",
             "fh3-desc": "Unofficial remake of Final Hours 3 game",
             "npc-desc": "\"Experience what it's like to be a non-playable character.\"",
             "npc-jam": "Game for",
             "judges-5th": "5th place (judges)",
             "players-28th": "28th place (players)",
             "kolobok-desc": "Engaging 3D shooter-platformer inspired by \"My Friend Pedro\", with a side view in \"Cyberpunk\" style",
+            "obs-desc": "Compact on-screen indicator for OBS Studio recording and replay buffer status",
             "completed": "Completed project",
             "in-progress": "In development",
             "course-completed": "Finished",
@@ -1501,6 +1238,7 @@
             "about-title": "About Me",
             "about-text": "Passionate game developer with a versatile technical background. Deeply engaged in game creation from concept to release. Participate in Game Jams to hone skills in tight deadlines. Experiment with AI integration in creative processes. Possess persistence in completing projects and a creative approach to solving technical challenges. Continuously learning new technologies and development tools.",
             "interest-gamedev": "Indie Game Development",
+            "interest-software": "Software Development",
             "interest-ai": "Generative Art and Neural Networks",
             "interest-music": "Electronic Music Creation",
             "support-title": "Support",
@@ -1508,132 +1246,160 @@
             "no-commission": "No commission",
             "commission-3.5": "Commission 3.5%",
             "commission-10": "Commission 10%",
-            "recommended": "Recommended"
+            "recommended": "Recommended",
+            "not-recommended-rf": "not recommended for RF",
+            "backup-option": "Backup option"
         }
     };
 
-    function applyLanguage() {
-        const lang = localStorage.getItem('language');
-        const elements = document.querySelectorAll('.translate-element');
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- CACHE DOM ELEMENTS ---
+        const themeToggle = document.getElementById('themeToggle');
+        const langToggle = document.getElementById('langToggle');
+        const html = document.documentElement;
+        const pageTitle = document.getElementById('pageTitle');
+        const agePlaceholder = document.getElementById('agePlaceholder');
+        const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
 
-        // Обновление заголовка страницы
-        pageTitle.textContent = translations[lang]["page-title"];
+        // --- CONSTANTS ---
+        const BIRTH_DATE = '2006-06-12';
 
-        elements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(5px)';
-        });
+        // --- FUNCTIONS ---
+        function applyTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
 
-        setTimeout(() => {
-            elements.forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (key && translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                }
+        function applyLanguage(lang) {
+            localStorage.setItem('language', lang);
+            langToggle.setAttribute('data-lang', lang);
+            document.body.classList.add('lang-switching');
 
-                setTimeout(() => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, 50);
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.translate-element');
+                pageTitle.textContent = translations[lang]["page-title"];
+
+                elements.forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if (key && translations[lang]?.[key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+
+                displayAge(lang);
+                document.body.classList.remove('lang-switching');
+            }, 400);
+        }
+
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        function displayAge(lang) {
+            const age = calculateAge(BIRTH_DATE);
+            if (lang === 'ru') {
+                agePlaceholder.textContent = `Возраст: ${age} лет`;
+            } else {
+                agePlaceholder.textContent = `Age: ${age} years`;
+            }
+        }
+
+        function setupInterestLink(buttonId, sectionId) {
+            const button = document.getElementById(buttonId);
+            const section = document.getElementById(sectionId);
+
+            if (!button || !section) return;
+
+            const highlightAnimation = () => {
+                const cards = section.querySelectorAll('.project-card');
+                cards.forEach((card, index) => {
+                    card.classList.remove('pulse-highlight');
+
+                    // Use a double requestAnimationFrame to ensure the class is removed before being re-added, allowing the animation to restart.
+                    requestAnimationFrame(() => {
+                        setTimeout(() => {
+                            card.classList.add('pulse-highlight');
+                            // Clean up the class after the animation is done
+                            setTimeout(() => card.classList.remove('pulse-highlight'), 1500);
+                        }, index * 150); // Stagger the animation
+                    });
+                });
+            };
+
+            // This observer will trigger the animation once the section is in view after scrolling.
+            const scrollObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        highlightAnimation();
+                        observer.unobserve(section); // Stop observing once it's done.
+                    }
+                });
+            }, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+
+            button.addEventListener('click', () => {
+                // Start observing the target section
+                scrollObserver.observe(section);
+                // Start scrolling to it
+                section.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
+        }
 
-            langToggle.textContent = lang === 'ru' ? 'EN' : 'RU';
-            displayAge();
-        }, 300);
-    }
-
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = localStorage.getItem('theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        localStorage.setItem('theme', newTheme);
-        applyTheme();
-    });
-
-    langToggle.addEventListener('click', () => {
-        const currentLang = localStorage.getItem('language');
-        const newLang = currentLang === 'ru' ? 'en' : 'ru';
-        localStorage.setItem('language', newLang);
-        applyLanguage();
-    });
-
-    document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.award-badge') ||
-                e.target.closest('.github-badge') ||
-                e.target.tagName === 'A') {
-                return;
-            }
-
-            const url = card.getAttribute('data-url');
-            if (url) {
-                window.open(url, '_blank');
-            }
+        // --- EVENT LISTENERS ---
+        themeToggle.addEventListener('click', () => {
+            const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
         });
-    });
 
-    document.querySelectorAll('.skill').forEach(skill => {
-        skill.addEventListener('click', function(e) {
-            const url = this.getAttribute('data-url');
-            if (url) {
-                window.open(url, '_blank');
-            }
+        langToggle.addEventListener('click', () => {
+            const newLang = langToggle.getAttribute('data-lang') === 'ru' ? 'en' : 'ru';
+            applyLanguage(newLang);
         });
+
+        document.querySelectorAll('[data-url]').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('a, .award-badge, .tech-badge, .github-badge')) {
+                    return;
+                }
+                const url = card.dataset.url;
+                if (url) window.open(url, '_blank');
+            });
+        });
+
+        setupInterestLink('gamedev-interest-badge', 'games-projects');
+        setupInterestLink('software-interest-badge', 'software-projects');
+
+        // --- OBSERVER FOR SCROLL ANIMATIONS ---
+        const observer = new IntersectionObserver((entries, observerInstance) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    const children = entry.target.querySelectorAll('.stagger-child');
+                    children.forEach((child, index) => {
+                        child.style.transitionDelay = `${index * 100}ms`;
+                    });
+                    observerInstance.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        elementsToAnimate.forEach(el => observer.observe(el));
+
+        // --- INITIALIZATION ---
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const browserLang = navigator.language || navigator.userLanguage;
+        const savedLang = localStorage.getItem('language') || (browserLang.startsWith('ru') ? 'ru' : 'en');
+
+        applyTheme(savedTheme);
+        applyLanguage(savedLang);
     });
-
-    function calculateAge(birthDate) {
-        const today = new Date();
-        const birth = new Date(birthDate);
-        let age = today.getFullYear() - birth.getFullYear();
-        const monthDiff = today.getMonth() - birth.getMonth();
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-            age--;
-        }
-
-        return age;
-    }
-
-    function displayAge() {
-        const birthDate = '2006-06-12';
-        const age = calculateAge(birthDate);
-        const ageElement = document.getElementById('agePlaceholder');
-
-        if (localStorage.getItem('language') === 'ru') {
-            ageElement.textContent = `Возраст: ${age} лет`;
-        } else {
-            ageElement.textContent = `Age: ${age} years`;
-        }
-    }
-
-    function scrollToProjects() {
-        const projectsSection = document.getElementById('projects-section');
-        const startPosition = window.pageYOffset;
-        const targetPosition = projectsSection.getBoundingClientRect().top + startPosition - 20;
-        const distance = targetPosition - startPosition;
-        const duration = 800;
-        let startTime = null;
-
-        function animation(currentTime) {
-            if (startTime === null) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
-            window.scrollTo(0, run);
-            if (timeElapsed < duration) requestAnimationFrame(animation);
-        }
-
-        function easeInOutQuad(t, b, c, d) {
-            t /= d/2;
-            if (t < 1) return c/2*t*t + b;
-            t--;
-            return -c/2 * (t*(t-2) - 1) + b;
-        }
-
-        requestAnimationFrame(animation);
-    }
-
-    applyTheme();
-    applyLanguage();
-    displayAge();
 </script>
 
-</body></html>
+</body>
+</html>
