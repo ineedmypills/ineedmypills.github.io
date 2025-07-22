@@ -20,6 +20,8 @@
             --warning: #f59e0b;
             --info: #3b82f6;
             --danger: #ef4444;
+            --youtube-red: #ff1744;
+            --youtube-red-bg: rgba(255, 23, 68, 0.1);
 
             --easing-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --easing-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -44,6 +46,8 @@
             --warning: #d97706;
             --info: #2563eb;
             --danger: #dc2626;
+            --youtube-red: #d50000;
+            --youtube-red-bg: rgba(213, 0, 0, 0.08);
 
             --header-bg: rgba(255, 255, 255, 0.4);
             --content-group-bg: rgba(255, 255, 255, 0.6);
@@ -244,6 +248,8 @@
             transition: var(--transition-smooth);
             min-height: 160px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         [data-theme="light"] .project-card { border-color: rgba(0,0,0,0.05); }
@@ -255,16 +261,23 @@
         }
 
         .project-header {
-            padding-right: 50%;
-            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .project-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
         .project-title {
-            margin: 0 0 8px;
+            margin: 0;
             font-size: 1.2rem;
             color: var(--text);
             position: relative;
             display: inline-block;
+            line-height: 1;
         }
 
         .project-title::after {
@@ -280,6 +293,25 @@
 
         .project-card:hover .project-title::after { width: 100%; }
 
+        .platform-icon {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-secondary);
+            opacity: 0.7;
+            transition: fill 0.3s ease, opacity 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .project-card:hover .platform-icon--gamejolt {
+            fill: #ccff00;
+            opacity: 1;
+        }
+
+        .project-card:hover .platform-icon--itchio {
+            fill: #fa5c5c;
+            opacity: 1;
+        }
+
         .project-desc {
             color: var(--text-secondary);
             margin: 0 0 12px;
@@ -287,17 +319,60 @@
             font-size: 0.95rem;
         }
 
+        .project-meta {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+
         .project-jam-info {
-            margin: 10px 0;
+            margin: 0;
             color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
         }
         .jam-link {
             color: var(--primary);
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding: 4px 10px;
+            border-radius: 16px;
+            background-color: rgba(124, 77, 255, 0.15);
         }
-        .jam-link:hover { color: var(--primary-dark); }
+        .jam-link:hover {
+            background-color: rgba(124, 77, 255, 0.3);
+            color: var(--primary-dark);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .footer-group-left {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .status-badge,
+        .github-badge,
+        .tech-badge {
+            position: relative;
+            bottom: auto;
+            right: auto;
+            left: auto;
+        }
 
         .status-badge {
             padding: 5px 10px;
@@ -306,9 +381,6 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
             font-size: 0.85rem;
             cursor: default;
         }
@@ -462,9 +534,6 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            position: absolute;
-            bottom: 15px;
-            left: 15px;
             text-decoration: none;
             font-size: 0.8rem;
             cursor: pointer;
@@ -522,9 +591,6 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            position: absolute;
-            bottom: 15px;
-            left: 15px;
             font-size: 0.85rem;
             cursor: default;
         }
@@ -580,10 +646,12 @@
         }
 
         .interests-container {
+            position: relative;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 15px;
+            min-height: 80px;
         }
 
         .interest-badge {
@@ -603,6 +671,12 @@
         .interest-badge--software { background: rgba(59, 130, 246, 0.1); color: var(--info); }
         .interest-badge--ai { background: rgba(142, 68, 173, 0.1); color: #8e44ad; }
         .interest-badge--music { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .interest-badge--youtube {
+            background: var(--youtube-red-bg);
+            color: var(--youtube-red);
+            transition: transform 0.4s var(--easing-out-circ);
+            will-change: transform;
+        }
 
         .personal-info {
             display: flex;
@@ -800,10 +874,9 @@
             .section-title { font-size: 1.5rem; margin-bottom: 20px; }
             .skills-container { gap: 12px; }
             .skill { padding: 10px 18px; font-size: 1rem; }
-            .project-card { padding: 20px; min-height: 160px; }
-            .project-header { padding-right: 50%; }
+            .project-card { padding: 20px; }
             .project-title { font-size: 1.3rem; }
-            .status-badge { padding: 6px 12px; font-size: 1rem; }
+            .status-badge { padding: 6px 12px; font-size: 0.85rem; }
             .contacts-container { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
             .contact-card, .support-item { padding: 20px; gap: 15px; }
             .contact-icon, .support-icon { width: 50px; height: 50px; border-radius: 12px; }
@@ -815,7 +888,7 @@
             [data-theme="dark"] .theme-slider { transform: translateX(24px); }
             .lang-switch[data-lang="ru"] .lang-slider { transform: translateX(24px); }
             .achievement-badge { font-size: 1rem; }
-            .github-badge, .tech-badge { font-size: 1rem; }
+            .github-badge, .tech-badge { font-size: 0.85rem; }
             .content-divider { margin: 25px 0; }
             .support-item { padding: 18px; gap: 20px; }
             .support-icon { width: 50px; height: 50px; border-radius: 12px; }
@@ -837,13 +910,6 @@
                 font-size: 0.95rem;
             }
 
-            .project-card {
-                min-height: auto;
-                padding: 15px;
-                display: flex;
-                flex-direction: column;
-            }
-
             .project-card .awards-container {
                 position: static;
                 margin-bottom: 12px;
@@ -854,21 +920,8 @@
             }
 
             .project-header {
-                padding-right: 0;
-                margin-bottom: 15px;
-                flex-grow: 1;
-            }
-
-            .project-card .status-badge,
-            .project-card .github-badge,
-            .project-card .tech-badge {
-                position: relative;
-                bottom: auto;
-                right: auto;
-                left: auto;
-                margin-top: 15px;
-                display: inline-flex;
-                align-self: flex-start;
+                flex-grow: 0;
+                margin-bottom: 0;
             }
 
             .course-achievements {
@@ -979,12 +1032,18 @@
                     <div class="project-list">
                         <div class="project-card" data-url="https://gamejolt.com/games/fh3redux/727752">
                             <div class="project-header">
-                                <h3 class="project-title translate-element">Final Hours 3 REDUX</h3>
+                                <div class="project-title-wrapper">
+                                    <h3 class="project-title translate-element">Final Hours 3 REDUX</h3>
+                                    <svg class="platform-icon platform-icon--gamejolt" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.353 0v2.824H4.94v2.823H3.53v2.824H2.118v2.823H.706v2.824h8.47v2.823H7.765v2.824H6.353v2.823h1.412v-1.412h1.411v-1.411h1.412v-1.412H12V16.94h1.412v-1.41h1.412v-1.411h1.411v-1.412h1.412v-1.412h1.412V9.882h1.412V8.471h1.411V7.059h-4.235V5.647h1.412V4.235h1.412V2.824h1.411V1.412h1.412V0zm0 22.588H4.94V24h1.412zM7.765 2.824h9.882v1.411h-1.412v1.412h-1.411V7.06h-1.412v1.41H12v1.411h1.412v1.412H12V9.882h-1.412v1.412H9.176V9.882H7.765v1.412H6.353V9.882H4.94V8.471h1.412V5.647h1.412zM6.353 8.47v1.411h1.412v-1.41zm2.823 1.411h1.412v-1.41H9.176zm5.648 0h1.411v1.412h-1.411z"/></svg>
+                                </div>
                                 <p class="project-desc translate-element" data-key="fh3-desc">Неофициальное переиздание игры Final Hours 3</p>
                             </div>
-                            <div class="status-badge status-badge--completed">
-                                <span class="material-icons-outlined">check_circle</span>
-                                <span class="translate-element" data-key="completed">Завершенный проект</span>
+                            <div class="card-footer">
+                                <div class="footer-group-left"></div>
+                                <div class="status-badge status-badge--completed">
+                                    <span class="material-icons-outlined">check_circle</span>
+                                    <span class="translate-element" data-key="completed">Завершенный проект</span>
+                                </div>
                             </div>
                         </div>
                         <div class="project-card" data-url="https://ineedmypills.itch.io/non-playable-character">
@@ -1003,31 +1062,46 @@
                                 </a>
                             </div>
                             <div class="project-header">
-                                <h3 class="project-title translate-element">Non-Playable Character</h3>
+                                <div class="project-title-wrapper">
+                                    <h3 class="project-title translate-element">Non-Playable Character</h3>
+                                    <svg class="platform-icon platform-icon--itchio" viewBox="4 4 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M 16 5 C 12.748 5 8.3121094 5.0508594 7.4121094 5.1308594 C 6.4021094 5.7368594 4.4028125 8.0309531 4.3828125 8.6269531 L 4.3828125 9.6269531 C 4.3828125 10.889953 5.5657188 12 6.6367188 12 C 7.9197187 12 8.9902344 10.929969 8.9902344 9.6679688 C 8.9902344 10.929969 10.0305 12 11.3125 12 C 12.6055 12 13.605469 10.930969 13.605469 9.6679688 C 13.605469 10.929969 14.695281 12 15.988281 12 L 16.009766 12 C 17.302766 12 18.392578 10.930969 18.392578 9.6679688 C 18.392578 10.929969 19.402547 12 20.685547 12 C 21.968547 12 23.009766 10.930969 23.009766 9.6679688 C 23.009766 10.929969 24.080281 12 25.363281 12 C 26.434281 12 27.615234 10.889953 27.615234 9.6269531 L 27.615234 8.6269531 C 27.595234 8.0309531 25.595938 5.7368594 24.585938 5.1308594 C 21.443938 5.0198594 19.252 5 16 5 z M 13.550781 11.742188 C 12.497781 13.552188 9.8523125 13.573906 8.8203125 11.753906 C 8.1903125 12.845906 6.7642969 13.267547 6.1542969 13.060547 C 5.9762969 14.959547 5.8534844 24.70875 7.1464844 26.34375 C 10.943484 27.22875 21.164516 27.20975 24.853516 26.34375 C 26.348516 24.81975 26.013703 14.821547 25.845703 13.060547 C 25.235703 13.267547 23.809453 12.845906 23.189453 11.753906 C 22.146453 13.573906 19.501219 13.552188 18.449219 11.742188 C 18.124219 12.332187 17.367 13.109375 16 13.109375 C 14.997 13.148375 14.051781 12.607187 13.550781 11.742188 z M 11.419922 14 C 12.219922 14 12.950078 14.000469 13.830078 14.980469 C 15.280078 14.830469 16.719922 14.830469 18.169922 14.980469 C 19.059922 14.010469 19.780078 14.009766 20.580078 14.009766 C 23.160078 14.009766 23.780937 17.819609 24.710938 21.099609 C 25.550938 24.149609 24.429062 24.230469 23.039062 24.230469 C 20.969062 24.150469 19.820313 22.650625 19.820312 21.140625 C 17.890313 21.460625 14.809688 21.580625 12.179688 21.140625 C 12.179688 22.650625 11.030938 24.150469 8.9609375 24.230469 C 7.5709375 24.230469 6.4490625 24.149609 7.2890625 21.099609 C 8.2190625 17.799609 8.8399219 14.009766 11.419922 14.009766 L 11.419922 14 z M 16 16.876953 C 16 16.876953 14.306 18.439375 14 18.984375 L 15.107422 18.943359 L 15.107422 19.910156 C 15.107422 19.968156 15.926 19.917969 16 19.917969 C 16.447 19.934969 16.892578 19.951156 16.892578 19.910156 L 16.892578 18.943359 L 18 18.984375 C 17.694 18.438375 16 16.876953 16 16.876953 z"/></svg>
+                                </div>
                                 <p class="project-desc translate-element" data-key="npc-desc">"Почувствуйте, каково это - быть неигровым персонажем."</p>
-                                <p class="project-jam-info">
-                                    <span class="translate-element" data-key="npc-jam">Игра для</span>
-                                    <a href="https://itch.io/jam/maxters-jam-2024" target="_blank" class="jam-link">maxter's JAM 2024</a>
-                                </p>
+                                <div class="project-meta">
+                                    <p class="project-jam-info">
+                                        <span class="translate-element" data-key="npc-jam">Игра для</span>
+                                        <a href="https://itch.io/jam/maxters-jam-2024" target="_blank" class="jam-link">maxter's JAM 2024</a>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="status-badge status-badge--completed">
-                                <span class="material-icons-outlined">check_circle</span>
-                                <span class="translate-element" data-key="completed">Завершенный проект</span>
+                            <div class="card-footer">
+                                <div class="footer-group-left"></div>
+                                <div class="status-badge status-badge--completed">
+                                    <span class="material-icons-outlined">check_circle</span>
+                                    <span class="translate-element" data-key="completed">Завершенный проект</span>
+                                </div>
                             </div>
                         </div>
                         <div class="project-card" data-url="https://ineedmypills.itch.io/kolobok">
                             <div class="project-header">
-                                <h3 class="project-title translate-element">Kolobok</h3>
+                                <div class="project-title-wrapper">
+                                    <h3 class="project-title translate-element">Kolobok</h3>
+                                    <svg class="platform-icon platform-icon--itchio" viewBox="4 4 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M 16 5 C 12.748 5 8.3121094 5.0508594 7.4121094 5.1308594 C 6.4021094 5.7368594 4.4028125 8.0309531 4.3828125 8.6269531 L 4.3828125 9.6269531 C 4.3828125 10.889953 5.5657188 12 6.6367188 12 C 7.9197187 12 8.9902344 10.929969 8.9902344 9.6679688 C 8.9902344 10.929969 10.0305 12 11.3125 12 C 12.6055 12 13.605469 10.930969 13.605469 9.6679688 C 13.605469 10.929969 14.695281 12 15.988281 12 L 16.009766 12 C 17.302766 12 18.392578 10.930969 18.392578 9.6679688 C 18.392578 10.929969 19.402547 12 20.685547 12 C 21.968547 12 23.009766 10.930969 23.009766 9.6679688 C 23.009766 10.929969 24.080281 12 25.363281 12 C 26.434281 12 27.615234 10.889953 27.615234 9.6269531 L 27.615234 8.6269531 C 27.595234 8.0309531 25.595938 5.7368594 24.585938 5.1308594 C 21.443938 5.0198594 19.252 5 16 5 z M 13.550781 11.742188 C 12.497781 13.552188 9.8523125 13.573906 8.8203125 11.753906 C 8.1903125 12.845906 6.7642969 13.267547 6.1542969 13.060547 C 5.9762969 14.959547 5.8534844 24.70875 7.1464844 26.34375 C 10.943484 27.22875 21.164516 27.20975 24.853516 26.34375 C 26.348516 24.81975 26.013703 14.821547 25.845703 13.060547 C 25.235703 13.267547 23.809453 12.845906 23.189453 11.753906 C 22.146453 13.573906 19.501219 13.552188 18.449219 11.742188 C 18.124219 12.332187 17.367 13.109375 16 13.109375 C 14.997 13.148375 14.051781 12.607187 13.550781 11.742188 z M 11.419922 14 C 12.219922 14 12.950078 14.000469 13.830078 14.980469 C 15.280078 14.830469 16.719922 14.830469 18.169922 14.980469 C 19.059922 14.010469 19.780078 14.009766 20.580078 14.009766 C 23.160078 14.009766 23.780937 17.819609 24.710938 21.099609 C 25.550938 24.149609 24.429062 24.230469 23.039062 24.230469 C 20.969062 24.150469 19.820313 22.650625 19.820312 21.140625 C 17.890313 21.460625 14.809688 21.580625 12.179688 21.140625 C 12.179688 22.650625 11.030938 24.150469 8.9609375 24.230469 C 7.5709375 24.230469 6.4490625 24.149609 7.2890625 21.099609 C 8.2190625 17.799609 8.8399219 14.009766 11.419922 14.009766 L 11.419922 14 z M 16 16.876953 C 16 16.876953 14.306 18.439375 14 18.984375 L 15.107422 18.943359 L 15.107422 19.910156 C 15.107422 19.968156 15.926 19.917969 16 19.917969 C 16.447 19.934969 16.892578 19.951156 16.892578 19.910156 L 16.892578 18.943359 L 18 18.984375 C 17.694 18.438375 16 16.876953 16 16.876953 z"/></svg>
+                                </div>
                                 <p class="project-desc translate-element" data-key="kolobok-desc">Увлекательный 3D шутер-платформер, вдохновлённый игрой "My Friend Pedro", с видом сбоку в стилистике "Киберпанка"</p>
                             </div>
-                            <div class="status-badge status-badge--in-progress">
-                                <span class="material-icons-outlined">sync</span>
-                                <span class="translate-element" data-key="in-progress">В разработке</span>
+                            <div class="card-footer">
+                                <div class="footer-group-left">
+                                    <a href="https://github.com/ineedmypills/Kolobok" target="_blank" class="github-badge">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
+                                <div class="status-badge status-badge--in-progress">
+                                    <span class="material-icons-outlined">sync</span>
+                                    <span class="translate-element" data-key="in-progress">В разработке</span>
+                                </div>
                             </div>
-                            <a href="https://github.com/ineedmypills/Kolobok" target="_blank" class="github-badge">
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
-                                GitHub
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -1037,16 +1111,22 @@
                     <div class="project-list">
                         <div class="project-card" data-url="https://github.com/ineedmypills/OBS-Indicator">
                             <div class="project-header">
-                                <h3 class="project-title translate-element">OBS Indicator</h3>
+                                <div class="project-title-wrapper">
+                                    <h3 class="project-title translate-element">OBS Indicator</h3>
+                                </div>
                                 <p class="project-desc translate-element" data-key="obs-desc">Компактный экранный индикатор для записи и буфера повтора в OBS Studio</p>
                             </div>
-                            <div class="tech-badge python-tech">
-                                <span class="material-icons-outlined">code</span>
-                                Python
-                            </div>
-                            <div class="status-badge status-badge--completed">
-                                <span class="material-icons-outlined">check_circle</span>
-                                <span class="translate-element" data-key="completed">Завершенный проект</span>
+                            <div class="card-footer">
+                                <div class="footer-group-left">
+                                    <div class="tech-badge python-tech">
+                                        <span class="material-icons-outlined">code</span>
+                                        Python
+                                    </div>
+                                </div>
+                                <div class="status-badge status-badge--completed">
+                                    <span class="material-icons-outlined">check_circle</span>
+                                    <span class="translate-element" data-key="completed">Завершенный проект</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1118,6 +1198,9 @@
                     </div>
                     <a href="https://soundcloud.com/ineedmypills/" target="_blank" class="interest-badge interest-badge--music">
                         <span class="translate-element" data-key="interest-music">Создание электронной музыки</span>
+                    </a>
+                    <a href="https://www.youtube.com/@ClubberryMilkShake" target="_blank" class="interest-badge interest-badge--youtube" id="youtuber-button">
+                        <span class="translate-element" data-key="interest-youtuber">Ютубер</span>
                     </a>
                 </div>
                 <div class="personal-info stagger-child">
@@ -1264,6 +1347,7 @@
             "interest-software": "Разработка ПО",
             "interest-ai": "Генеративное искусство и нейросети",
             "interest-music": "Создание электронной музыки",
+            "interest-youtuber": "Ютубер",
             "support-title": "Поддержать",
             "t-bank": "Т-Банк",
             "no-commission": "Без комиссии",
@@ -1312,6 +1396,7 @@
             "interest-software": "Software Development",
             "interest-ai": "Generative Art and Neural Networks",
             "interest-music": "Electronic Music Creation",
+            "interest-youtuber": "YouTuber",
             "support-title": "Support",
             "t-bank": "T-Bank",
             "no-commission": "No commission",
@@ -1407,9 +1492,64 @@
                 });
             }, { threshold: 0.5 });
 
-            button.addEventListener('click', () => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
                 scrollObserver.observe(section);
                 section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
+
+        function setupRunawayButton() {
+            const button = document.getElementById('youtuber-button');
+            if (!button) return;
+            const container = button.parentElement;
+
+            let initialTop, initialLeft;
+            let isInitialized = false;
+
+            const leashRadius = 35; // Увеличена дистанция "убегания"
+
+            const initPosition = () => {
+                if (!isInitialized) {
+                    initialTop = button.offsetTop;
+                    initialLeft = button.offsetLeft;
+                    button.style.position = 'relative';
+                    isInitialized = true;
+                }
+            };
+
+            container.addEventListener('mousemove', (e) => {
+                initPosition();
+                const containerRect = container.getBoundingClientRect();
+                const mouseX = e.clientX - containerRect.left;
+                const mouseY = e.clientY - containerRect.top;
+
+                const buttonCenterX = initialLeft + button.offsetWidth / 2;
+                const buttonCenterY = initialTop + button.offsetHeight / 2;
+
+                const dx = mouseX - buttonCenterX;
+                const dy = mouseY - buttonCenterY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                const activationRadius = leashRadius * 3.5; // Увеличен радиус реакции
+
+                if (distance < activationRadius) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = 1 - (distance / activationRadius);
+
+                    const moveX = -Math.cos(angle) * leashRadius * force;
+                    const moveY = -Math.sin(angle) * leashRadius * force;
+
+                    button.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                } else {
+                    button.style.transform = 'translate(0, 0)';
+                }
+            });
+
+            container.addEventListener('mouseleave', () => {
+                if (isInitialized) {
+                    button.style.transform = 'translate(0, 0)';
+                }
             });
         }
 
@@ -1425,7 +1565,7 @@
 
         document.querySelectorAll('[data-url]').forEach(card => {
             card.addEventListener('click', (e) => {
-                if (e.target.closest('a, .award-badge, .tech-badge, .github-badge')) {
+                if (e.target.closest('a, .award-badge, .tech-badge, .github-badge, .platform-icon-link')) {
                     return;
                 }
                 const url = card.dataset.url;
@@ -1435,6 +1575,7 @@
 
         setupInterestLink('gamedev-interest-badge', 'games-projects');
         setupInterestLink('software-interest-badge', 'software-projects');
+        setupRunawayButton();
 
         const observer = new IntersectionObserver((entries, observerInstance) => {
             entries.forEach(entry => {
