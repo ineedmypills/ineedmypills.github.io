@@ -39,7 +39,7 @@
             --hover-lift-amount: -6px;
             --transition-lift: transform 0.3s var(--easing-out-circ), box-shadow 0.3s var(--easing-out-circ);
 
-            /* ИЗМЕНЕНО: Единая система размеров шрифта */
+            /* Единая система размеров шрифта */
             --font-size-sm: 0.875rem;   /* 14px */
             --font-size-base: 1rem;      /* 16px */
             --font-size-md: 1.125rem;    /* 18px */
@@ -152,7 +152,6 @@
             background: var(--header-bg);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            /* ИЗМЕНЕНО: Отступы для размещения кнопок */
             padding: 20px 20px 30px;
             text-align: center;
             border-radius: 12px;
@@ -180,7 +179,7 @@
             font-size: var(--font-size-xxl);
             line-height: 1.2;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-            margin-top: 30px; /* Отступ, чтобы не перекрываться кнопками */
+            margin-top: 30px;
         }
 
         .subtitle {
@@ -464,7 +463,6 @@
             font-size: var(--font-size-base);
         }
 
-        /* ИЗМЕНЕНО: Кнопки в шапке теперь абсолютно позиционированы */
         .theme-switch, .share-button {
             position: absolute;
             top: 20px;
@@ -664,7 +662,80 @@
             color: var(--text-secondary);
         }
 
-        /* ИЗМЕНЕНО: Увеличен отступ между группами поддержки */
+        /* Стили для раздела Контакты */
+        .contacts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--project-card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--card-border);
+            transition: var(--transition-lift);
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .contact-card:hover {
+            transform: translateY(var(--hover-lift-amount));
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-icon {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon .icon-bg {
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            z-index: 0;
+            background: var(--info);
+        }
+
+        .contact-card:hover .contact-icon .icon-bg {
+            transform: rotate(10deg) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .contact-icon svg {
+            position: relative;
+            z-index: 1;
+            width: 30px;
+            height: 30px;
+            fill: #FFFFFF;
+        }
+
+        .contact-label {
+            margin: 0 0 4px;
+            font-weight: 700;
+            font-size: var(--font-size-md);
+            color: var(--text);
+        }
+
+        .contact-value {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
+            word-break: break-all;
+        }
+
+
         #support-section .content-group > .stagger-child:not(:first-child) {
             margin-top: 40px;
         }
@@ -1079,7 +1150,10 @@
             .project-card { padding: 20px; }
             .project-title { font-size: var(--font-size-lg); }
             .status-badge { padding: 6px 12px; }
-            .contacts-container { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+            .contacts-container { gap: 20px; }
+            .contact-card { padding: 20px; gap: 15px; }
+            .contact-icon { width: 50px; height: 50px; border-radius: 12px; }
+            .contact-icon svg { width: 30px; height: 30px; }
             .support-item { padding: 20px; gap: 15px; }
             .support-icon { width: 50px; height: 50px; border-radius: 12px; }
             .support-icon svg { width: 30px; height: 30px; }
@@ -1144,6 +1218,11 @@
                 gap: 10px;
             }
 
+            .contacts-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
             .support-item {
                 padding: 12px;
                 gap: 12px;
@@ -1190,7 +1269,6 @@
 
 <div class="container">
     <header>
-        <!-- ИЗМЕНЕНО: Кнопки вынесены из потока для идеального центрирования заголовка -->
         <button class="share-button" id="shareButton" aria-label="Поделиться">
             <span class="material-icons-outlined">share</span>
         </button>
@@ -1199,7 +1277,6 @@
             <span class="material-icons-outlined theme-icon moon-icon">dark_mode</span>
         </button>
 
-        <!-- Основной контент шапки теперь всегда по центру -->
         <h1 class="translate-element" id="main-header-title" data-key="main-title">ineedmypills</h1>
         <p class="name-subtitle translate-element" id="main-header-name" data-key="full-name">Глухих Егор Алексеевич</p>
         <p class="subtitle translate-element" id="header-subtitle" data-key="specialist">Начинающий многосторонне развитый IT-"специалист"</p>
@@ -1427,6 +1504,38 @@
             </div>
         </section>
 
+        <section id="contacts-section">
+            <h2 class="section-title translate-element animate-on-scroll" data-key="contacts-title">Контакты</h2>
+            <div class="content-group animate-on-scroll">
+                <div class="contacts-container stagger-child">
+                    <a href="https://t.me/ineedmypills" target="_blank">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <div class="icon-bg"></div>
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.140.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.640.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="contact-label">Telegram</p>
+                                <p class="contact-value">@ineedmypills</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="https://github.com/ineedmypills" target="_blank">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <div class="icon-bg"></div>
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+                            </div>
+                            <div>
+                                <p class="contact-label">GitHub</p>
+                                <p class="contact-value">@ineedmypills</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <section id="support-section">
             <h2 class="section-title translate-element animate-on-scroll" data-key="support-title">Поддержать</h2>
             <div class="content-group animate-on-scroll">
@@ -1571,6 +1680,11 @@
                 <input type="checkbox" value="about" checked>
                 <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
                 <span class="translate-element" data-key="about-title">О себе</span>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" value="contacts" checked>
+                <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
+                <span class="translate-element" data-key="contacts-title">Контакты</span>
             </label>
             <label class="custom-checkbox">
                 <input type="checkbox" value="support" checked>
