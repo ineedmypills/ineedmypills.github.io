@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="ru" data-theme="dark">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">ineedmypills - Портфолио</title>
     <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 24 24&#39;&gt;&lt;path d=&#39;M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z&#39; fill=&#39;%237c3aed&#39;/&gt;&lt;/svg&gt;">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
@@ -31,6 +31,21 @@
             --header-bg: rgba(30, 41, 59, 0.25);
             --content-group-bg: rgba(0, 0, 0, 0.15);
             --project-card-bg: rgba(30, 41, 59, 0.1);
+
+            /* Унифицированные тени и эффекты */
+            --shadow-sm: 0 3px 6px rgba(0,0,0,0.1);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.15);
+            --shadow-lg: 0 15px 30px rgba(0,0,0,0.15);
+            --hover-lift-amount: -6px;
+            --transition-lift: transform 0.3s var(--easing-out-circ), box-shadow 0.3s var(--easing-out-circ);
+
+            /* ИЗМЕНЕНО: Единая система размеров шрифта */
+            --font-size-sm: 0.875rem;   /* 14px */
+            --font-size-base: 1rem;      /* 16px */
+            --font-size-md: 1.125rem;    /* 18px */
+            --font-size-lg: 1.25rem;     /* 20px */
+            --font-size-xl: 1.5rem;      /* 24px */
+            --font-size-xxl: 2.25rem;    /* 36px */
         }
 
         [data-theme="light"] {
@@ -52,6 +67,11 @@
             --header-bg: rgba(255, 255, 255, 0.4);
             --content-group-bg: rgba(255, 255, 255, 0.6);
             --project-card-bg: rgba(241, 245, 249, 0.3);
+
+            /* Тени для светлой темы */
+            --shadow-sm: 0 3px 6px rgba(0,0,0,0.07);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.1);
+            --shadow-lg: 0 15px 30px rgba(0,0,0,0.1);
         }
 
         .material-icons-outlined {
@@ -64,20 +84,29 @@
             color: var(--text);
             margin: 0;
             padding: 20px;
+            font-size: var(--font-size-base); /* Единый базовый размер */
             line-height: 1.6;
             transition: background-color 0.3s ease, color 0.3s ease;
             position: relative;
             overflow-x: hidden;
         }
 
+        p {
+            margin-top: 0;
+            margin-bottom: 1rem; /* Единый отступ для параграфов */
+        }
+        p:last-child {
+            margin-bottom: 0;
+        }
+
         body::before,
         body::after {
             content: '';
             position: fixed;
-            width: 450px;
-            height: 450px;
+            width: 60vmin;
+            height: 60vmin;
             border-radius: 50%;
-            filter: blur(150px);
+            filter: blur(12vmin);
             z-index: -1;
             animation: move-blob 25s infinite alternate;
             transition: background 0.5s ease;
@@ -99,8 +128,8 @@
 
         @keyframes move-blob {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(100px, -50px) scale(1.2) rotate(120deg); }
-            66% { transform: translate(-80px, 100px) scale(0.9) rotate(240deg); }
+            33% { transform: translate(15vw, -10vh) scale(1.2) rotate(120deg); }
+            66% { transform: translate(-10vw, 15vh) scale(0.9) rotate(240deg); }
             100% { transform: translate(0, 0) scale(1) rotate(360deg); }
         }
 
@@ -109,13 +138,22 @@
             margin: 0 auto;
             position: relative;
             z-index: 1;
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        body.modal-is-open .container {
+            filter: blur(5px);
+            transform: scale(0.98);
+            pointer-events: none;
+            user-select: none;
         }
 
         header {
             background: var(--header-bg);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: 25px 20px;
+            /* ИЗМЕНЕНО: Отступы для размещения кнопок */
+            padding: 20px 20px 30px;
             text-align: center;
             border-radius: 12px;
             position: relative;
@@ -139,25 +177,27 @@
         h1 {
             margin: 0;
             font-weight: 700;
-            font-size: 1.8rem;
+            font-size: var(--font-size-xxl);
+            line-height: 1.2;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            margin-top: 30px; /* Отступ, чтобы не перекрываться кнопками */
         }
 
         .subtitle {
             opacity: 0.92;
-            font-size: 1.1rem;
-            margin: 10px 0 0;
+            font-size: var(--font-size-md);
+            margin: 0.5rem 0 0;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
         .name-subtitle {
             opacity: 0.85;
-            font-size: 1rem;
-            margin: 5px 0 0;
+            font-size: var(--font-size-base);
+            margin: 0.25rem 0 0;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
 
-        .content {
+        main.content {
             padding: 20px;
             background: rgba(30, 41, 59, 0.4);
             backdrop-filter: blur(15px);
@@ -168,21 +208,22 @@
             transition: background-color 0.3s ease;
         }
 
-        [data-theme="light"] .content {
+        [data-theme="light"] main.content {
             background: rgba(255, 255, 255, 0.5);
             border-color: rgba(0,0,0,0.05);
         }
 
-        section { margin-bottom: 30px; }
+        section { margin-bottom: 40px; }
         section:last-child { margin-bottom: 0; }
 
         .section-title {
             display: inline-block;
             color: var(--text);
-            font-size: 1.3rem;
+            font-size: var(--font-size-xl);
+            line-height: 1.3;
             position: relative;
             padding-bottom: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .section-title::after {
@@ -197,7 +238,7 @@
             transition: width 0.8s var(--easing-smooth);
         }
 
-        .section-title.is-visible::after { width: 60%; }
+        .section-title.is-visible::after { width: 100%; }
 
         .skills-container {
             display: flex;
@@ -213,15 +254,15 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.95rem;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-            transition: var(--transition-smooth);
+            font-size: var(--font-size-base);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-lift);
             cursor: pointer;
         }
 
         .skill:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transform: translateY(var(--hover-lift-amount));
+            box-shadow: var(--shadow-md);
         }
 
         .skill-cpp { background: #00599c; color: white; }
@@ -239,13 +280,13 @@
 
         .project-card {
             background: var(--project-card-bg);
-            border-radius: 10px;
+            border-radius: 12px;
             border: 1px solid var(--card-border);
             position: relative;
             padding: 15px;
             cursor: pointer;
             box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-            transition: var(--transition-smooth);
+            transition: var(--transition-lift);
             min-height: 160px;
             overflow: hidden;
             display: flex;
@@ -255,9 +296,10 @@
         [data-theme="light"] .project-card { border-color: rgba(0,0,0,0.05); }
 
         .project-list .project-card:not(:first-child) { margin-top: 20px; }
+
         .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(var(--hover-lift-amount));
+            box-shadow: var(--shadow-lg);
         }
 
         .project-header {
@@ -273,11 +315,11 @@
 
         .project-title {
             margin: 0;
-            font-size: 1.2rem;
+            font-size: var(--font-size-lg);
             color: var(--text);
             position: relative;
             display: inline-block;
-            line-height: 1;
+            line-height: 1.3;
         }
 
         .project-title::after {
@@ -314,9 +356,8 @@
 
         .project-desc {
             color: var(--text-secondary);
-            margin: 0 0 12px;
             font-style: italic;
-            font-size: 0.95rem;
+            font-size: var(--font-size-base);
         }
 
         .project-meta {
@@ -328,12 +369,11 @@
         }
 
         .project-jam-info {
-            margin: 0;
             color: var(--text-secondary);
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
+            font-size: var(--font-size-sm);
         }
         .jam-link {
             color: var(--primary);
@@ -365,15 +405,6 @@
             gap: 10px;
         }
 
-        .status-badge,
-        .github-badge,
-        .tech-badge {
-            position: relative;
-            bottom: auto;
-            right: auto;
-            left: auto;
-        }
-
         .status-badge {
             padding: 5px 10px;
             border-radius: 20px;
@@ -381,7 +412,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            font-size: 0.85rem;
+            font-size: var(--font-size-sm);
             cursor: default;
         }
         .status-badge--completed { background: rgba(16, 185, 129, 0.1); color: var(--success); }
@@ -417,7 +448,7 @@
             font-weight: 600;
             align-items: center;
             gap: 5px;
-            font-size: 0.85rem;
+            font-size: var(--font-size-sm);
             margin-top: 8px;
             margin-right: 10px;
             display: inline-flex;
@@ -430,100 +461,56 @@
         .specialization-desc {
             color: var(--text-secondary);
             margin-top: 15px;
-            font-size: 0.95rem;
+            font-size: var(--font-size-base);
         }
 
-        .contacts-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
-            gap: 15px;
-        }
-
-        .contact-label {
-            margin: 0 0 4px;
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--text);
-        }
-
-        .contact-value {
-            margin: 0;
-            color: var(--info);
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        .theme-switch, .lang-switch {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 50px;
-            height: 26px;
-            border-radius: 13px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 3px;
-            transition: var(--transition-smooth);
+        /* ИЗМЕНЕНО: Кнопки в шапке теперь абсолютно позиционированы */
+        .theme-switch, .share-button {
             position: absolute;
+            top: 20px;
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--card-border);
+            width: 42px;
+            height: 42px;
+            padding: 0;
+            border-radius: 10px;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: var(--transition-smooth);
+        }
+        .share-button {
+            left: 20px;
+        }
+        .theme-switch {
+            right: 20px;
         }
 
-        .theme-switch { top: 20px; right: 20px; }
-        .lang-switch { top: 20px; left: 20px; }
-
-        .theme-switch:hover, .lang-switch:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .theme-switch:hover, .share-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: var(--shadow-sm);
+            background: var(--primary);
         }
 
         [data-theme="light"] .theme-switch,
-        [data-theme="light"] .lang-switch {
-            background: rgba(0, 0, 0, 0.1);
-            border-color: rgba(0,0,0,0.05);
+        [data-theme="light"] .share-button {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0,0,0,0.08);
         }
 
-        .theme-slider, .lang-slider {
-            width: 20px;
-            height: 20px;
-            background: var(--card-bg);
-            border-radius: 50%;
-            transition: transform 0.4s var(--easing-bounce);
-            position: relative;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        [data-theme="light"] .theme-slider { transform: translateX(0); }
-        [data-theme="dark"] .theme-slider { transform: translateX(24px); }
-        .lang-switch[data-lang="en"] .lang-slider { transform: translateX(0); }
-        .lang-switch[data-lang="ru"] .lang-slider { transform: translateX(24px); }
-
-        .theme-icon, .lang-icon {
-            position: absolute;
+        .theme-icon, .share-button .material-icons-outlined {
+            grid-area: 1 / 1;
             transition: opacity 0.3s ease;
             color: var(--text);
-            pointer-events: none;
+            font-size: 22px;
         }
 
-        .theme-icon {
-            font-size: 16px;
-            z-index: 2;
-        }
-        .lang-icon { font-size: 0.7rem; font-weight: 700; line-height: 1; }
+        [data-theme="light"] .theme-icon { color: #1e293b; }
 
-        [data-theme="light"] .theme-icon,
-        [data-theme="light"] .lang-icon { color: #1e293b; }
-
-        .sun-icon { opacity: 1; }
-        .moon-icon { opacity: 0; }
-        [data-theme="dark"] .sun-icon { opacity: 0; }
-        [data-theme="dark"] .moon-icon { opacity: 1; }
-
-        .lang-en { opacity: 1; }
-        .lang-ru { opacity: 0; }
-        .lang-switch[data-lang="ru"] .lang-en { opacity: 0; }
-        .lang-switch[data-lang="ru"] .lang-ru { opacity: 1; }
+        .sun-icon { opacity: 0; }
+        .moon-icon { opacity: 1; }
+        [data-theme="light"] .sun-icon { opacity: 1; }
+        [data-theme="light"] .moon-icon { opacity: 0; }
 
         .github-badge {
             background: rgba(14, 165, 233, 0.1);
@@ -535,7 +522,7 @@
             align-items: center;
             gap: 6px;
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: var(--font-size-sm);
             cursor: pointer;
             transition: transform 0.3s var(--easing-out-circ);
         }
@@ -564,24 +551,12 @@
         }
 
         .group-title {
-            font-size: 1.2rem;
+            font-size: var(--font-size-lg);
             font-weight: 600;
             margin-bottom: 0;
             padding-bottom: 8px;
             display: inline-block;
             color: var(--text);
-            position: relative;
-        }
-
-        .group-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
         }
 
         .tech-badge {
@@ -591,7 +566,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.85rem;
+            font-size: var(--font-size-sm);
             cursor: default;
         }
         .python-tech { background: rgba(55, 118, 171, 0.15); color: #4B8BBE; }
@@ -610,15 +585,6 @@
         }
         .course-item:not(:last-child) { border-bottom: 1px dashed var(--card-border); }
 
-        body.lang-switching .translate-element {
-            opacity: 0;
-            filter: blur(5px);
-            transform: translateY(15px);
-        }
-        .translate-element {
-            transition: opacity 0.4s var(--easing-smooth), transform 0.4s var(--easing-smooth), filter 0.4s var(--easing-smooth);
-        }
-
         .course-status {
             padding: 4px 10px;
             border-radius: 20px;
@@ -626,7 +592,7 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            font-size: 0.85rem;
+            font-size: var(--font-size-sm);
             margin-top: 5px;
             position: absolute;
             bottom: 5px;
@@ -658,14 +624,14 @@
             padding: 8px 15px;
             border-radius: 20px;
             font-weight: 500;
-            font-size: 0.9rem;
-            transition: var(--transition-smooth);
+            font-size: var(--font-size-base);
+            transition: var(--transition-lift);
             cursor: pointer;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-sm);
         }
         .interest-badge:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transform: translateY(var(--hover-lift-amount));
+            box-shadow: var(--shadow-md);
         }
         .interest-badge--gamedev { background: rgba(124, 58, 237, 0.1); color: var(--primary); }
         .interest-badge--software { background: rgba(59, 130, 246, 0.1); color: var(--info); }
@@ -674,7 +640,6 @@
         .interest-badge--youtube {
             background: var(--youtube-red-bg);
             color: var(--youtube-red);
-            transition: transform 0.4s var(--easing-out-circ);
             will-change: transform;
         }
 
@@ -691,7 +656,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.95rem;
+            font-size: var(--font-size-base);
         }
         .info-item .material-icons-outlined {
             font-size: 20px;
@@ -699,19 +664,24 @@
             color: var(--text-secondary);
         }
 
+        /* ИЗМЕНЕНО: Увеличен отступ между группами поддержки */
+        #support-section .content-group > .stagger-child:not(:first-child) {
+            margin-top: 40px;
+        }
+
         .support-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
+            margin-top: 15px;
         }
 
-        .contact-card,
         .support-item {
             display: flex;
             align-items: center;
             gap: 15px;
             background: var(--project-card-bg);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 15px;
             border: 1px solid var(--card-border);
             cursor: pointer;
@@ -720,16 +690,13 @@
             position: relative;
         }
 
-        [data-theme="light"] .contact-card,
         [data-theme="light"] .support-item { border-color: rgba(0,0,0,0.05); }
 
-        .contact-card:hover,
         .support-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
         }
 
-        .contact-icon,
         .support-icon {
             position: relative;
             width: 40px;
@@ -741,7 +708,6 @@
             flex-shrink: 0;
         }
 
-        .contact-icon .icon-bg,
         .support-icon .icon-bg {
             position: absolute;
             inset: 0;
@@ -751,48 +717,113 @@
             z-index: 0;
         }
 
-        .contact-icon svg,
+        .support-icon svg,
         .support-icon .material-icons-outlined {
             position: relative;
             z-index: 1;
-            font-size: 24px;
-            color: white;
-        }
-        .contact-icon svg {
             width: 24px;
             height: 24px;
-            fill: white;
+            fill: #FFFFFF;
+            color: #FFFFFF;
+            transition: filter 0.3s ease;
+        }
+        .support-icon .material-icons-outlined {
+            font-size: 24px;
+            width: auto;
+            height: auto;
         }
 
-        .contact-card:hover .contact-icon .icon-bg,
         .support-item:hover .support-icon .icon-bg {
             transform: rotate(10deg) scale(1.1);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .contact-icon .icon-bg { background: var(--info); }
-        .support-tbank .icon-bg { background: var(--secondary); }
-        .support-donatty .icon-bg { background: var(--success); }
-        .support-donationalerts .icon-bg { background: var(--danger); }
+        .support-tbank:hover .support-icon svg { filter: drop-shadow(0 0 8px #FFDD2D); }
+        .support-donatty:hover .support-icon svg { filter: drop-shadow(0 0 8px #1abc9c); }
+        .support-donationalerts:hover .support-icon svg { filter: drop-shadow(0 0 8px #F57D07); }
+        .support-crypto-ton:hover .support-icon svg { filter: drop-shadow(0 0 8px #0098EA); }
+        .support-crypto-usdt:hover .support-icon svg { filter: drop-shadow(0 0 8px #009393); }
+
+        .support-tbank .icon-bg,
+        .support-donatty .icon-bg,
+        .support-donationalerts .icon-bg,
+        .support-crypto-ton .icon-bg,
+        .support-crypto-usdt .icon-bg {
+            background: #212121;
+        }
+
+        [data-theme="light"] .support-icon .icon-bg {
+            background: #FFFFFF;
+        }
+
+        [data-theme="light"] .support-icon svg,
+        [data-theme="light"] .support-icon .material-icons-outlined {
+            fill: #212121;
+            color: #212121;
+        }
 
         .support-details { flex: 1; }
 
         .support-label {
             margin: 0 0 3px;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: var(--font-size-md);
             color: var(--text);
         }
 
         .support-commission {
             margin: 0;
-            font-size: 0.95rem;
+            font-size: var(--font-size-base);
             font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         .tbank-commission { color: var(--secondary); }
-        .donatty-commission { color: var(--success); }
+        .donatty-commission { color: var(--warning); }
         .donationalerts-commission { color: var(--danger); }
+        .crypto-commission {
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: var(--font-size-sm);
+        }
+
+        .support-item.is-copied .crypto-commission {
+            color: var(--success);
+        }
+
+        .support-title-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding-bottom: 10px;
+            margin-bottom: 5px;
+        }
+        .support-title-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        .support-list-title {
+            margin: 0;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .support-category-desc {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            font-style: italic;
+            text-align: right;
+            margin: 0;
+        }
 
         .side-badge {
             position: absolute;
@@ -801,7 +832,7 @@
             padding: 4px 10px;
             border-radius: 20px;
             font-weight: 500;
-            font-size: 0.85rem;
+            font-size: var(--font-size-sm);
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -815,6 +846,7 @@
         .side-badge--success { background: rgba(16, 185, 129, 0.2); color: var(--success); }
         .side-badge--danger { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
         .side-badge--secondary { background: rgba(14, 165, 233, 0.2); color: var(--secondary); }
+        .side-badge--warning { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
 
         .status-badge .material-icons-outlined,
         .award-badge .material-icons-outlined,
@@ -853,7 +885,6 @@
         .project-card.pulse-highlight { animation: pulse 1.5s; }
 
         .about-paragraph {
-            margin-bottom: 15px;
             line-height: 1.7;
         }
 
@@ -862,33 +893,199 @@
         .course-year-title {
             margin: 0 0 10px;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: var(--font-size-base);
             color: var(--text);
         }
 
+        /* --- СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА "ПОДЕЛИТЬСЯ" --- */
+        .share-modal-container {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .share-modal-container:not(.hidden) {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .share-modal {
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            z-index: 1001;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s var(--easing-bounce), opacity 0.3s ease;
+        }
+
+        .share-modal-container:not(.hidden) .share-modal {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .share-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .share-modal-close:hover {
+            color: var(--text);
+            transform: rotate(90deg);
+        }
+
+        .share-modal-title {
+            margin: 0 0 10px;
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+
+        .share-modal-desc {
+            margin: 0 0 20px;
+            color: var(--text-secondary);
+        }
+
+        .share-options {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 25px;
+        }
+
+        .share-options .custom-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .share-options .custom-checkbox:hover {
+            background-color: var(--project-card-bg);
+        }
+
+        .share-options .custom-checkbox input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-visual {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--card-border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .checkbox-visual .check-icon {
+            font-size: 18px;
+            color: white;
+            transform: scale(0);
+            transition: transform 0.2s var(--easing-bounce);
+        }
+
+        .share-options .custom-checkbox input:checked + .checkbox-visual {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .share-options .custom-checkbox input:checked + .checkbox-visual .check-icon {
+            transform: scale(1);
+        }
+
+        .share-options-subgroup {
+            padding-left: 34px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: opacity 0.2s ease;
+        }
+
+        .share-link-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .share-link-wrapper input {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: var(--bg);
+            color: var(--text);
+            font-family: monospace;
+            font-size: 0.9rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .share-link-wrapper button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .share-link-wrapper button:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .share-link-wrapper button:disabled {
+            background: var(--card-border);
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         @media (min-width: 768px) {
-            header { padding: 35px 30px; }
-            h1 { font-size: 2.2rem; }
-            .subtitle { font-size: 1.25rem; }
-            .content { padding: 30px; }
-            .section-title { font-size: 1.5rem; margin-bottom: 20px; }
+            header { padding: 30px 20px; }
+            h1 { font-size: var(--font-size-xxl); margin-top: 0; }
+            .subtitle { font-size: var(--font-size-md); }
+            main.content { padding: 30px; }
+            .section-title { font-size: var(--font-size-xl); margin-bottom: 20px; }
             .skills-container { gap: 12px; }
-            .skill { padding: 10px 18px; font-size: 1rem; }
+            .skill { padding: 10px 18px; }
             .project-card { padding: 20px; }
-            .project-title { font-size: 1.3rem; }
-            .status-badge { padding: 6px 12px; font-size: 0.85rem; }
+            .project-title { font-size: var(--font-size-lg); }
+            .status-badge { padding: 6px 12px; }
             .contacts-container { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-            .contact-card, .support-item { padding: 20px; gap: 15px; }
-            .contact-icon, .support-icon { width: 50px; height: 50px; border-radius: 12px; }
-            .contact-icon svg { width: 30px; height: 30px; }
+            .support-item { padding: 20px; gap: 15px; }
+            .support-icon { width: 50px; height: 50px; border-radius: 12px; }
+            .support-icon svg { width: 30px; height: 30px; }
             .support-icon .material-icons-outlined { font-size: 30px; }
-            .theme-switch { top: 20px; right: 20px; }
-            .lang-switch { top: 20px; left: 20px; }
-            .theme-slider, .lang-slider { width: 20px; height: 20px; }
-            [data-theme="dark"] .theme-slider { transform: translateX(24px); }
-            .lang-switch[data-lang="ru"] .lang-slider { transform: translateX(24px); }
-            .achievement-badge { font-size: 1rem; }
-            .github-badge, .tech-badge { font-size: 0.85rem; }
+            .achievement-badge { font-size: var(--font-size-sm); }
+            .github-badge, .tech-badge { font-size: var(--font-size-sm); }
             .content-divider { margin: 25px 0; }
             .support-item { padding: 18px; gap: 20px; }
             .support-icon { width: 50px; height: 50px; border-radius: 12px; }
@@ -897,11 +1094,17 @@
         @media (max-width: 480px) {
             body {
                 padding: 15px;
-                font-size: 16px;
             }
-            .container { max-width: 100%; }
-            header { padding: 20px 15px; }
-            h1 { font-size: 1.6rem; }
+            header {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+                margin-top: 45px; /* Больше отступ на мобилке */
+            }
+            .share-button { left: 15px; top: 15px; width: 38px; height: 38px; }
+            .theme-switch { right: 15px; top: 15px; width: 38px; height: 38px; }
+
             .subtitle { font-size: 1rem; }
             .section-title { font-size: 1.2rem; }
 
@@ -965,11 +1168,21 @@
                 display: inline-flex;
             }
 
-            .theme-switch { top: 15px; right: 15px; height: 24px; }
-            .lang-switch { top: 15px; left: 15px; height: 24px; width: 50px; }
-            .theme-slider, .lang-slider { width: 18px; height: 18px; }
-            [data-theme="dark"] .theme-slider { transform: translateX(26px); }
-            .lang-switch[data-lang="ru"] .lang-slider { transform: translateX(26px); }
+            .support-title-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0;
+                padding-bottom: 5px;
+            }
+            .support-list-title {
+                margin-bottom: 5px;
+            }
+            .support-category-desc {
+                text-align: left;
+            }
+            .support-list {
+                margin-top: 5px;
+            }
         }
     </style>
 </head>
@@ -977,25 +1190,23 @@
 
 <div class="container">
     <header>
-        <button class="lang-switch" id="langToggle" aria-label="Переключить язык">
-            <span class="lang-slider">
-                <span class="lang-icon lang-en">EN</span>
-                <span class="lang-icon lang-ru">RU</span>
-            </span>
+        <!-- ИЗМЕНЕНО: Кнопки вынесены из потока для идеального центрирования заголовка -->
+        <button class="share-button" id="shareButton" aria-label="Поделиться">
+            <span class="material-icons-outlined">share</span>
         </button>
         <button class="theme-switch" id="themeToggle" aria-label="Переключить тему">
-            <span class="theme-slider">
-                <span class="material-icons-outlined theme-icon sun-icon">light_mode</span>
-                <span class="material-icons-outlined theme-icon moon-icon">dark_mode</span>
-            </span>
+            <span class="material-icons-outlined theme-icon sun-icon">light_mode</span>
+            <span class="material-icons-outlined theme-icon moon-icon">dark_mode</span>
         </button>
-        <h1 class="translate-element">ineedmypills</h1>
-        <p class="name-subtitle translate-element" data-key="full-name">Глухих Егор Алексеевич</p>
-        <p class="subtitle translate-element" data-key="specialist">Начинающий многосторонне развитый IT-"специалист"</p>
+
+        <!-- Основной контент шапки теперь всегда по центру -->
+        <h1 class="translate-element" id="main-header-title" data-key="main-title">ineedmypills</h1>
+        <p class="name-subtitle translate-element" id="main-header-name" data-key="full-name">Глухих Егор Алексеевич</p>
+        <p class="subtitle translate-element" id="header-subtitle" data-key="specialist">Начинающий многосторонне развитый IT-"специалист"</p>
     </header>
 
-    <div class="content">
-        <section>
+    <main class="content">
+        <section id="skills-section">
             <h2 class="section-title translate-element animate-on-scroll" data-key="skills-title">Технические навыки</h2>
             <div class="content-group animate-on-scroll">
                 <div class="stagger-child">
@@ -1024,7 +1235,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="projects-section">
             <h2 class="section-title translate-element animate-on-scroll" data-key="projects-title">Ключевые проекты</h2>
             <div class="content-group animate-on-scroll">
                 <div id="games-projects" class="stagger-child">
@@ -1041,7 +1252,7 @@
                             <div class="card-footer">
                                 <div class="footer-group-left"></div>
                                 <div class="status-badge status-badge--completed">
-                                    <span class="material-icons-outlined">check_circle</span>
+                                    <span class="material-icons-outlined">check</span>
                                     <span class="translate-element" data-key="completed">Завершенный проект</span>
                                 </div>
                             </div>
@@ -1077,7 +1288,7 @@
                             <div class="card-footer">
                                 <div class="footer-group-left"></div>
                                 <div class="status-badge status-badge--completed">
-                                    <span class="material-icons-outlined">check_circle</span>
+                                    <span class="material-icons-outlined">check</span>
                                     <span class="translate-element" data-key="completed">Завершенный проект</span>
                                 </div>
                             </div>
@@ -1124,7 +1335,7 @@
                                     </div>
                                 </div>
                                 <div class="status-badge status-badge--completed">
-                                    <span class="material-icons-outlined">check_circle</span>
+                                    <span class="material-icons-outlined">check</span>
                                     <span class="translate-element" data-key="completed">Завершенный проект</span>
                                 </div>
                             </div>
@@ -1134,12 +1345,12 @@
             </div>
         </section>
 
-        <section>
+        <section id="education-section">
             <h2 class="section-title translate-element animate-on-scroll" data-key="education-title">Образование</h2>
             <div class="content-group animate-on-scroll">
                 <div class="stagger-child">
-                    <h3 class="group-title translate-element" data-key="secondary-edu">Среднее образование</h3>
-                    <p class="translate-element secondary-edu-text" data-key="11-classes">11 классов</p>
+                    <h3 class="group-title translate-element" data-key="secondary-edu">Среднее общее образование</h3>
+                    <p class="secondary-edu-text translate-element" data-key="11-classes">11 классов</p>
                 </div>
                 <div class="content-divider stagger-child"></div>
                 <div class="stagger-child">
@@ -1147,7 +1358,7 @@
                     <p class="specialization-desc translate-element" data-key="specialization">Специализация: разработка программного обеспечения</p>
                     <div class="course-container">
                         <div class="course-item">
-                            <p class="translate-element course-year-title" data-key="first-year">1 курс</p>
+                            <p class="course-year-title translate-element" data-key="first-year">1 курс</p>
                             <div class="course-achievements">
                                 <div class="achievement-badge achievement-badge--first-place">
                                     <span class="material-icons-outlined">emoji_events</span>
@@ -1159,19 +1370,19 @@
                                 </div>
                             </div>
                             <div class="course-status course-status--completed">
-                                <span class="material-icons-outlined">check_circle</span>
+                                <span class="material-icons-outlined">check</span>
                                 <span class="translate-element" data-key="course-completed">Окончил</span>
                             </div>
                         </div>
                         <div class="course-item">
-                            <p class="translate-element course-year-title" data-key="second-year">2 курс</p>
+                            <p class="course-year-title translate-element" data-key="second-year">2 курс</p>
                             <div class="course-status course-status--in-progress">
                                 <span class="material-icons-outlined">sync</span>
                                 <span class="translate-element" data-key="course-in-progress">В процессе</span>
                             </div>
                         </div>
                         <div class="course-item">
-                            <p class="translate-element course-year-title" data-key="third-year">3 курс</p>
+                            <p class="course-year-title translate-element" data-key="third-year">3 курс</p>
                             <div class="course-status course-status--in-progress">
                                 <span class="material-icons-outlined">sync</span>
                                 <span class="translate-element" data-key="course-in-progress">В процессе</span>
@@ -1182,10 +1393,10 @@
             </div>
         </section>
 
-        <section>
+        <section id="about-section">
             <h2 class="section-title translate-element animate-on-scroll" data-key="about-title">О себе</h2>
             <div class="content-group animate-on-scroll">
-                <p class="translate-element stagger-child about-paragraph" data-key="about-text">Увлеченный геймдевелопер с разносторонним техническим бэкграундом. Страстно увлечен созданием игр - от концепции до релиза. Участвую в Game Jams для оттачивания навыков работы в сжатые сроки. Экспериментирую с интеграцией ИИ в творческие процессы. Обладаю упорством в доведении проектов до завершения и креативным подходом к решению технических задач. Постоянно осваиваю новые технологии и инструменты разработки.</p>
+                <p class="about-paragraph stagger-child translate-element" data-key="about-text">Увлеченный геймдевелопер с разносторонним техническим бэкграундом. Страстно увлечен созданием игр - от концепции до релиза. Участвую в Game Jams для оттачивания навыков работы в сжатые сроки. Экспериментирую с интеграцией ИИ в творческие процессы. Обладаю упорством в доведении проектов до завершения и креативным подходом к решению технических задач. Постоянно осваиваю новые технологии и инструменты разработки.</p>
                 <div class="interests-container stagger-child">
                     <div class="interest-badge interest-badge--gamedev" id="gamedev-interest-badge">
                         <span class="translate-element" data-key="interest-gamedev">Разработка инди-игр</span>
@@ -1216,47 +1427,19 @@
             </div>
         </section>
 
-        <section>
-            <h2 class="section-title translate-element animate-on-scroll" data-key="contacts-title">Контакты</h2>
-            <div class="content-group animate-on-scroll">
-                <div class="contacts-container">
-                    <a href="https://t.me/ineedmypills" target="_blank" class="contact-link stagger-child">
-                        <div class="contact-card">
-                            <div class="contact-icon">
-                                <div class="icon-bg"></div>
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.140.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.640.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z"></path></svg>
-                            </div>
-                            <div>
-                                <p class="contact-label">Telegram</p>
-                                <p class="contact-value">@ineedmypills</p>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="https://github.com/ineedmypills" target="_blank" class="contact-link stagger-child">
-                        <div class="contact-card">
-                            <div class="contact-icon">
-                                <div class="icon-bg"></div>
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
-                            </div>
-                            <div>
-                                <p class="contact-label">GitHub</p>
-                                <p class="contact-value">@ineedmypills</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section>
+        <section id="support-section">
             <h2 class="section-title translate-element animate-on-scroll" data-key="support-title">Поддержать</h2>
             <div class="content-group animate-on-scroll">
-                <div class="support-list">
-                    <a href="https://www.tbank.ru/cf/3xlXUdjZzLW" target="_blank" class="support-link stagger-child">
-                        <div class="support-item support-tbank">
+                <div class="stagger-child">
+                    <div class="support-title-wrapper">
+                        <h3 class="support-list-title group-title translate-element" data-key="bank-transfer-title">Банковский перевод</h3>
+                        <p class="support-category-desc translate-element" data-key="bank-desc">Самый удобный способ без комиссии</p>
+                    </div>
+                    <div class="support-list">
+                        <a href="https://www.tbank.ru/cf/3xlXUdjZzLW" target="_blank" class="support-item support-tbank">
                             <div class="support-icon">
                                 <div class="icon-bg"></div>
-                                <span class="material-icons-outlined">attach_money</span>
+                                <svg viewBox="0 0 154 154"><path d="m2.4 2.4h148.6v74.7c0 19.2-10.2 36.9-26.8 46.5l-47.5 27.4-47.5-27.4c-16.6-9.6-26.8-27.3-26.8-46.5zm40.8 39.4v23.2c3.2-3.6 8.9-6 15.6-6h7.1v27c0 7.2-1.9 13.5-4.8 17h31.2c-2.9-3.5-4.8-9.8-4.8-17v-27h7.2c6.6 0 12.3 2.4 15.5 6v-23.2z"/></svg>
                             </div>
                             <div class="support-details">
                                 <div class="support-label translate-element" data-key="t-bank">Т-Банк</div>
@@ -1266,29 +1449,33 @@
                                 <span class="material-icons-outlined">star</span>
                                 <span class="translate-element" data-key="recommended">Рекомендуется</span>
                             </div>
-                        </div>
-                    </a>
-                    <a href="https://donatty.com/clubberrymilkshake" target="_blank" class="support-link stagger-child">
-                        <div class="support-item support-donatty">
+                        </a>
+                    </div>
+                </div>
+                <div class="stagger-child">
+                    <div class="support-title-wrapper">
+                        <h3 class="support-list-title group-title translate-element" data-key="donations-title">Донаты</h3>
+                        <p class="support-category-desc translate-element" data-key="donations-desc">Если хотите, чтобы ваше сообщение появилось на стриме</p>
+                    </div>
+                    <div class="support-list">
+                        <a href="https://donatty.com/clubberrymilkshake" target="_blank" class="support-item support-donatty">
                             <div class="support-icon">
                                 <div class="icon-bg"></div>
-                                <span class="material-icons-outlined">attach_money</span>
+                                <svg viewBox="0 0 25 40"><path d="M10.0766403,15 L9.44858903,12.9588334 C8.29279963,9.20251787 10.4009426,5.22047003 14.1572582,4.06468062 C14.5220274,3.95244393 14.8947226,3.86989034 15.2717002,3.81756769 C16.8475537,1.51266191 19.4971263,0 22.5,0 L25,0 L25,27.5 C25,34.4035594 19.4035594,40 12.5,40 C5.59644063,40 0,34.4035594 0,27.5 L0,18.75 L3.19444444,18.75 C3.41045403,18.75 3.62421943,18.7590917 3.83546161,18.776927 C3.77912351,18.3593971 3.75,17.932961 3.75,17.5 L3.75,15 L10.0766403,15 Z M22.5,27.5 L22.5,2.5 C19.0482203,2.5 16.25,5.29822031 16.25,8.75 L16.25,18.2268963 C15.0919607,17.7581339 13.8261256,17.5 12.5,17.5 L6.25,17.5 C6.25,20.9517797 8.73730695,23.75 11.8055556,23.75 L12.5,23.75 C14.5710678,23.75 16.25,25.4289322 16.25,27.5 C16.25,29.5710678 14.5710678,31.25 12.5,31.25 C10.4289322,31.25 8.75,29.5710678 8.75,27.5 C8.75,24.0482203 6.26269305,21.25 3.19444444,21.25 L2.5,21.25 L2.5,27.5 C2.5,33.0228475 6.9771525,37.5 12.5,37.5 C18.0228475,37.5 22.5,33.0228475 22.5,27.5 Z M12.8853265,15.0058259 C13.1761585,15.0146318 13.4644923,15.0333721 13.75,15.0617191 L13.75,8.75 C13.75,8.10107051 13.820642,7.46864033 13.9546554,6.85997999 C12.1211069,7.90828077 11.1909208,10.1204926 11.8380366,12.2236188 L12.8853265,15.0058259 L12.8853265,15.0058259 Z M11.25,27.5 C11.25,28.1903559 11.8096441,28.75 12.5,28.75 C13.1903559,28.75 13.75,28.1903559 13.75,27.5 C13.75,26.8096441 13.1903559,26.25 12.5,26.25 L11.8055556,26.25 C11.589546,26.25 11.3757806,26.2409083 11.1645384,26.223073 C11.2208765,26.6406029 11.25,27.067039 11.25,27.5 Z"/></svg>
                             </div>
                             <div class="support-details">
                                 <div class="support-label">Donatty</div>
                                 <p class="support-commission donatty-commission translate-element" data-key="commission-3.5">Комиссия 3,5%</p>
                             </div>
-                            <div class="side-badge side-badge--success">
+                            <div class="side-badge side-badge--warning">
                                 <span class="material-icons-outlined">shield</span>
                                 <span class="translate-element" data-key="backup-option">Запасной вариант</span>
                             </div>
-                        </div>
-                    </a>
-                    <a href="https://donationalerts.com/r/shizaphaziya" target="_blank" class="support-link stagger-child">
-                        <div class="support-item support-donationalerts">
+                        </a>
+                        <a href="https://donationalerts.com/r/shizaphaziya" target="_blank" class="support-item support-donationalerts">
                             <div class="support-icon">
                                 <div class="icon-bg"></div>
-                                <span class="material-icons-outlined">attach_money</span>
+                                <svg viewBox="0 0 70 80"><path d="M34.8586103,46.5882227 L29.4383109,46.5882227 C29.1227896,46.5896404 28.8214241,46.4709816 28.6091788,46.2617625 C28.3969336,46.0525435 28.2937566,45.7724279 28.325313,45.4910942 L28.8039021,40.6038855 C28.8504221,40.0844231 29.3353656,39.684617 29.9168999,39.6862871 L35.3371993,39.6862871 C35.6527206,39.6848694 35.9540862,39.8035282 36.1663314,40.0127473 C36.3785767,40.2219663 36.4817536,40.5020819 36.4501972,40.7834156 L35.9716081,45.6706244 C35.9250881,46.1900867 35.4401446,46.5898928 34.8586103,46.5882227 Z M35.7273704,37.0196078 L30.2062624,37.0196078 C29.5964177,37.0196078 29.1020408,36.5436108 29.1020408,35.9564386 L30.6037822,19.445421 C30.6711655,18.9085577 31.1463683,18.5059261 31.7080038,18.5098321 L37.2291117,18.5098321 C37.8389565,18.5098321 38.3333333,18.9858292 38.3333333,19.5730013 L36.7874231,36.0946506 C36.71732,36.6114677 36.2684318,37.0031485 35.7273704,37.0196078 Z M68.1907868,17.7655375 C68.7783609,18.4477209 69.0654113,19.3359027 68.9874243,20.2304671 L66.8294442,44.7595227 C66.7602449,45.5618649 66.4022166,46.3125114 65.8210422,46.8737509 L48.1740082,63.9078173 C47.5440361,64.5136721 46.7011436,64.8515656 45.8244317,64.849701 L27.0379034,64.849701 L10.5001116,80 L11.780782,64.8396809 L3.37070981,64.8396809 C2.42614186,64.8404154 1.52467299,64.4469919 0.886144518,63.7553546 C0.247616048,63.0637173 -0.0692823639,62.1374374 0.0127313353,61.2024067 L5.14549723,3.00601995 C5.32162283,1.29571214 6.77326374,-0.00377492304 8.50347571,8.23911697e-06 L51.3303063,8.23911697e-06 C52.3155567,-0.000274507348 53.2515294,0.428127083 53.8916472,1.17235281 L68.1907868,17.7655375 Z M55.1118136,40.0801644 L56.4832402,24.9398854 C56.5364472,24.0422509 56.2238954,23.1611024 55.6160145,22.4949959 L47.548799,13.2364798 C46.9095165,12.5050105 45.982605,12.084699 45.0076261,12.0841753 L19.5958971,12.0841753 C17.8656851,12.0803922 16.4140442,13.3798792 16.2379186,15.090187 L13.2127128,49.1583198 C13.1430685,50.0904539 13.4642119,51.0097453 14.1001037,51.6985265 C14.7359954,52.3873077 15.6300918,52.7843324 16.5706913,52.795594 L41.5588914,52.795594 C42.4258216,52.7976549 43.2601656,52.4674704 43.8882999,51.8737504 L54.1034116,42.2044127 C54.6867718,41.6406314 55.0449815,40.8860452 55.1118136,40.0801644 Z"/></svg>
                             </div>
                             <div class="support-details">
                                 <div class="support-label">DonationAlerts</div>
@@ -1298,11 +1485,103 @@
                                 <span class="material-icons-outlined">warning</span>
                                 <span class="translate-element" data-key="not-recommended-rf">не рекомендуется для РФ</span>
                             </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="stagger-child">
+                    <div class="support-title-wrapper">
+                        <h3 class="support-list-title group-title translate-element" data-key="crypto-title">Криптовалюта</h3>
+                        <p class="support-category-desc translate-element" data-key="crypto-desc">Для ценителей анонимности и современных технологий</p>
+                    </div>
+                    <div class="support-list">
+                        <div class="support-item support-crypto-ton" data-address="UQALAY9I3rkVFoJKZRSMH2ikuQZkcHPV318xZMiLiLtCPsi8">
+                            <div class="support-icon">
+                                <div class="icon-bg"></div>
+                                <svg viewBox="12 14 32 32"><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z"/></svg>
+                            </div>
+                            <div class="support-details">
+                                <p class="support-label">TON Space</p>
+                                <p class="support-commission crypto-commission translate-element" data-key="copy-to-clipboard">Нажмите, чтобы скопировать</p>
+                            </div>
+                            <div class="side-badge side-badge--success">
+                                <span class="material-icons-outlined">check_circle</span>
+                                <span class="translate-element" data-key="optimal">Оптимально</span>
+                            </div>
                         </div>
-                    </a>
+                        <div class="support-item support-crypto-usdt" data-address="TGFT2Y9cwB5ipbScFmWqmAAwEyLU754PUL">
+                            <div class="support-icon">
+                                <div class="icon-bg"></div>
+                                <svg viewBox="70 30 210 210"><path d="M191.19,144.8v0c-1.2.09-7.4,0.46-21.23,0.46-11,0-18.81-.33-21.55-0.46v0c-42.51-1.87-74.24-9.27-74.24-18.13s31.73-16.25,74.24-18.15v28.91c2.78,0.2,10.74.67,21.74,0.67,13.2,0,19.81-.55,21-0.66v-28.9c42.42,1.89,74.08,9.29,74.08,18.13s-31.65,16.24-74.08,18.12h0Zm0-39.25V79.68h59.2V40.23H89.21V79.68H148.4v25.86c-48.11,2.21-84.29,11.74-84.29,23.16s36.18,20.94,84.29,23.16v82.9h42.78V151.83c48-2.21,84.12-11.73,84.12-23.14s-36.09-20.93-84.12-23.15h0Zm0,0h0Z"/></svg>
+                            </div>
+                            <div class="support-details">
+                                <p class="support-label">USDT (TRC20)</p>
+                                <p class="support-commission crypto-commission translate-element" data-key="copy-to-clipboard">Нажмите, чтобы скопировать</p>
+                            </div>
+                            <div class="side-badge side-badge--success">
+                                <span class="material-icons-outlined">check_circle</span>
+                                <span class="translate-element" data-key="optimal">Оптимально</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+    </main>
+</div>
+
+<div id="shareModal" class="share-modal-container hidden">
+    <div class="share-modal">
+        <button class="share-modal-close" id="shareModalCloseButton">&times;</button>
+        <h3 class="share-modal-title translate-element" data-key="share-title">Конструктор ссылки</h3>
+        <p class="share-modal-desc translate-element" data-key="share-desc">Выберите секции, которые хотите показать:</p>
+        <div class="share-options" id="shareOptions">
+            <label class="custom-checkbox">
+                <input type="checkbox" value="header" checked>
+                <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
+                <span class="translate-element" data-key="share-header">Заголовок</span>
+            </label>
+            <div class="share-options-subgroup" id="header-options-subgroup">
+                <label class="custom-checkbox">
+                    <input type="checkbox" value="subtitle" checked>
+                    <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
+                    <span class="translate-element" data-key="share-subtitle">Подзаголовок</span>
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" value="alt_header">
+                    <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
+                    <span class="translate-element" data-key="share-alt-header">Альтернативный заголовок</span>
+                </label>
+            </div>
+            <label class="custom-checkbox">
+                <input type="checkbox" value="skills" checked>
+                <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
+                <span class="translate-element" data-key="skills-title">Технические навыки</span>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" value="projects" checked>
+                <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
+                <span class="translate-element" data-key="projects-title">Ключевые проекты</span>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" value="education" checked>
+                <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
+                <span class="translate-element" data-key="education-title">Образование</span>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" value="about" checked>
+                <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
+                <span class="translate-element" data-key="about-title">О себе</span>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" value="support" checked>
+                <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
+                <span class="translate-element" data-key="support-title">Поддержать</span>
+            </label>
+        </div>
+        <div class="share-link-wrapper">
+            <input type="text" id="shareLinkInput" readonly>
+            <button id="copyLinkButton" class="translate-element" data-key="share-copy">Копировать</button>
+        </div>
     </div>
 </div>
 
@@ -1310,6 +1589,8 @@
     const translations = {
         ru: {
             "page-title": "ineedmypills - Портфолио",
+            "main-title": "ineedmypills",
+            "alt-header-title": "Коктейльчик",
             "full-name": "Глухих Егор Алексеевич",
             "specialist": "Начинающий многосторонне развитый IT-\"специалист\"",
             "skills-title": "Технические навыки",
@@ -1331,7 +1612,7 @@
             "course-completed": "Окончил",
             "course-in-progress": "В процессе",
             "education-title": "Образование",
-            "secondary-edu": "Среднее образование",
+            "secondary-edu": "Среднее общее образование",
             "11-classes": "11 классов",
             "computer-academy": "Компьютерная Академия \"ТОП\"",
             "specialization": "Специализация: разработка программного обеспечения",
@@ -1355,10 +1636,29 @@
             "commission-10": "Комиссия 10%",
             "recommended": "Рекомендуется",
             "not-recommended-rf": "не рекомендуется для РФ",
-            "backup-option": "Запасной вариант"
+            "backup-option": "Запасной вариант",
+            "bank-transfer-title": "Банковский перевод",
+            "donations-title": "Донаты",
+            "crypto-title": "Криптовалюта",
+            "bank-desc": "Самый удобный способ без комиссии",
+            "donations-desc": "Если хотите, чтобы ваше сообщение появилось на стриме",
+            "crypto-desc": "Для ценителей анонимности и современных технологий",
+            "copy-to-clipboard": "Нажмите, чтобы скопировать",
+            "copied-feedback": "Скопировано!",
+            "share-title": "Конструктор ссылки",
+            "share-desc": "Выберите секции, которые хотите показать:",
+            "share-copy": "Копировать",
+            "share-copied": "Скопировано!",
+            "share-button-aria": "Поделиться",
+            "share-header": "Заголовок",
+            "share-alt-header": "Альтернативный заголовок",
+            "share-subtitle": "Подзаголовок",
+            "optimal": "Оптимально"
         },
         en: {
             "page-title": "ineedmypills - Portfolio",
+            "main-title": "ineedmypills",
+            "alt-header-title": "Cocktailchik",
             "full-name": "Glukhikh Egor Alekseevich",
             "specialist": "Beginning versatile IT \"specialist\"",
             "skills-title": "Technical Skills",
@@ -1380,7 +1680,7 @@
             "course-completed": "Finished",
             "course-in-progress": "In progress",
             "education-title": "Education",
-            "secondary-edu": "Secondary education",
+            "secondary-edu": "General secondary education",
             "11-classes": "11 grades",
             "computer-academy": "TOP Computer Academy",
             "specialization": "Specialization: software development",
@@ -1404,19 +1704,176 @@
             "commission-10": "Commission 10%",
             "recommended": "Recommended",
             "not-recommended-rf": "not recommended for RF",
-            "backup-option": "Backup option"
+            "backup-option": "Backup option",
+            "bank-transfer-title": "Bank Transfer",
+            "donations-title": "Donations",
+            "crypto-title": "Cryptocurrency",
+            "bank-desc": "The most convenient way with no commission",
+            "donations-desc": "If you want your message to appear on the stream",
+            "crypto-desc": "For connoisseurs of anonymity and modern technology",
+            "copy-to-clipboard": "Click to copy",
+            "copied-feedback": "Copied!",
+            "share-title": "Link Builder",
+            "share-desc": "Select sections to display:",
+            "share-copy": "Copy",
+            "share-copied": "Copied!",
+            "share-button-aria": "Share",
+            "share-header": "Header",
+            "share-alt-header": "Alternative Header",
+            "share-subtitle": "Subtitle",
+            "optimal": "Optimal"
         }
     };
 
     document.addEventListener('DOMContentLoaded', () => {
         const themeToggle = document.getElementById('themeToggle');
-        const langToggle = document.getElementById('langToggle');
         const html = document.documentElement;
         const pageTitle = document.getElementById('pageTitle');
         const agePlaceholder = document.getElementById('agePlaceholder');
         const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
-
         const BIRTH_DATE = '2006-06-12';
+
+        // --- КОД ДЛЯ ФУНКЦИИ "ПОДЕЛИТЬСЯ" ---
+        const shareButton = document.getElementById('shareButton');
+        const shareModal = document.getElementById('shareModal');
+        const allSections = document.querySelectorAll('main.content > section[id]');
+
+        if (shareModal) {
+            const shareModalCloseButton = document.getElementById('shareModalCloseButton');
+            const shareOptions = document.getElementById('shareOptions');
+            const shareCheckboxes = shareOptions.querySelectorAll('input[type="checkbox"]');
+            const shareLinkInput = document.getElementById('shareLinkInput');
+            const copyLinkButton = document.getElementById('copyLinkButton');
+
+            const headerCheckbox = shareOptions.querySelector('input[value="header"]');
+            const altHeaderCheckbox = shareOptions.querySelector('input[value="alt_header"]');
+            const subtitleCheckbox = shareOptions.querySelector('input[value="subtitle"]');
+            const headerSubgroup = document.getElementById('header-options-subgroup');
+
+
+            const generateShareLink = () => {
+                const selectedItems = Array.from(shareCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+
+                const noItemsSelected = selectedItems.length === 0;
+
+                copyLinkButton.disabled = noItemsSelected;
+                shareLinkInput.style.opacity = noItemsSelected ? 0.5 : 1;
+                shareLinkInput.style.pointerEvents = noItemsSelected ? 'none' : 'auto';
+
+                if (noItemsSelected) {
+                    shareLinkInput.value = '';
+                    return;
+                }
+
+                if (selectedItems.length === shareCheckboxes.length) {
+                    shareLinkInput.value = window.location.origin + window.location.pathname;
+                } else {
+                    const params = new URLSearchParams();
+                    params.set('show', selectedItems.join(','));
+                    shareLinkInput.value = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+                }
+            };
+
+            const openShareModal = () => {
+                generateShareLink();
+                document.body.classList.add('modal-is-open');
+                shareModal.classList.remove('hidden');
+            };
+
+            const closeShareModal = () => {
+                document.body.classList.remove('modal-is-open');
+                shareModal.classList.add('hidden');
+            };
+
+            shareButton.addEventListener('click', openShareModal);
+            shareModalCloseButton.addEventListener('click', closeShareModal);
+
+            shareModal.addEventListener('click', (e) => {
+                if (e.target === shareModal) {
+                    closeShareModal();
+                }
+            });
+
+            shareCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', generateShareLink);
+            });
+
+            if (headerCheckbox && subtitleCheckbox && altHeaderCheckbox && headerSubgroup) {
+                const updateHeaderDependencies = () => {
+                    const isHeaderChecked = headerCheckbox.checked;
+
+                    headerSubgroup.style.opacity = isHeaderChecked ? 1 : 0.5;
+
+                    [subtitleCheckbox, altHeaderCheckbox].forEach(cb => {
+                        const label = cb.parentElement;
+                        cb.disabled = !isHeaderChecked;
+                        label.style.cursor = isHeaderChecked ? 'pointer' : 'not-allowed';
+                        if (!isHeaderChecked) cb.checked = false;
+                    });
+                };
+
+                headerCheckbox.addEventListener('change', () => {
+                    updateHeaderDependencies();
+                    generateShareLink();
+                });
+                updateHeaderDependencies();
+            }
+
+            copyLinkButton.addEventListener('click', () => {
+                if (!navigator.clipboard || copyLinkButton.disabled) return;
+                navigator.clipboard.writeText(shareLinkInput.value).then(() => {
+                    const currentLang = document.documentElement.lang || 'ru';
+                    const originalText = translations[currentLang]['share-copy'];
+                    const copiedText = translations[currentLang]['share-copied'];
+
+                    copyLinkButton.textContent = copiedText;
+                    copyLinkButton.disabled = true;
+
+                    setTimeout(() => {
+                        copyLinkButton.textContent = originalText;
+                        generateShareLink();
+                    }, 2000);
+                });
+            });
+        }
+
+        const handleSharedLinkView = () => {
+            const params = new URLSearchParams(window.location.search);
+            const sectionsToShowParam = params.get('show');
+
+            if (sectionsToShowParam) {
+                const visibleItems = new Set(sectionsToShowParam.split(','));
+                const header = document.querySelector('header');
+                const subtitle = document.getElementById('header-subtitle');
+
+                if (shareButton) shareButton.style.display = 'none';
+                if (themeToggle) themeToggle.style.display = 'none';
+
+                if (header) {
+                    if (visibleItems.has('header')) {
+                        header.style.display = 'block';
+                        const isAlt = visibleItems.has('alt_header');
+                        const mainTitleEl = document.getElementById('main-header-title');
+                        const nameEl = document.getElementById('main-header-name');
+                        if (mainTitleEl) mainTitleEl.textContent = isAlt ? translations.ru['alt-header-title'] : translations.ru['main-title'];
+                        if (nameEl) nameEl.style.display = isAlt ? 'none' : 'block';
+
+                        if (subtitle && !visibleItems.has('subtitle')) {
+                            subtitle.style.display = 'none';
+                        }
+                    } else {
+                        header.style.display = 'none';
+                    }
+                }
+
+                allSections.forEach(section => {
+                    const sectionId = section.id.replace('-section', '');
+                    section.style.display = visibleItems.has(sectionId) ? 'block' : 'none';
+                });
+            }
+        };
 
         function applyTheme(theme) {
             html.setAttribute('data-theme', theme);
@@ -1424,24 +1881,24 @@
         }
 
         function applyLanguage(lang) {
-            localStorage.setItem('language', lang);
-            langToggle.setAttribute('data-lang', lang);
-            document.body.classList.add('lang-switching');
+            html.setAttribute('lang', lang);
+            const elements = document.querySelectorAll('.translate-element');
+            pageTitle.textContent = translations[lang]["page-title"];
 
-            setTimeout(() => {
-                const elements = document.querySelectorAll('.translate-element');
-                pageTitle.textContent = translations[lang]["page-title"];
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (key && translations[lang]?.[key]) {
+                    if (el.id === 'copyLinkButton' && el.disabled) return;
+                    if (el.id === 'main-header-title') return;
+                    el.textContent = translations[lang][key];
+                }
+            });
 
-                elements.forEach(el => {
-                    const key = el.getAttribute('data-key');
-                    if (key && translations[lang]?.[key]) {
-                        el.textContent = translations[lang][key];
-                    }
-                });
+            if (shareButton) {
+                shareButton.setAttribute('aria-label', translations[lang]['share-button-aria']);
+            }
 
-                displayAge(lang);
-                document.body.classList.remove('lang-switching');
-            }, 400);
+            displayAge(lang);
         }
 
         function calculateAge(birthDate) {
@@ -1475,7 +1932,6 @@
                 cards.forEach((card, index) => {
                     setTimeout(() => {
                         card.classList.add('pulse-highlight');
-
                         card.addEventListener('animationend', () => {
                             card.classList.remove('pulse-highlight');
                         }, { once: true });
@@ -1507,7 +1963,7 @@
             let initialTop, initialLeft;
             let isInitialized = false;
 
-            const leashRadius = 35; // Увеличена дистанция "убегания"
+            const leashRadius = 35;
 
             const initPosition = () => {
                 if (!isInitialized) {
@@ -1531,7 +1987,7 @@
                 const dy = mouseY - buttonCenterY;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
-                const activationRadius = leashRadius * 3.5; // Увеличен радиус реакции
+                const activationRadius = leashRadius * 3.5;
 
                 if (distance < activationRadius) {
                     const angle = Math.atan2(dy, dx);
@@ -1553,29 +2009,75 @@
             });
         }
 
+        function setupCopyToClipboard() {
+            let lastCopied = { element: null, timeoutId: null };
+
+            document.querySelectorAll('[data-address]').forEach(el => {
+                const textEl = el.querySelector('.crypto-commission');
+                if (!textEl) return;
+
+                const originalTextKey = textEl.dataset.key || 'copy-to-clipboard';
+
+                el.addEventListener('click', () => {
+                    const address = el.dataset.address;
+                    if (!address) return;
+
+                    if (lastCopied.element && lastCopied.element !== el) {
+                        clearTimeout(lastCopied.timeoutId);
+                        const prevTextEl = lastCopied.element.querySelector('.crypto-commission');
+                        const prevLang = document.documentElement.lang || 'ru';
+                        if (prevTextEl) {
+                            prevTextEl.textContent = translations[prevLang][prevTextEl.dataset.key || 'copy-to-clipboard'];
+                            lastCopied.element.classList.remove('is-copied');
+                        }
+                    }
+
+                    if (lastCopied.element === el) return;
+
+                    navigator.clipboard.writeText(address).then(() => {
+                        const currentLang = document.documentElement.lang || 'ru';
+                        const copiedText = translations[currentLang]['copied-feedback'];
+
+                        textEl.textContent = copiedText;
+                        el.classList.add('is-copied');
+
+                        lastCopied.element = el;
+                        lastCopied.timeoutId = setTimeout(() => {
+                            const originalText = translations[currentLang][originalTextKey];
+                            textEl.textContent = originalText;
+                            el.classList.remove('is-copied');
+                            if (lastCopied.element === el) {
+                                lastCopied.element = null;
+                                lastCopied.timeoutId = null;
+                            }
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy address: ', err);
+                    });
+                });
+            });
+        }
+
         themeToggle.addEventListener('click', () => {
             const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             applyTheme(newTheme);
         });
 
-        langToggle.addEventListener('click', () => {
-            const newLang = langToggle.getAttribute('data-lang') === 'ru' ? 'en' : 'ru';
-            applyLanguage(newLang);
-        });
+        // Оптимизация: Делегирование событий для кликабельных карточек
+        document.body.addEventListener('click', e => {
+            const card = e.target.closest('[data-url]');
+            if (!card) return;
 
-        document.querySelectorAll('[data-url]').forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (e.target.closest('a, .award-badge, .tech-badge, .github-badge, .platform-icon-link')) {
-                    return;
-                }
-                const url = card.dataset.url;
-                if (url) window.open(url, '_blank');
-            });
-        });
+            // Предотвращаем переход по ссылке, если клик был по вложенной ссылке или интерактивному бейджу
+            if (e.target.closest('a, .tech-badge')) {
+                return;
+            }
 
-        setupInterestLink('gamedev-interest-badge', 'games-projects');
-        setupInterestLink('software-interest-badge', 'software-projects');
-        setupRunawayButton();
+            const url = card.dataset.url;
+            if (url) {
+                window.open(url, '_blank');
+            }
+        });
 
         const observer = new IntersectionObserver((entries, observerInstance) => {
             entries.forEach(entry => {
@@ -1594,10 +2096,15 @@
 
         const savedTheme = localStorage.getItem('theme') || 'dark';
         const browserLang = navigator.language || navigator.userLanguage;
-        const savedLang = localStorage.getItem('language') || (browserLang.startsWith('ru') ? 'ru' : 'en');
+        const initialLang = browserLang.startsWith('ru') ? 'ru' : 'en';
 
+        handleSharedLinkView();
+        setupInterestLink('gamedev-interest-badge', 'games-projects');
+        setupInterestLink('software-interest-badge', 'software-projects');
+        setupRunawayButton();
+        setupCopyToClipboard();
         applyTheme(savedTheme);
-        applyLanguage(savedLang);
+        applyLanguage(initialLang);
     });
 </script>
 
