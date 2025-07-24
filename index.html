@@ -2,10 +2,10 @@
 <html lang="ru" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">ineedmypills - Портфолио</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ineedmypills</title>
     <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; viewBox=&#39;0 0 24 24&#39;&gt;&lt;path d=&#39;M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z&#39; fill=&#39;%237c3aed&#39;/&gt;&lt;/svg&gt;">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Material+Icons+Outlined" rel="stylesheet">
     <style>
         :root {
             --primary: #7c4dff;
@@ -74,7 +74,7 @@
             --shadow-lg: 0 15px 30px rgba(0,0,0,0.1);
         }
 
-        .material-icons-outlined {
+        .material-icons, .material-icons-outlined {
             vertical-align: middle;
         }
 
@@ -84,16 +84,22 @@
             color: var(--text);
             margin: 0;
             padding: 20px;
-            font-size: var(--font-size-base); /* Единый базовый размер */
+            font-size: var(--font-size-base);
             line-height: 1.6;
             transition: background-color 0.3s ease, color 0.3s ease;
             position: relative;
             overflow-x: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        h1, h2, h3, p, .contact-value, .project-desc, .specialization-desc, .about-paragraph, .secondary-edu-text, .info-item span {
+            user-select: text;
         }
 
         p {
             margin-top: 0;
-            margin-bottom: 1rem; /* Единый отступ для параграфов */
+            margin-bottom: 1rem;
         }
         p:last-child {
             margin-bottom: 0;
@@ -138,14 +144,6 @@
             margin: 0 auto;
             position: relative;
             z-index: 1;
-            transition: filter 0.3s ease, transform 0.3s ease;
-        }
-
-        body.modal-is-open .container {
-            filter: blur(5px);
-            transform: scale(0.98);
-            pointer-events: none;
-            user-select: none;
         }
 
         header {
@@ -746,6 +744,9 @@
             gap: 12px;
             margin-top: 15px;
         }
+        .support-title-wrapper + .support-list {
+            margin-top: 20px;
+        }
 
         .support-item {
             display: flex;
@@ -789,7 +790,8 @@
         }
 
         .support-icon svg,
-        .support-icon .material-icons-outlined {
+        .support-icon .material-icons-outlined,
+        .support-icon .material-icons {
             position: relative;
             z-index: 1;
             width: 24px;
@@ -798,7 +800,8 @@
             color: #FFFFFF;
             transition: filter 0.3s ease;
         }
-        .support-icon .material-icons-outlined {
+        .support-icon .material-icons-outlined,
+        .support-icon .material-icons {
             font-size: 24px;
             width: auto;
             height: auto;
@@ -828,7 +831,8 @@
         }
 
         [data-theme="light"] .support-icon svg,
-        [data-theme="light"] .support-icon .material-icons-outlined {
+        [data-theme="light"] .support-icon .material-icons-outlined,
+        [data-theme="light"] .support-icon .material-icons {
             fill: #212121;
             color: #212121;
         }
@@ -910,7 +914,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             z-index: 1;
         }
-        .side-badge .material-icons-outlined {
+        .side-badge .material-icons, .side-badge .material-icons-outlined {
             font-size: 16px;
             vertical-align: -3px;
         }
@@ -976,26 +980,47 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(15, 23, 42, 0.3);
-            opacity: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            /* Прячем контейнер после завершения всех анимаций */
+            transition: visibility 0s 0.3s;
+        }
+
+        .share-modal-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            /* Анимируем фон отдельно от контейнера */
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .share-modal-container:not(.hidden) {
-            opacity: 1;
             visibility: visible;
             pointer-events: auto;
+            /* Показываем контейнер сразу */
+            transition: visibility 0s;
+        }
+
+        /* Новый селектор для плавной анимации фона */
+        .share-modal-container:not(.hidden)::before {
+            opacity: 1;
         }
 
         .share-modal {
             position: relative;
-            background: var(--card-bg);
+            background: var(--header-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 25px;
-            width: 90%;
+            padding: 20px;
+            width: 100%;
             max-width: 500px;
             z-index: 1001;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
@@ -1054,7 +1079,6 @@
             padding: 10px;
             border-radius: 8px;
             transition: background-color 0.2s ease, opacity 0.2s ease;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .share-options .custom-checkbox:hover {
@@ -1144,6 +1168,7 @@
             h1 { font-size: var(--font-size-xxl); margin-top: 0; }
             .subtitle { font-size: var(--font-size-md); }
             main.content { padding: 30px; }
+            .share-modal { padding: 30px; }
             .section-title { font-size: var(--font-size-xl); margin-bottom: 20px; }
             .skills-container { gap: 12px; }
             .skill { padding: 10px 18px; }
@@ -1156,8 +1181,8 @@
             .contact-icon svg { width: 30px; height: 30px; }
             .support-item { padding: 20px; gap: 15px; }
             .support-icon { width: 50px; height: 50px; border-radius: 12px; }
-            .support-icon svg { width: 30px; height: 30px; }
-            .support-icon .material-icons-outlined { font-size: 30px; }
+            .support-icon svg, .support-icon .material-icons-outlined, .support-icon .material-icons { width: 30px; height: 30px; }
+            .support-icon .material-icons-outlined, .support-icon .material-icons { font-size: 30px; }
             .achievement-badge { font-size: var(--font-size-sm); }
             .github-badge, .tech-badge { font-size: var(--font-size-sm); }
             .content-divider { margin: 25px 0; }
@@ -1174,7 +1199,7 @@
             }
             h1 {
                 font-size: 1.8rem;
-                margin-top: 45px; /* Больше отступ на мобилке */
+                margin-top: 45px;
             }
             .share-button { left: 15px; top: 15px; width: 38px; height: 38px; }
             .theme-switch { right: 15px; top: 15px; width: 38px; height: 38px; }
@@ -1233,7 +1258,7 @@
                 width: 40px;
                 height: 40px;
             }
-            .support-icon .material-icons-outlined { font-size: 24px; }
+            .support-icon .material-icons-outlined, .support-icon .material-icons { font-size: 24px; }
 
             .side-badge {
                 position: relative;
@@ -1261,6 +1286,9 @@
             }
             .support-list {
                 margin-top: 5px;
+            }
+            .share-options-subgroup {
+                padding-left: 20px;
             }
         }
     </style>
@@ -1344,7 +1372,7 @@
                                 </a>
                                 <a href="https://itch.io/jam/maxters-jam-2024/results?page=2#:~:text=%D0%BE%D1%82%20ineedmypills-,28th%20%D0%BC%D0%B5%D1%81%D1%82%D0%BE,-%D1%81%2014%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BA%D0%B0%D0%BC%D0%B8" target="_blank" class="award-link">
                                     <div class="award-badge">
-                                        <span class="material-icons-outlined">star</span>
+                                        <span class="material-icons-outlined">star_border</span>
                                         <span class="translate-element" data-key="players-28th">28 место (игроки)</span>
                                     </div>
                                 </a>
@@ -1555,7 +1583,7 @@
                                 <p class="support-commission tbank-commission translate-element" data-key="no-commission">Без комиссии</p>
                             </div>
                             <div class="side-badge side-badge--secondary">
-                                <span class="material-icons-outlined">star</span>
+                                <span class="material-icons">star</span>
                                 <span class="translate-element" data-key="recommended">Рекомендуется</span>
                             </div>
                         </a>
@@ -1577,7 +1605,7 @@
                                 <p class="support-commission donatty-commission translate-element" data-key="commission-3.5">Комиссия 3,5%</p>
                             </div>
                             <div class="side-badge side-badge--warning">
-                                <span class="material-icons-outlined">shield</span>
+                                <span class="material-icons">shield</span>
                                 <span class="translate-element" data-key="backup-option">Запасной вариант</span>
                             </div>
                         </a>
@@ -1613,21 +1641,23 @@
                                 <p class="support-commission crypto-commission translate-element" data-key="copy-to-clipboard">Нажмите, чтобы скопировать</p>
                             </div>
                             <div class="side-badge side-badge--success">
-                                <span class="material-icons-outlined">check_circle</span>
+                                <span class="material-icons">check_circle</span>
                                 <span class="translate-element" data-key="optimal">Оптимально</span>
                             </div>
                         </div>
                         <div class="support-item support-crypto-usdt" data-address="TGFT2Y9cwB5ipbScFmWqmAAwEyLU754PUL">
                             <div class="support-icon">
                                 <div class="icon-bg"></div>
-                                <svg viewBox="70 30 210 210"><path d="M191.19,144.8v0c-1.2.09-7.4,0.46-21.23,0.46-11,0-18.81-.33-21.55-0.46v0c-42.51-1.87-74.24-9.27-74.24-18.13s31.73-16.25,74.24-18.15v28.91c2.78,0.2,10.74.67,21.74,0.67,13.2,0,19.81-.55,21-0.66v-28.9c42.42,1.89,74.08,9.29,74.08,18.13s-31.65,16.24-74.08,18.12h0Zm0-39.25V79.68h59.2V40.23H89.21V79.68H148.4v25.86c-48.11,2.21-84.29,11.74-84.29,23.16s36.18,20.94,84.29,23.16v82.9h42.78V151.83c48-2.21,84.12-11.73,84.12-23.14s-36.09-20.93-84.12-23.15h0Zm0,0h0Z"/></svg>
+                                <svg viewBox="0 0 112 90">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.4825 0.862305H88.0496C89.5663 0.862305 90.9675 1.64827 91.7239 2.92338L110.244 34.1419C111.204 35.7609 110.919 37.8043 109.549 39.1171L58.5729 87.9703C56.9216 89.5528 54.2652 89.5528 52.6139 87.9703L1.70699 39.1831C0.305262 37.8398 0.0427812 35.7367 1.07354 34.1077L20.8696 2.82322C21.6406 1.60483 23.0087 0.862305 24.4825 0.862305ZM79.8419 14.8003V23.5597H61.7343V29.6329C74.4518 30.2819 83.9934 32.9475 84.0642 36.1425L84.0638 42.803C83.993 45.998 74.4518 48.6635 61.7343 49.3125V64.2168H49.7105V49.3125C36.9929 48.6635 27.4513 45.998 27.3805 42.803L27.381 36.1425C27.4517 32.9475 36.9929 30.2819 49.7105 29.6329V23.5597H31.6028V14.8003H79.8419ZM55.7224 44.7367C69.2943 44.7367 80.6382 42.4827 83.4143 39.4727C81.0601 36.9202 72.5448 34.9114 61.7343 34.3597V40.7183C59.7966 40.8172 57.7852 40.8693 55.7224 40.8693C53.6595 40.8693 51.6481 40.8172 49.7105 40.7183V34.3597C38.8999 34.9114 30.3846 36.9202 28.0304 39.4727C30.8066 42.4827 42.1504 44.7367 55.7224 44.7367Z"/>
+                                </svg>
                             </div>
                             <div class="support-details">
                                 <p class="support-label">USDT (TRC20)</p>
                                 <p class="support-commission crypto-commission translate-element" data-key="copy-to-clipboard">Нажмите, чтобы скопировать</p>
                             </div>
                             <div class="side-badge side-badge--success">
-                                <span class="material-icons-outlined">check_circle</span>
+                                <span class="material-icons">check_circle</span>
                                 <span class="translate-element" data-key="optimal">Оптимально</span>
                             </div>
                         </div>
@@ -1702,7 +1732,7 @@
 <script>
     const translations = {
         ru: {
-            "page-title": "ineedmypills - Портфолио",
+            "page-title": "ineedmypills",
             "main-title": "ineedmypills",
             "alt-header-title": "Коктейльчик",
             "full-name": "Глухих Егор Алексеевич",
@@ -1770,7 +1800,7 @@
             "optimal": "Оптимально"
         },
         en: {
-            "page-title": "ineedmypills - Portfolio",
+            "page-title": "ineedmypills",
             "main-title": "ineedmypills",
             "alt-header-title": "Cocktailchik",
             "full-name": "Glukhikh Egor Alekseevich",
@@ -1842,7 +1872,6 @@
     document.addEventListener('DOMContentLoaded', () => {
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
-        const pageTitle = document.getElementById('pageTitle');
         const agePlaceholder = document.getElementById('agePlaceholder');
         const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
         const BIRTH_DATE = '2006-06-12';
@@ -1870,13 +1899,13 @@
                     .filter(cb => cb.checked)
                     .map(cb => cb.value);
 
-                const noItemsSelected = selectedItems.length === 0;
+                const isEffectivelyEmpty = selectedItems.length === 0 || (selectedItems.length === 1 && selectedItems[0] === 'header');
 
-                copyLinkButton.disabled = noItemsSelected;
-                shareLinkInput.style.opacity = noItemsSelected ? 0.5 : 1;
-                shareLinkInput.style.pointerEvents = noItemsSelected ? 'none' : 'auto';
+                copyLinkButton.disabled = isEffectivelyEmpty;
+                shareLinkInput.style.opacity = isEffectivelyEmpty ? 0.5 : 1;
+                shareLinkInput.style.pointerEvents = isEffectivelyEmpty ? 'none' : 'auto';
 
-                if (noItemsSelected) {
+                if (isEffectivelyEmpty) {
                     shareLinkInput.value = '';
                     return;
                 }
@@ -1996,22 +2025,16 @@
 
         function applyLanguage(lang) {
             html.setAttribute('lang', lang);
-            const elements = document.querySelectorAll('.translate-element');
-            pageTitle.textContent = translations[lang]["page-title"];
-
-            elements.forEach(el => {
+            document.querySelectorAll('.translate-element').forEach(el => {
                 const key = el.getAttribute('data-key');
                 if (key && translations[lang]?.[key]) {
-                    if (el.id === 'copyLinkButton' && el.disabled) return;
-                    if (el.id === 'main-header-title') return;
-                    el.textContent = translations[lang][key];
+                    el.innerHTML = translations[lang][key];
                 }
             });
-
+            document.title = translations[lang]['page-title'] || 'ineedmypills';
             if (shareButton) {
                 shareButton.setAttribute('aria-label', translations[lang]['share-button-aria']);
             }
-
             displayAge(lang);
         }
 
@@ -2130,8 +2153,6 @@
                 const textEl = el.querySelector('.crypto-commission');
                 if (!textEl) return;
 
-                const originalTextKey = textEl.dataset.key || 'copy-to-clipboard';
-
                 el.addEventListener('click', () => {
                     const address = el.dataset.address;
                     if (!address) return;
@@ -2139,9 +2160,9 @@
                     if (lastCopied.element && lastCopied.element !== el) {
                         clearTimeout(lastCopied.timeoutId);
                         const prevTextEl = lastCopied.element.querySelector('.crypto-commission');
-                        const prevLang = document.documentElement.lang || 'ru';
+                        const currentLang = document.documentElement.lang || 'ru';
                         if (prevTextEl) {
-                            prevTextEl.textContent = translations[prevLang][prevTextEl.dataset.key || 'copy-to-clipboard'];
+                            prevTextEl.textContent = translations[currentLang]['copy-to-clipboard'];
                             lastCopied.element.classList.remove('is-copied');
                         }
                     }
@@ -2157,7 +2178,7 @@
 
                         lastCopied.element = el;
                         lastCopied.timeoutId = setTimeout(() => {
-                            const originalText = translations[currentLang][originalTextKey];
+                            const originalText = translations[currentLang]['copy-to-clipboard'];
                             textEl.textContent = originalText;
                             el.classList.remove('is-copied');
                             if (lastCopied.element === el) {
@@ -2177,12 +2198,10 @@
             applyTheme(newTheme);
         });
 
-        // Оптимизация: Делегирование событий для кликабельных карточек
         document.body.addEventListener('click', e => {
             const card = e.target.closest('[data-url]');
             if (!card) return;
 
-            // Предотвращаем переход по ссылке, если клик был по вложенной ссылке или интерактивному бейджу
             if (e.target.closest('a, .tech-badge')) {
                 return;
             }
