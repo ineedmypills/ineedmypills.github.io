@@ -1681,6 +1681,11 @@
             </label>
             <div class="share-options-subgroup" id="header-options-subgroup">
                 <label class="custom-checkbox">
+                    <input type="checkbox" value="full_name" checked>
+                    <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
+                    <span class="translate-element" data-key="share-full-name">ФИО</span>
+                </label>
+                <label class="custom-checkbox">
                     <input type="checkbox" value="subtitle" checked>
                     <span class="checkbox-visual"><span class="material-icons-outlined check-icon">check</span></span>
                     <span class="translate-element" data-key="share-subtitle">Подзаголовок</span>
@@ -1797,12 +1802,13 @@
             "share-header": "Заголовок",
             "share-alt-header": "Альтернативный заголовок",
             "share-subtitle": "Подзаголовок",
+            "share-full-name": "ФИО",
             "optimal": "Оптимально"
         },
         en: {
             "page-title": "ineedmypills",
             "main-title": "ineedmypills",
-            "alt-header-title": "Cocktailchik",
+            "alt-header-title": "Milky",
             "full-name": "Glukhikh Egor Alekseevich",
             "specialist": "Beginning versatile IT \"specialist\"",
             "skills-title": "Technical Skills",
@@ -1865,6 +1871,7 @@
             "share-header": "Header",
             "share-alt-header": "Alternative Header",
             "share-subtitle": "Subtitle",
+            "share-full-name": "Full Name",
             "optimal": "Optimal"
         }
     };
@@ -1887,34 +1894,48 @@
             const shareCheckboxes = shareOptions.querySelectorAll('input[type="checkbox"]');
             const shareLinkInput = document.getElementById('shareLinkInput');
             const copyLinkButton = document.getElementById('copyLinkButton');
+            const linkWrapper = copyLinkButton.parentElement;
 
             const headerCheckbox = shareOptions.querySelector('input[value="header"]');
             const altHeaderCheckbox = shareOptions.querySelector('input[value="alt_header"]');
             const subtitleCheckbox = shareOptions.querySelector('input[value="subtitle"]');
+            const fullNameCheckbox = shareOptions.querySelector('input[value="full_name"]');
             const headerSubgroup = document.getElementById('header-options-subgroup');
 
 
             const generateShareLink = () => {
-                const selectedItems = Array.from(shareCheckboxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.value);
+                const selectedValues = new Set(
+                    Array.from(shareCheckboxes)
+                        .filter(cb => cb.checked)
+                        .map(cb => cb.value)
+                );
 
-                const isEffectivelyEmpty = selectedItems.length === 0 || (selectedItems.length === 1 && selectedItems[0] === 'header');
+                const sectionItems = new Set(['skills', 'projects', 'education', 'about', 'contacts', 'support']);
+                const hasAtLeastOneSection = [...selectedValues].some(item => sectionItems.has(item));
+                const isEffectivelyEmpty = selectedValues.size === 0;
+                const isInvalid = !isEffectivelyEmpty && !hasAtLeastOneSection && selectedValues.has('header');
 
-                copyLinkButton.disabled = isEffectivelyEmpty;
-                shareLinkInput.style.opacity = isEffectivelyEmpty ? 0.5 : 1;
-                shareLinkInput.style.pointerEvents = isEffectivelyEmpty ? 'none' : 'auto';
+                copyLinkButton.disabled = isEffectivelyEmpty || isInvalid;
+                linkWrapper.style.opacity = (isEffectivelyEmpty || isInvalid) ? 0.5 : 1;
+                linkWrapper.style.pointerEvents = (isEffectivelyEmpty || isInvalid) ? 'none' : 'auto';
 
-                if (isEffectivelyEmpty) {
+                if (isEffectivelyEmpty || isInvalid) {
                     shareLinkInput.value = '';
                     return;
                 }
 
-                if (selectedItems.length === shareCheckboxes.length) {
+                const allCheckboxValues = new Set(Array.from(shareCheckboxes).map(cb => cb.value));
+                const defaultValues = new Set(allCheckboxValues);
+                defaultValues.delete('alt_header');
+
+                const setsAreEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
+                const isDefaultState = setsAreEqual(selectedValues, defaultValues);
+
+                if (isDefaultState) {
                     shareLinkInput.value = window.location.origin + window.location.pathname;
                 } else {
                     const params = new URLSearchParams();
-                    params.set('show', selectedItems.join(','));
+                    params.set('show', [...selectedValues].join(','));
                     shareLinkInput.value = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
                 }
             };
@@ -1943,13 +1964,13 @@
                 checkbox.addEventListener('change', generateShareLink);
             });
 
-            if (headerCheckbox && subtitleCheckbox && altHeaderCheckbox && headerSubgroup) {
+            if (headerCheckbox && subtitleCheckbox && altHeaderCheckbox && fullNameCheckbox && headerSubgroup) {
                 const updateHeaderDependencies = () => {
                     const isHeaderChecked = headerCheckbox.checked;
 
                     headerSubgroup.style.opacity = isHeaderChecked ? 1 : 0.5;
 
-                    [subtitleCheckbox, altHeaderCheckbox].forEach(cb => {
+                    [subtitleCheckbox, altHeaderCheckbox, fullNameCheckbox].forEach(cb => {
                         const label = cb.parentElement;
                         cb.disabled = !isHeaderChecked;
                         label.style.cursor = isHeaderChecked ? 'pointer' : 'not-allowed';
@@ -1990,6 +2011,8 @@
                 const visibleItems = new Set(sectionsToShowParam.split(','));
                 const header = document.querySelector('header');
                 const subtitle = document.getElementById('header-subtitle');
+                const nameEl = document.getElementById('main-header-name');
+                const mainTitleEl = document.getElementById('main-header-title');
 
                 if (shareButton) shareButton.style.display = 'none';
                 if (themeToggle) themeToggle.style.display = 'none';
@@ -1997,12 +2020,15 @@
                 if (header) {
                     if (visibleItems.has('header')) {
                         header.style.display = 'block';
-                        const isAlt = visibleItems.has('alt_header');
-                        const mainTitleEl = document.getElementById('main-header-title');
-                        const nameEl = document.getElementById('main-header-name');
-                        if (mainTitleEl) mainTitleEl.textContent = isAlt ? translations.ru['alt-header-title'] : translations.ru['main-title'];
-                        if (nameEl) nameEl.style.display = isAlt ? 'none' : 'block';
+                        const currentLang = document.documentElement.lang || 'ru';
 
+                        if (visibleItems.has('alt_header')) {
+                            if (mainTitleEl) mainTitleEl.textContent = translations[currentLang]['alt-header-title'];
+                        }
+
+                        if (nameEl && !visibleItems.has('full_name')) {
+                            nameEl.style.display = 'none';
+                        }
                         if (subtitle && !visibleItems.has('subtitle')) {
                             subtitle.style.display = 'none';
                         }
@@ -2231,13 +2257,13 @@
         const browserLang = navigator.language || navigator.userLanguage;
         const initialLang = browserLang.startsWith('ru') ? 'ru' : 'en';
 
+        applyTheme(savedTheme);
+        applyLanguage(initialLang);
         handleSharedLinkView();
         setupInterestLink('gamedev-interest-badge', 'games-projects');
         setupInterestLink('software-interest-badge', 'software-projects');
         setupRunawayButton();
         setupCopyToClipboard();
-        applyTheme(savedTheme);
-        applyLanguage(initialLang);
     });
 </script>
 
