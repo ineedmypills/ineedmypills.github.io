@@ -461,47 +461,51 @@
             font-size: var(--font-size-base);
         }
 
-        .theme-switch, .share-button {
+        .header-actions {
             position: absolute;
             top: 20px;
-            background: rgba(0, 0, 0, 0.15);
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
-            width: 42px;
-            height: 42px;
+            border-radius: 25px;
+            padding: 5px;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-action-btn {
+            position: relative;
+            background: transparent;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
             padding: 0;
-            border-radius: 10px;
             cursor: pointer;
             display: grid;
             place-items: center;
-            transition: var(--transition-smooth);
-        }
-        .share-button {
-            left: 20px;
-        }
-        .theme-switch {
-            right: 20px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            color: var(--text-secondary);
         }
 
-        .theme-switch:hover, .share-button:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: var(--shadow-sm);
+        .header-action-btn:hover {
             background: var(--primary);
+            color: white;
         }
 
-        [data-theme="light"] .theme-switch,
-        [data-theme="light"] .share-button {
-            background: rgba(0, 0, 0, 0.05);
-            border-color: rgba(0,0,0,0.08);
-        }
-
-        .theme-icon, .share-button .material-icons-outlined {
+        .header-action-btn .material-icons-outlined {
             grid-area: 1 / 1;
-            transition: opacity 0.3s ease;
-            color: var(--text);
+            transition: opacity 0.3s ease, color 0.3s ease;
             font-size: 22px;
         }
 
-        [data-theme="light"] .theme-icon { color: #1e293b; }
+        [data-theme="light"] .header-action-btn { color: var(--text); }
+        [data-theme="light"] .header-action-btn:hover { color: white; }
 
         .sun-icon { opacity: 0; }
         .moon-icon { opacity: 1; }
@@ -567,6 +571,13 @@
         }
         .python-tech { background: rgba(55, 118, 171, 0.15); color: #4B8BBE; }
         [data-theme="light"] .python-tech { background: rgba(55, 118, 171, 0.1); color: #3776ab; }
+        .lts-badge {
+            background: rgba(14, 165, 233, 0.15);
+            color: var(--secondary);
+        }
+        [data-theme="light"] .lts-badge {
+            background: rgba(14, 165, 233, 0.1);
+        }
 
         .course-container {
             margin-top: 15px;
@@ -1201,8 +1212,16 @@
                 font-size: 1.8rem;
                 margin-top: 45px;
             }
-            .share-button { left: 15px; top: 15px; width: 38px; height: 38px; }
-            .theme-switch { right: 15px; top: 15px; width: 38px; height: 38px; }
+            .header-actions {
+                top: 15px;
+                right: 15px;
+                padding: 4px;
+                gap: 4px;
+            }
+            .header-action-btn {
+                width: 36px;
+                height: 36px;
+            }
 
             .subtitle { font-size: 1rem; }
             .section-title { font-size: 1.2rem; }
@@ -1297,13 +1316,15 @@
 
 <div class="container">
     <header>
-        <button class="share-button" id="shareButton" aria-label="Поделиться">
-            <span class="material-icons-outlined">share</span>
-        </button>
-        <button class="theme-switch" id="themeToggle" aria-label="Переключить тему">
-            <span class="material-icons-outlined theme-icon sun-icon">light_mode</span>
-            <span class="material-icons-outlined theme-icon moon-icon">dark_mode</span>
-        </button>
+        <div class="header-actions">
+            <button class="header-action-btn" id="shareButton" aria-label="Поделиться">
+                <span class="material-icons-outlined">share</span>
+            </button>
+            <button class="header-action-btn" id="themeToggle" aria-label="Переключить тему">
+                <span class="material-icons-outlined theme-icon sun-icon">light_mode</span>
+                <span class="material-icons-outlined theme-icon moon-icon">dark_mode</span>
+            </button>
+        </div>
 
         <h1 class="translate-element" id="main-header-title" data-key="main-title">ineedmypills</h1>
         <p class="name-subtitle translate-element" id="main-header-name" data-key="full-name">Глухих Егор Алексеевич</p>
@@ -1355,7 +1376,12 @@
                                 <p class="project-desc translate-element" data-key="fh3-desc">Неофициальное переиздание игры Final Hours 3</p>
                             </div>
                             <div class="card-footer">
-                                <div class="footer-group-left"></div>
+                                <div class="footer-group-left">
+                                    <div class="tech-badge lts-badge">
+                                        <span class="material-icons-outlined">update</span>
+                                        <span class="translate-element" data-key="lts">Долгосрочная поддержка</span>
+                                    </div>
+                                </div>
                                 <div class="status-badge status-badge--completed">
                                     <span class="material-icons-outlined">check</span>
                                     <span class="translate-element" data-key="completed">Завершенный проект</span>
@@ -1803,7 +1829,8 @@
             "share-alt-header": "Альтернативный заголовок",
             "share-subtitle": "Подзаголовок",
             "share-full-name": "ФИО",
-            "optimal": "Оптимально"
+            "optimal": "Оптимально",
+            "lts": "Долгосрочная поддержка"
         },
         en: {
             "page-title": "ineedmypills",
@@ -1872,7 +1899,8 @@
             "share-alt-header": "Alternative Header",
             "share-subtitle": "Subtitle",
             "share-full-name": "Full Name",
-            "optimal": "Optimal"
+            "optimal": "Optimal",
+            "lts": "Long Term Support"
         }
     };
 
