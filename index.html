@@ -93,6 +93,25 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Стили для скроллбара */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--card-border);
+            border-radius: 20px;
+            border: 3px solid var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--primary);
+        }
+
         h1, h2, h3, p, .contact-value, .project-desc, .specialization-desc, .about-paragraph, .secondary-edu-text, .info-item span {
             user-select: text;
         }
@@ -2043,7 +2062,6 @@
                 const mainTitleEl = document.getElementById('main-header-title');
 
                 if (shareButton) shareButton.style.display = 'none';
-                if (themeToggle) themeToggle.style.display = 'none';
 
                 if (header) {
                     if (visibleItems.has('header')) {
@@ -2281,12 +2299,31 @@
 
         elementsToAnimate.forEach(el => observer.observe(el));
 
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        // --- ИНИЦИАЛИЗАЦИЯ ---
+
+        // 1. Определяем и применяем тему: 1. localStorage, 2. Системная, 3. По умолчанию
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else {
+            // Если в localStorage темы нет, используем системную
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(prefersDark ? 'dark' : 'light');
+        }
+
+        // Слушаем изменения системной темы, если пользователь не выбрал свою
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                applyTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+
+        // 2. Определяем и применяем язык
         const browserLang = navigator.language || navigator.userLanguage;
         const initialLang = browserLang.startsWith('ru') ? 'ru' : 'en';
-
-        applyTheme(savedTheme);
         applyLanguage(initialLang);
+
+        // 3. Обрабатываем "поделенные" ссылки и запускаем остальные скрипты
         handleSharedLinkView();
         setupInterestLink('gamedev-interest-badge', 'games-projects');
         setupInterestLink('software-interest-badge', 'software-projects');
