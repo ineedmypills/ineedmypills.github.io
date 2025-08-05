@@ -1,5 +1,6 @@
 ﻿
-const translations = {
+(() => {
+    const translations = {
         ru: {
             "page-title": "ineedmypills",
             "main-title": "ineedmypills",
@@ -142,410 +143,376 @@ const translations = {
         }
     };
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const themeToggle = document.getElementById('themeToggle');
-        const html = document.documentElement;
-        const agePlaceholder = document.getElementById('agePlaceholder');
-        const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
-        const BIRTH_DATE = '2006-06-12';
+    const BIRTH_DATE = '2006-06-12';
 
-        // --- КОД ДЛЯ ФУНКЦИИ "ПОДЕЛИТЬСЯ" ---
-        const shareButton = document.getElementById('shareButton');
-        const shareModal = document.getElementById('shareModal');
-        const allSections = document.querySelectorAll('main.content > section[id]');
+    const state = {
+        lang: 'ru',
+        theme: 'light',
+    };
 
-        if (shareModal) {
-            const shareModalCloseButton = document.getElementById('shareModalCloseButton');
-            const shareOptions = document.getElementById('shareOptions');
-            const shareCheckboxes = shareOptions.querySelectorAll('input[type="checkbox"]');
-            const shareLinkInput = document.getElementById('shareLinkInput');
-            const copyLinkButton = document.getElementById('copyLinkButton');
-            const linkWrapper = copyLinkButton.parentElement;
+    const selectors = {
+        themeToggle: '#themeToggle',
+        agePlaceholder: '#agePlaceholder',
+        shareButton: '#shareButton',
+        shareModal: '#shareModal',
+        shareModalClose: '#shareModalCloseButton',
+        shareOptions: '#shareOptions',
+        shareLinkInput: '#shareLinkInput',
+        copyLinkButton: '#copyLinkButton',
+        headerOptionsSubgroup: '#header-options-subgroup',
+        youtuberButton: '#youtuber-button',
+        gamedevInterestBadge: '#gamedev-interest-badge',
+        softwareInterestBadge: '#software-interest-badge',
+        translatableElement: '[data-key]',
+        animateOnScroll: '.animate-on-scroll',
+        staggerChild: '.stagger-child',
+        cryptoButton: '[data-address]',
+        awardBadge: '[data-award-url]',
+        contentSection: 'main.content > section[id]',
+    };
 
-            const headerCheckbox = shareOptions.querySelector('input[value="header"]');
-            const altHeaderCheckbox = shareOptions.querySelector('input[value="alt_header"]');
-            const subtitleCheckbox = shareOptions.querySelector('input[value="subtitle"]');
-            const fullNameCheckbox = shareOptions.querySelector('input[value="full_name"]');
-            const headerSubgroup = document.getElementById('header-options-subgroup');
+    const getElement = (selector) => document.querySelector(selector);
+    const getElements = (selector) => document.querySelectorAll(selector);
 
+    const applyLanguage = (lang) => {
+        state.lang = lang;
+        document.documentElement.lang = lang;
+        document.title = translations[lang]['page-title'] ?? 'ineedmypills';
 
-            const generateShareLink = () => {
-                const selectedValues = new Set(
-                    Array.from(shareCheckboxes)
-                        .filter(cb => cb.checked)
-                        .map(cb => cb.value)
-                );
-
-                const sectionItems = new Set(['skills', 'projects', 'education', 'about', 'contacts', 'support']);
-                const hasAtLeastOneSection = [...selectedValues].some(item => sectionItems.has(item));
-                const isEffectivelyEmpty = selectedValues.size === 0;
-                const isInvalid = !isEffectivelyEmpty && !hasAtLeastOneSection && selectedValues.has('header');
-
-                copyLinkButton.disabled = isEffectivelyEmpty || isInvalid;
-                linkWrapper.style.opacity = (isEffectivelyEmpty || isInvalid) ? 0.5 : 1;
-                linkWrapper.style.pointerEvents = (isEffectivelyEmpty || isInvalid) ? 'none' : 'auto';
-
-                if (isEffectivelyEmpty || isInvalid) {
-                    shareLinkInput.value = '';
-                    return;
-                }
-
-                const allCheckboxValues = new Set(Array.from(shareCheckboxes).map(cb => cb.value));
-                const defaultValues = new Set(allCheckboxValues);
-                defaultValues.delete('alt_header');
-
-                const setsAreEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
-                const isDefaultState = setsAreEqual(selectedValues, defaultValues);
-
-                if (isDefaultState) {
-                    shareLinkInput.value = window.location.origin + window.location.pathname;
-                } else {
-                    const params = new URLSearchParams();
-                    params.set('show', [...selectedValues].join(','));
-                    shareLinkInput.value = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-                }
-            };
-
-            const openShareModal = () => {
-                generateShareLink();
-                document.body.classList.add('modal-is-open');
-                shareModal.classList.remove('hidden');
-            };
-
-            const closeShareModal = () => {
-                document.body.classList.remove('modal-is-open');
-                shareModal.classList.add('hidden');
-            };
-
-            shareButton.addEventListener('click', openShareModal);
-            shareModalCloseButton.addEventListener('click', closeShareModal);
-
-            shareModal.addEventListener('click', (e) => {
-                if (e.target === shareModal) {
-                    closeShareModal();
-                }
-            });
-
-            shareCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', generateShareLink);
-            });
-
-            if (headerCheckbox && subtitleCheckbox && altHeaderCheckbox && fullNameCheckbox && headerSubgroup) {
-                const updateHeaderDependencies = () => {
-                    const isHeaderChecked = headerCheckbox.checked;
-
-                    headerSubgroup.style.opacity = isHeaderChecked ? 1 : 0.5;
-
-                    [subtitleCheckbox, altHeaderCheckbox, fullNameCheckbox].forEach(cb => {
-                        const label = cb.parentElement;
-                        cb.disabled = !isHeaderChecked;
-                        label.style.cursor = isHeaderChecked ? 'pointer' : 'not-allowed';
-                        if (!isHeaderChecked) cb.checked = false;
-                    });
-                };
-
-                headerCheckbox.addEventListener('change', () => {
-                    updateHeaderDependencies();
-                    generateShareLink();
-                });
-                updateHeaderDependencies();
+        getElements(selectors.translatableElement).forEach(el => {
+            const key = el.dataset.key;
+            if (key && translations[lang]?.[key]) {
+                el.textContent = translations[lang][key];
             }
+        });
 
-            copyLinkButton.addEventListener('click', () => {
-                if (!navigator.clipboard || copyLinkButton.disabled) return;
-                navigator.clipboard.writeText(shareLinkInput.value).then(() => {
-                    const currentLang = document.documentElement.lang || 'ru';
-                    const originalText = translations[currentLang]['share-copy'];
-                    const copiedText = translations[currentLang]['share-copied'];
+        getElement(selectors.shareButton)?.setAttribute('aria-label', translations[lang]['share-button-aria']);
+        displayAge();
+    };
 
-                    copyLinkButton.textContent = copiedText;
-                    copyLinkButton.disabled = true;
+    const initLanguage = () => {
+        const browserLang = navigator.language || navigator.userLanguage;
+        applyLanguage(browserLang.startsWith('ru') ? 'ru' : 'en');
+    };
 
-                    setTimeout(() => {
-                        copyLinkButton.textContent = originalText;
-                        generateShareLink();
-                    }, 2000);
-                });
-            });
+    const applyTheme = (theme) => {
+        state.theme = theme;
+        document.documentElement.setAttribute('data-theme', theme);
+        try {
+            localStorage.setItem('theme', theme);
+        } catch (e) {
+            console.warn('LocalStorage is not available.');
+        }
+    };
+
+    const initTheme = () => {
+        const themeToggle = getElement(selectors.themeToggle);
+        if (!themeToggle) return;
+
+        themeToggle.addEventListener('click', () => {
+            const newTheme = state.theme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+
+        try {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+            applyTheme(savedTheme ?? (prefersDark ? 'dark' : 'light'));
+        } catch (e) {
+            console.warn('LocalStorage is not available, using default theme.');
+            applyTheme('light');
         }
 
-        const handleSharedLinkView = () => {
-            const params = new URLSearchParams(window.location.search);
-            const sectionsToShowParam = params.get('show');
-
-            if (sectionsToShowParam) {
-                const visibleItems = new Set(sectionsToShowParam.split(','));
-                const header = document.querySelector('header');
-                const subtitle = document.getElementById('header-subtitle');
-                const nameEl = document.getElementById('main-header-name');
-                const mainTitleEl = document.getElementById('main-header-title');
-
-                if (shareButton) shareButton.style.display = 'none';
-
-                if (header) {
-                    if (visibleItems.has('header')) {
-                        header.style.display = 'block';
-                        const currentLang = document.documentElement.lang || 'ru';
-
-                        if (visibleItems.has('alt_header')) {
-                            if (mainTitleEl) mainTitleEl.textContent = translations[currentLang]['alt-header-title'];
-                        }
-
-                        if (nameEl && !visibleItems.has('full_name')) {
-                            nameEl.style.display = 'none';
-                        }
-                        if (subtitle && !visibleItems.has('subtitle')) {
-                            subtitle.style.display = 'none';
-                        }
-                    } else {
-                        header.style.display = 'none';
-                    }
+        window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            try {
+                if (!localStorage.getItem('theme')) {
+                    applyTheme(e.matches ? 'dark' : 'light');
                 }
+            } catch (e) {}
+        });
+    };
 
-                allSections.forEach(section => {
-                    const sectionId = section.id.replace('-section', '');
-                    section.style.display = visibleItems.has(sectionId) ? 'block' : 'none';
+    const calculateAge = (birthDate) => {
+        const today = new Date();
+        const birth = new Date(birthDate);
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+            age--;
+        }
+        return age;
+    };
+
+    const displayAge = () => {
+        const agePlaceholder = getElement(selectors.agePlaceholder);
+        if (!agePlaceholder) return;
+        const age = calculateAge(BIRTH_DATE);
+        agePlaceholder.textContent = state.lang === 'ru' ? `Возраст: ${age} лет` : `Age: ${age} years`;
+    };
+
+    const initScrollAnimations = () => {
+        const observer = new IntersectionObserver((entries, observerInstance) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                entry.target.querySelectorAll(selectors.staggerChild).forEach((child, index) => {
+                    child.style.transitionDelay = `${index * 100}ms`;
                 });
+                observerInstance.unobserve(entry.target);
+            });
+        }, { threshold: 0.1 });
+        getElements(selectors.animateOnScroll).forEach(el => observer.observe(el));
+    };
+
+    const initShareModal = () => {
+        const shareButton = getElement(selectors.shareButton);
+        const shareModal = getElement(selectors.shareModal);
+        if (!shareModal || !shareButton) return;
+
+        const closeButton = getElement(selectors.shareModalClose);
+        const options = getElement(selectors.shareOptions);
+        const checkboxes = options.querySelectorAll('input[type="checkbox"]');
+        const linkInput = getElement(selectors.shareLinkInput);
+        const copyButton = getElement(selectors.copyLinkButton);
+        const headerCheckbox = options.querySelector('input[value="header"]');
+        const headerSubgroup = getElement(selectors.headerOptionsSubgroup);
+
+        const allCheckboxValues = new Set(Array.from(checkboxes).map(cb => cb.value));
+        const defaultValues = new Set(allCheckboxValues);
+        defaultValues.delete('alt_header');
+
+        const generateShareLink = () => {
+            const selected = new Set(Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value));
+            const allSections = new Set(['skills', 'projects', 'education', 'about', 'contacts', 'support']);
+            const hasContent = [...selected].some(item => allSections.has(item));
+            const isInvalid = selected.size > 0 && !hasContent && selected.has('header');
+            const shouldDisable = selected.size === 0 || isInvalid;
+
+            copyButton.disabled = shouldDisable;
+            copyButton.parentElement.style.opacity = shouldDisable ? '0.5' : '1';
+            copyButton.parentElement.style.pointerEvents = shouldDisable ? 'none' : 'auto';
+
+            if (shouldDisable) {
+                linkInput.value = '';
+                return;
             }
+
+            const isDefault = selected.size === defaultValues.size && [...selected].every(v => defaultValues.has(v));
+            const baseUrl = `${window.location.origin}${window.location.pathname}`;
+            linkInput.value = isDefault ? baseUrl : `${baseUrl}?show=${[...selected].join(',')}`;
         };
 
-        function applyTheme(theme) {
-            html.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
+        const updateHeaderDependencies = () => {
+            const isHeaderChecked = headerCheckbox.checked;
+            headerSubgroup.style.opacity = isHeaderChecked ? '1' : '0.5';
+            headerSubgroup.querySelectorAll('input').forEach(cb => {
+                cb.disabled = !isHeaderChecked;
+                cb.parentElement.style.cursor = isHeaderChecked ? 'pointer' : 'not-allowed';
+                if (!isHeaderChecked) cb.checked = false;
+            });
+        };
+
+        const openModal = () => {
+            generateShareLink();
+            shareModal.classList.remove('hidden');
+        };
+        const closeModal = () => shareModal.classList.add('hidden');
+
+        shareButton.addEventListener('click', openModal);
+        closeButton.addEventListener('click', closeModal);
+        shareModal.addEventListener('click', e => e.target === shareModal && closeModal());
+        checkboxes.forEach(cb => cb.addEventListener('change', generateShareLink));
+        headerCheckbox.addEventListener('change', () => {
+            updateHeaderDependencies();
+            generateShareLink();
+        });
+
+        copyButton.addEventListener('click', () => {
+            if (!navigator.clipboard || copyButton.disabled) return;
+            navigator.clipboard.writeText(linkInput.value).then(() => {
+                const originalText = translations[state.lang]['share-copy'];
+                copyButton.textContent = translations[state.lang]['share-copied'];
+                copyButton.disabled = true;
+                setTimeout(() => {
+                    copyButton.textContent = originalText;
+                    generateShareLink();
+                }, 2000);
+            });
+        });
+
+        updateHeaderDependencies();
+    };
+
+    const handleSharedLinkView = () => {
+        const params = new URLSearchParams(window.location.search);
+        const showParam = params.get('show');
+        if (!showParam) return;
+
+        const visibleItems = new Set(showParam.split(','));
+        getElement(selectors.shareButton)?.remove();
+
+        if (visibleItems.has('header')) {
+            if (visibleItems.has('alt_header')) {
+                getElement('#main-header-title').textContent = translations[state.lang]['alt-header-title'];
+            }
+            if (!visibleItems.has('full_name')) {
+                getElement('#main-header-name')?.remove();
+            }
+            if (!visibleItems.has('subtitle')) {
+                getElement('#header-subtitle')?.remove();
+            }
+        } else {
+            getElement('header')?.remove();
         }
 
-        function applyLanguage(lang) {
-            html.setAttribute('lang', lang);
-            document.querySelectorAll('.translate-element').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (key && translations[lang]?.[key]) {
-                    el.innerHTML = translations[lang][key];
+        getElements(selectors.contentSection).forEach(section => {
+            const sectionId = section.id.replace('-section', '');
+            if (!visibleItems.has(sectionId)) {
+                section.remove();
+            }
+        });
+    };
+
+    const setupInterestLink = (buttonId, sectionId) => {
+        const button = getElement(buttonId);
+        const section = getElement(`#${sectionId}`);
+        if (!button || !section) return;
+
+        const highlight = () => {
+            section.querySelectorAll('.project-card').forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('pulse-highlight');
+                    card.addEventListener('animationend', () => card.classList.remove('pulse-highlight'), { once: true });
+                }, index * 150);
+            });
+        };
+
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    highlight();
+                    observer.unobserve(section);
                 }
             });
-            document.title = translations[lang]['page-title'] || 'ineedmypills';
-            if (shareButton) {
-                shareButton.setAttribute('aria-label', translations[lang]['share-button-aria']);
-            }
-            displayAge(lang);
-        }
+        }, { threshold: 0.5 });
 
-        function calculateAge(birthDate) {
-            const today = new Date();
-            const birth = new Date(birthDate);
-            let age = today.getFullYear() - birth.getFullYear();
-            const monthDiff = today.getMonth() - birth.getMonth();
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-                age--;
-            }
-            return age;
-        }
+        button.addEventListener('click', () => {
+            scrollObserver.observe(section);
+            section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    };
 
-        function displayAge(lang) {
-            const age = calculateAge(BIRTH_DATE);
-            if (lang === 'ru') {
-                agePlaceholder.textContent = `Возраст: ${age} лет`;
-            } else {
-                agePlaceholder.textContent = `Age: ${age} years`;
-            }
-        }
+    const initRunawayButton = () => {
+        const button = getElement(selectors.youtuberButton);
+        if (!button) return;
 
-        function setupInterestLink(buttonId, sectionId) {
-            const button = document.getElementById(buttonId);
-            const section = document.getElementById(sectionId);
+        const container = button.parentElement;
+        const LEASH = 35;
+        const ACTIVATION_RADIUS = LEASH * 3.5;
+        let isInitialized = false;
+        let initialTop, initialLeft;
+        let animationFrameId = null;
 
-            if (!button || !section) return;
+        const initPosition = () => {
+            if (isInitialized) return;
+            initialTop = button.offsetTop;
+            initialLeft = button.offsetLeft;
+            button.style.position = 'relative';
+            isInitialized = true;
+        };
 
-            const highlightAnimation = () => {
-                const cards = section.querySelectorAll('.project-card');
-                cards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('pulse-highlight');
-                        card.addEventListener('animationend', () => {
-                            card.classList.remove('pulse-highlight');
-                        }, { once: true });
-                    }, index * 150);
-                });
-            };
+        const onMouseMove = (e) => {
+            initPosition();
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
 
-            const scrollObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        highlightAnimation();
-                        observer.unobserve(section);
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                scrollObserver.observe(section);
-                section.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            });
-        }
-
-        function setupRunawayButton() {
-            const button = document.getElementById('youtuber-button');
-            if (!button) return;
-            const container = button.parentElement;
-
-            let initialTop, initialLeft;
-            let isInitialized = false;
-
-            const leashRadius = 35;
-
-            const initPosition = () => {
-                if (!isInitialized) {
-                    initialTop = button.offsetTop;
-                    initialLeft = button.offsetLeft;
-                    button.style.position = 'relative';
-                    isInitialized = true;
-                }
-            };
-
-            container.addEventListener('mousemove', (e) => {
-                initPosition();
-                const containerRect = container.getBoundingClientRect();
-                const mouseX = e.clientX - containerRect.left;
-                const mouseY = e.clientY - containerRect.top;
-
-                const buttonCenterX = initialLeft + button.offsetWidth / 2;
-                const buttonCenterY = initialTop + button.offsetHeight / 2;
-
-                const dx = mouseX - buttonCenterX;
-                const dy = mouseY - buttonCenterY;
+            animationFrameId = requestAnimationFrame(() => {
+                const rect = container.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                const btnCenterX = initialLeft + button.offsetWidth / 2;
+                const btnCenterY = initialTop + button.offsetHeight / 2;
+                const dx = mouseX - btnCenterX;
+                const dy = mouseY - btnCenterY;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
-                const activationRadius = leashRadius * 3.5;
-
-                if (distance < activationRadius) {
+                if (distance < ACTIVATION_RADIUS) {
                     const angle = Math.atan2(dy, dx);
-                    const force = 1 - (distance / activationRadius);
-
-                    const moveX = -Math.cos(angle) * leashRadius * force;
-                    const moveY = -Math.sin(angle) * leashRadius * force;
-
+                    const force = 1 - (distance / ACTIVATION_RADIUS);
+                    const moveX = -Math.cos(angle) * LEASH * force;
+                    const moveY = -Math.sin(angle) * LEASH * force;
                     button.style.transform = `translate(${moveX}px, ${moveY}px)`;
                 } else {
                     button.style.transform = 'translate(0, 0)';
                 }
             });
+        };
 
-            container.addEventListener('mouseleave', () => {
-                if (isInitialized) {
-                    button.style.transform = 'translate(0, 0)';
-                }
-            });
-        }
+        const onMouseLeave = () => {
+            if (!isInitialized) return;
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            button.style.transform = 'translate(0, 0)';
+        };
 
-        function setupCopyToClipboard() {
-            let lastCopied = { element: null, timeoutId: null };
+        container.addEventListener('mousemove', onMouseMove);
+        container.addEventListener('mouseleave', onMouseLeave);
+    };
 
-            document.querySelectorAll('[data-address]').forEach(el => {
-                const textEl = el.querySelector('.crypto-commission');
-                if (!textEl) return;
-
-                el.addEventListener('click', () => {
-                    const address = el.dataset.address;
-                    if (!address) return;
-
-                    if (lastCopied.element && lastCopied.element !== el) {
-                        clearTimeout(lastCopied.timeoutId);
-                        const prevTextEl = lastCopied.element.querySelector('.crypto-commission');
-                        const currentLang = document.documentElement.lang || 'ru';
-                        if (prevTextEl) {
-                            prevTextEl.textContent = translations[currentLang]['copy-to-clipboard'];
-                            lastCopied.element.classList.remove('is-copied');
-                        }
-                    }
-
-                    if (lastCopied.element === el) return;
-
-                    navigator.clipboard.writeText(address).then(() => {
-                        const currentLang = document.documentElement.lang || 'ru';
-                        const copiedText = translations[currentLang]['copied-feedback'];
-
-                        textEl.textContent = copiedText;
-                        el.classList.add('is-copied');
-
-                        lastCopied.element = el;
-                        lastCopied.timeoutId = setTimeout(() => {
-                            const originalText = translations[currentLang]['copy-to-clipboard'];
-                            textEl.textContent = originalText;
-                            el.classList.remove('is-copied');
-                            if (lastCopied.element === el) {
-                                lastCopied.element = null;
-                                lastCopied.timeoutId = null;
-                            }
-                        }, 2000);
-                    }).catch(err => {
-                        console.error('Failed to copy address: ', err);
-                    });
-                });
-            });
-        }
-
-        themeToggle.addEventListener('click', () => {
-            const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            applyTheme(newTheme);
-        });
+    const initClickDelegation = () => {
+        let lastCopied = { element: null, timeoutId: null };
 
         document.body.addEventListener('click', e => {
-            const card = e.target.closest('[data-url]');
-            if (!card) return;
-
-            if (e.target.closest('a, .tech-badge')) {
+            const awardBadge = e.target.closest(selectors.awardBadge);
+            if (awardBadge) {
+                e.preventDefault();
+                window.open(awardBadge.dataset.awardUrl, '_blank', 'noopener,noreferrer');
                 return;
             }
 
-            const url = card.dataset.url;
-            if (url) {
-                window.open(url, '_blank');
-            }
-        });
+            const cryptoButton = e.target.closest(selectors.cryptoButton);
+            if (cryptoButton) {
+                const address = cryptoButton.dataset.address;
+                const textEl = cryptoButton.querySelector('.crypto-commission');
+                if (!address || !textEl || lastCopied.element === cryptoButton) return;
 
-        const observer = new IntersectionObserver((entries, observerInstance) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    const children = entry.target.querySelectorAll('.stagger-child');
-                    children.forEach((child, index) => {
-                        child.style.transitionDelay = `${index * 100}ms`;
-                    });
-                    observerInstance.unobserve(entry.target);
+                if (lastCopied.element) {
+                    clearTimeout(lastCopied.timeoutId);
+                    const prevTextEl = lastCopied.element.querySelector('.crypto-commission');
+                    if (prevTextEl) {
+                        prevTextEl.textContent = translations[state.lang]['copy-to-clipboard'];
+                        lastCopied.element.classList.remove('is-copied');
+                    }
                 }
-            });
-        }, { threshold: 0.1 });
 
-        elementsToAnimate.forEach(el => observer.observe(el));
+                navigator.clipboard.writeText(address).then(() => {
+                    textEl.textContent = translations[state.lang]['copied-feedback'];
+                    cryptoButton.classList.add('is-copied');
 
-        // --- ИНИЦИАЛИЗАЦИЯ ---
-
-        // 1. Определяем и применяем тему: 1. localStorage, 2. Системная, 3. По умолчанию
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            applyTheme(savedTheme);
-        } else {
-            // Если в localStorage темы нет, используем системную
-            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            applyTheme(prefersDark ? 'dark' : 'light');
-        }
-
-        // Слушаем изменения системной темы, если пользователь не выбрал свою
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (!localStorage.getItem('theme')) {
-                applyTheme(e.matches ? 'dark' : 'light');
+                    lastCopied.element = cryptoButton;
+                    lastCopied.timeoutId = setTimeout(() => {
+                        textEl.textContent = translations[state.lang]['copy-to-clipboard'];
+                        cryptoButton.classList.remove('is-copied');
+                        lastCopied = { element: null, timeoutId: null };
+                    }, 2000);
+                }).catch(err => console.error('Failed to copy address: ', err));
             }
         });
+    };
 
-        // 2. Определяем и применяем язык
-        const browserLang = navigator.language || navigator.userLanguage;
-        const initialLang = browserLang.startsWith('ru') ? 'ru' : 'en';
-        applyLanguage(initialLang);
+    const initInteractiveElements = () => {
+        initClickDelegation();
+        setupInterestLink(selectors.gamedevInterestBadge.substring(1), 'games-projects');
+        setupInterestLink(selectors.softwareInterestBadge.substring(1), 'software-projects');
+        initRunawayButton();
+    };
 
-        // 3. Обрабатываем "поделенные" ссылки и запускаем остальные скрипты
+    const main = () => {
+        initTheme();
+        initLanguage();
         handleSharedLinkView();
-        setupInterestLink('gamedev-interest-badge', 'games-projects');
-        setupInterestLink('software-interest-badge', 'software-projects');
-        setupRunawayButton();
-        setupCopyToClipboard();
-    });
+        initScrollAnimations();
+        initShareModal();
+        initInteractiveElements();
+    };
+
+    document.addEventListener('DOMContentLoaded', main);
+})();
