@@ -51,7 +51,6 @@ export const initShareModal = () => {
     };
 
     const openModal = () => {
-        generateShareLink();
         shareModal.classList.remove('hidden');
     };
     const closeModal = () => shareModal.classList.add('hidden');

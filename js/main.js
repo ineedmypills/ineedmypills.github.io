@@ -10,8 +10,8 @@ import { initShareModal, handleSharedLinkView } from './share.js';
 
 const initInteractiveElements = () => {
     initClickDelegation();
-    setupInterestLink(selectors.gamedevInterestBadge.substring(1), 'games-projects');
-    setupInterestLink(selectors.softwareInterestBadge.substring(1), 'software-projects');
+    setupInterestLink(selectors.gamedevInterestBadge, 'games-projects');
+    setupInterestLink(selectors.softwareInterestBadge, 'software-projects');
     initRunawayButton();
 };
 
