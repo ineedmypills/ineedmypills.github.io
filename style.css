@@ -1,4 +1,5 @@
 ﻿
+
 :root {
     --primary: #8b5cf6;
     --primary-dark: #7c3aed;
@@ -1335,4 +1336,14 @@ a { text-decoration: none; color: inherit; }
     .share-options-subgroup {
         padding-left: 20px;
     }
+}
+
+.project-disclaimer {
+    background-color: var(--card-bg-alpha);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-top: 15px;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
 }

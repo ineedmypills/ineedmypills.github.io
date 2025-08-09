@@ -19,7 +19,9 @@ export const initRunawayButton = () => {
     const button = getElement(selectors.youtuberButton);
     if (!button) return;
 
-    const container = button.parentElement;
+    const container = button.closest('.interests-container');
+    if (!container) return;
+
     const LEASH = 35;
     const ACTIVATION_RADIUS = LEASH * 3.5;
     let isInitialized = false;
@@ -28,8 +30,10 @@ export const initRunawayButton = () => {
 
     const initPosition = () => {
         if (isInitialized) return;
-        initialTop = button.offsetTop;
-        initialLeft = button.offsetLeft;
+        const containerRect = container.getBoundingClientRect();
+        const buttonRect = button.getBoundingClientRect();
+        initialTop = buttonRect.top - containerRect.top;
+        initialLeft = buttonRect.left - containerRect.left;
         button.style.position = 'relative';
         isInitialized = true;
     };

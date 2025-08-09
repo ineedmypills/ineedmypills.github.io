@@ -9,16 +9,22 @@ const translatableElements = getElements(selectors.translatableElement);
 export const applyLanguage = (lang) => {
     state.lang = lang;
     document.documentElement.lang = lang;
-    document.title = translations[lang]['page-title'] ?? 'ineedmypills';
+    document.title = translations[lang]['page-title'] ?? 'ineedmypills - Portfolio';
 
     translatableElements.forEach(el => {
         const key = el.dataset.key;
         if (key && translations[lang]?.[key]) {
-            el.textContent = translations[lang][key];
+            if (el.dataset.allowHtml === 'true') {
+                el.innerHTML = translations[lang][key];
+            } else {
+                el.textContent = translations[lang][key];
+            }
         }
     });
 
     getElement(selectors.shareButton)?.setAttribute('aria-label', translations[lang]['share-button-aria']);
+    getElement(selectors.themeToggle)?.setAttribute('aria-label', translations[lang]['theme-toggle-aria']);
+    getElement(selectors.shareModalCloseButton)?.setAttribute('aria-label', translations[lang]['share-modal-close-aria']);
     displayAge();
 };
 
@@ -79,7 +85,9 @@ export const displayAge = () => {
     const agePlaceholder = getElement(selectors.agePlaceholder);
     if (!agePlaceholder) return;
     const age = calculateAge(BIRTH_DATE);
-    agePlaceholder.textContent = state.lang === 'ru' ? `Возраст: ${age} лет` : `Age: ${age} years`;
+    const prefix = translations[state.lang]['age-prefix'] || 'Age: ';
+    const suffix = translations[state.lang]['age-suffix'] || ' years';
+    agePlaceholder.textContent = `${prefix}${age}${suffix}`;
 };
 
 export const initClickDelegation = () => {
