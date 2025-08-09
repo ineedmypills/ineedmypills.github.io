@@ -4,12 +4,14 @@ import { translations } from './translations.js';
 export const getElement = (selector) => document.querySelector(selector);
 export const getElements = (selector) => document.querySelectorAll(selector);
 
+const translatableElements = getElements(selectors.translatableElement);
+
 export const applyLanguage = (lang) => {
     state.lang = lang;
     document.documentElement.lang = lang;
     document.title = translations[lang]['page-title'] ?? 'ineedmypills';
 
-    getElements(selectors.translatableElement).forEach(el => {
+    translatableElements.forEach(el => {
         const key = el.dataset.key;
         if (key && translations[lang]?.[key]) {
             el.textContent = translations[lang][key];
@@ -21,8 +23,8 @@ export const applyLanguage = (lang) => {
 };
 
 export const initLanguage = () => {
-    const browserLang = navigator.language || navigator.userLanguage;
-    applyLanguage(browserLang.startsWith('ru') ? 'ru' : 'en');
+    const browserLang = (navigator.language || navigator.userLanguage).slice(0, 2);
+    applyLanguage(browserLang === 'ru' ? 'ru' : 'en');
 };
 
 export const applyTheme = (theme) => {
@@ -84,13 +86,6 @@ export const initClickDelegation = () => {
     let lastCopied = { element: null, timeoutId: null };
 
     document.body.addEventListener('click', e => {
-        const awardBadge = e.target.closest(selectors.awardBadge);
-        if (awardBadge) {
-            e.preventDefault();
-            window.open(awardBadge.dataset.awardUrl, '_blank', 'noopener,noreferrer');
-            return;
-        }
-
         const cryptoButton = e.target.closest(selectors.cryptoButton);
         if (cryptoButton) {
             const address = cryptoButton.dataset.address;
