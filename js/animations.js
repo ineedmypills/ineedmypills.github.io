@@ -7,7 +7,7 @@ export const initScrollAnimations = () => {
             if (!entry.isIntersecting) return;
             entry.target.classList.add('is-visible');
             entry.target.querySelectorAll(selectors.staggerChild).forEach((child, index) => {
-                child.style.transitionDelay = `${index * 100}ms`;
+                child.style.transitionDelay = `${index * 120}ms`;
             });
             observerInstance.unobserve(entry.target);
         });
