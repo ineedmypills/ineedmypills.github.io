@@ -4,9 +4,8 @@ import { translations } from './translations.js';
 export const getElement = (selector) => document.querySelector(selector);
 export const getElements = (selector) => document.querySelectorAll(selector);
 
-const translatableElements = getElements(selectors.translatableElement);
-
 export const applyLanguage = (lang) => {
+    const translatableElements = getElements(selectors.translatableElement);
     state.lang = lang;
     document.documentElement.lang = lang;
     document.title = translations[lang]['page-title'] ?? 'ineedmypills - Portfolio';
@@ -24,11 +23,36 @@ export const applyLanguage = (lang) => {
 
     getElement(selectors.shareButton)?.setAttribute('aria-label', translations[lang]['share-button-aria']);
     getElement(selectors.themeToggle)?.setAttribute('aria-label', translations[lang]['theme-toggle-aria']);
+    getElement(selectors.langToggle)?.setAttribute('aria-label', translations[lang]['lang-toggle-aria']);
     getElement(selectors.shareModalCloseButton)?.setAttribute('aria-label', translations[lang]['share-modal-close-aria']);
     displayAge();
+
+    try {
+        localStorage.setItem('lang', lang);
+    } catch (e) {
+        console.warn('LocalStorage is not available.');
+    }
 };
 
 export const initLanguage = () => {
+    const langToggle = getElement(selectors.langToggle);
+    if (langToggle) {
+        langToggle.addEventListener('click', () => {
+            const newLang = state.lang === 'ru' ? 'en' : 'ru';
+            applyLanguage(newLang);
+        });
+    }
+
+    try {
+        const savedLang = localStorage.getItem('lang');
+        if (savedLang) {
+            applyLanguage(savedLang);
+            return;
+        }
+    } catch (e) {
+        console.warn('LocalStorage is not available.');
+    }
+
     const browserLang = (navigator.language || navigator.userLanguage).slice(0, 2);
     applyLanguage(browserLang === 'ru' ? 'ru' : 'en');
 };

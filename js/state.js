@@ -7,6 +7,7 @@ export const BIRTH_DATE = '2006-06-12';
 
 export const selectors = {
     themeToggle: '#themeToggle',
+    langToggle: '#langToggle',
     agePlaceholder: '#agePlaceholder',
     shareButton: '#shareButton',
     shareModal: '#shareModal',
