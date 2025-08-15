@@ -1,0 +1,9 @@
+127.0.0.1 - - [15/Aug/2025 15:57:25] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Aug/2025 15:57:25] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [15/Aug/2025 15:57:25] "GET /js/main.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Aug/2025 15:57:25] "GET /js/animations.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Aug/2025 15:57:25] "GET /js/state.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Aug/2025 15:57:25] "GET /js/share.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Aug/2025 15:57:25] "GET /js/ui.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Aug/2025 15:57:25] "GET /js/translations.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Aug/2025 15:57:26] "GET /index.html?show=header,alt_header,full_name,subtitle HTTP/1.1" 200 -
