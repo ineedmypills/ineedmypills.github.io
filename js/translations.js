@@ -2,8 +2,9 @@ export const translations = {
     ru: {
         "page-title": "ineedmypills - Портфолио",
         "main-title": "ineedmypills",
-        "full-name": "Коктейльчик",
-        "specialist": "Начинающий многосторонне развитый IT-\"специалист\"",
+        "alt-header-title": "Коктейльчик",
+        "full-name": "Глухих Егор Алексеевич",
+        "specialist": "Начинающий многосторонне развитый IT-\"специалист\"/Aspiring multi-talented IT-\"specialist\"",
         "skills-title": "Технические навыки",
         "lang-title": "Языки программирования",
         "software-title": "Программное обеспечение",
@@ -79,8 +80,9 @@ export const translations = {
     en: {
         "page-title": "ineedmypills - Portfolio",
         "main-title": "ineedmypills",
-        "full-name": "Коктейльчик",
-        "specialist": "Aspiring multi-talented IT \"specialist\"",
+        "alt-header-title": "Milky",
+        "full-name": "Глухих Егор Алексеевич",
+        "specialist": "Начинающий многосторонне развитый IT-\"специалист\"/Aspiring multi-talented IT-\"specialist\"",
         "skills-title": "Technical Skills",
         "lang-title": "Programming Languages",
         "software-title": "Software",
