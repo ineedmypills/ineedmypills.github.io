@@ -593,6 +593,23 @@ a { text-decoration: none; color: inherit; }
     color: var(--text);
 }
 
+.subgroup {
+    margin-top: 10px;
+}
+
+.subgroup:first-of-type {
+    margin-top: 20px;
+}
+
+.subgroup-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--card-border);
+}
+
 .tech-badge {
     padding: 5px 12px;
     border-radius: 20px;
