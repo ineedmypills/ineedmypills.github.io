@@ -449,6 +449,7 @@ section:last-child { margin-bottom: 0; }
 }
 .status-badge--completed { background: rgba(16, 185, 129, 0.1); color: var(--success); }
 .status-badge--in-progress { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+.status-badge--ready { background: rgba(59, 130, 246, 0.1); color: var(--info); }
 
 .awards-container {
     display: flex;
@@ -622,6 +623,8 @@ a { text-decoration: none; color: inherit; }
 }
 .python-tech { background: rgba(55, 118, 171, 0.1); color: #3776ab; }
 [data-theme="dark"] .python-tech { background: rgba(55, 118, 171, 0.15); color: #4B8BBE; }
+.csharp-tech { background: rgba(100, 50, 150, 0.1); color: #643296; }
+[data-theme="dark"] .csharp-tech { background: rgba(100, 50, 150, 0.15); color: #7D40B3; }
 .lts-badge {
     background: rgba(14, 165, 233, 0.1);
     color: var(--secondary);
