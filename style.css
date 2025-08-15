@@ -299,6 +299,7 @@ section:last-child { margin-bottom: 0; }
 }
 
 .skill-cpp { background: #00599c; color: white; --focus-color: #00599c; }
+.skill-csharp { background: #68217a; color: white; --focus-color: #68217a; }
 .skill-java { background: #5382a1; color: #f0f0f0; --focus-color: #5382a1; }
 .skill-python { background: #3776ab; color: #f0f0f0; --focus-color: #3776ab; }
 .skill-sql { background: #007bff; color: white; --focus-color: #007bff; }
