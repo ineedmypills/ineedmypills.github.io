@@ -4,9 +4,8 @@ import { translations } from './translations.js';
 export const getElement = (selector) => document.querySelector(selector);
 export const getElements = (selector) => document.querySelectorAll(selector);
 
-const translatableElements = getElements(selectors.translatableElement);
-
 export const applyLanguage = (lang) => {
+    const translatableElements = getElements(selectors.translatableElement);
     state.lang = lang;
     document.documentElement.lang = lang;
     document.title = translations[lang]['page-title'] ?? 'ineedmypills - Portfolio';
