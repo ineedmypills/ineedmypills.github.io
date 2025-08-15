@@ -1,37 +1,33 @@
-import { state, BIRTH_DATE, selectors } from './state.js';
+import { state, selectors } from './state.js';
+import { personalInfo } from './data.js';
 import { translations } from './translations.js';
 
 export const getElement = (selector) => document.querySelector(selector);
 export const getElements = (selector) => document.querySelectorAll(selector);
 
 export const applyLanguage = (lang) => {
-    const translatableElements = getElements(selectors.translatableElement);
     state.lang = lang;
     document.documentElement.lang = lang;
     document.title = translations[lang]['page-title'] ?? 'ineedmypills - Portfolio';
 
-    translatableElements.forEach(el => {
+    getElements(selectors.translatableElement).forEach(el => {
         const key = el.dataset.key;
         if (key && translations[lang]?.[key]) {
-            if (el.dataset.allowHtml === 'true') {
-                el.innerHTML = translations[lang][key];
-            } else {
-                el.textContent = translations[lang][key];
-            }
+            el.textContent = translations[lang][key];
         }
     });
 
-    getElement(selectors.shareButton)?.setAttribute('aria-label', translations[lang]['share-button-aria']);
+    // Update ARIA labels
+    const shareButton = getElement(selectors.shareButton);
+    if (shareButton) shareButton.setAttribute('aria-label', translations[lang]['share-button-aria']);
+
     getElement(selectors.themeToggle)?.setAttribute('aria-label', translations[lang]['theme-toggle-aria']);
     getElement(selectors.langToggle)?.setAttribute('aria-label', translations[lang]['lang-toggle-aria']);
-    getElement(selectors.shareModalCloseButton)?.setAttribute('aria-label', translations[lang]['share-modal-close-aria']);
-    displayAge();
 
-    try {
-        localStorage.setItem('lang', lang);
-    } catch (e) {
-        console.warn('LocalStorage is not available.');
-    }
+    const shareModalCloseButton = getElement(selectors.shareModalClose);
+    if (shareModalCloseButton) shareModalCloseButton.setAttribute('aria-label', translations[lang]['share-modal-close-aria']);
+
+    displayAge();
 };
 
 export const initLanguage = () => {
@@ -108,43 +104,34 @@ export const calculateAge = (birthDate) => {
 export const displayAge = () => {
     const agePlaceholder = getElement(selectors.agePlaceholder);
     if (!agePlaceholder) return;
-    const age = calculateAge(BIRTH_DATE);
+    const age = calculateAge(personalInfo.birthDate);
     const prefix = translations[state.lang]['age-prefix'] || 'Age: ';
     const suffix = translations[state.lang]['age-suffix'] || ' years';
     agePlaceholder.textContent = `${prefix}${age}${suffix}`;
 };
 
 export const initClickDelegation = () => {
-    let lastCopied = { element: null, timeoutId: null };
-
     document.body.addEventListener('click', e => {
         const cryptoButton = e.target.closest(selectors.cryptoButton);
-        if (cryptoButton) {
-            const address = cryptoButton.dataset.address;
-            const textEl = cryptoButton.querySelector('.crypto-commission');
-            if (!address || !textEl || lastCopied.element === cryptoButton) return;
+        if (!cryptoButton) return;
 
-            if (lastCopied.element) {
-                clearTimeout(lastCopied.timeoutId);
-                const prevTextEl = lastCopied.element.querySelector('.crypto-commission');
-                if (prevTextEl) {
-                    prevTextEl.textContent = translations[state.lang]['copy-to-clipboard'];
-                    lastCopied.element.classList.remove('is-copied');
-                }
-            }
+        const address = cryptoButton.dataset.address;
+        const textEl = cryptoButton.querySelector('.crypto-commission');
 
-            navigator.clipboard.writeText(address).then(() => {
-                textEl.textContent = translations[state.lang]['copied-feedback'];
-                cryptoButton.classList.add('is-copied');
+        if (!address || !textEl || cryptoButton.classList.contains('is-copying')) return;
 
-                lastCopied.element = cryptoButton;
-                lastCopied.timeoutId = setTimeout(() => {
-                    textEl.textContent = translations[state.lang]['copy-to-clipboard'];
-                    cryptoButton.classList.remove('is-copied');
-                    lastCopied = { element: null, timeoutId: null };
-                }, 2000);
-            }).catch(err => console.error('Failed to copy address: ', err));
-        }
+        navigator.clipboard.writeText(address).then(() => {
+            const originalText = translations[state.lang]['copy-to-clipboard'];
+            textEl.textContent = translations[state.lang]['copied-feedback'];
+            cryptoButton.classList.add('is-copied');
+            cryptoButton.classList.add('is-copying');
+
+            setTimeout(() => {
+                textEl.textContent = originalText;
+                cryptoButton.classList.remove('is-copied');
+                cryptoButton.classList.remove('is-copying');
+            }, 2000);
+        }).catch(err => console.error('Failed to copy address: ', err));
     });
 };
 

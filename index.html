@@ -1,22 +1,22 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title class="translate-element" data-key="page-title">ineedmypills - Портфолио</title>
-    <meta name="description" content="Портфолио ineedmypills (Коктейльчик) - начинающего IT-специалиста и геймдевелопера. Проекты, навыки, образование и контакты.">
-    <meta name="keywords" content="ineedmypills, Коктейльчик, портфолио, разработчик, геймдев, C++, Java, Python, Unity, Unreal Engine, IT-специалист">
+    <title data-key="page-title">ineedmypills - Portfolio</title>
+    <meta name="description" content="Portfolio of ineedmypills (Milky) - an aspiring IT specialist and game developer. Projects, skills, education, and contacts.">
+    <meta name="keywords" content="ineedmypills, Milky, portfolio, developer, gamedev, C++, Java, Python, Unity, Unreal Engine, IT specialist">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ineedmypills.github.io/">
-    <meta property="og:title" content="ineedmypills - Портфолио">
-    <meta property="og:description" content="Портфолио ineedmypills (Коктейльчик) - начинающего IT-специалиста и геймдевелопера. Проекты, навыки, образование и контакты.">
+    <meta property="og:title" content="ineedmypills - Portfolio">
+    <meta property="og:description" content="Portfolio of ineedmypills (Milky) - an aspiring IT specialist and game developer. Projects, skills, education, and contacts.">
     <meta property="og:image" content="https://ineedmypills.github.io/images/og-image.png">
 
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://ineedmypills.github.io/">
-    <meta property="twitter:title" content="ineedmypills - Портфолио">
-    <meta property="twitter:description" content="Портфолио ineedmypills (Коктейльчик) - начинающего IT-специалиста и геймдевелопера. Проекты, навыки, образование и контакты.">
+    <meta property="twitter:title" content="ineedmypills - Portfolio">
+    <meta property="twitter:description" content="Portfolio of ineedmypills (Milky) - an aspiring IT specialist and game developer. Projects, skills, education, and contacts.">
     <meta property="twitter:image" content="https://ineedmypills.github.io/images/og-image.png">
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -30,497 +30,95 @@
 <div class="container">
     <header>
         <div class="header-actions">
-            <button class="header-action-btn" id="shareButton" aria-label="Поделиться">
+            <button class="header-action-btn" id="shareButton" aria-label="Share">
                 <span class="material-icons-outlined">share</span>
             </button>
-            <button class="header-action-btn" id="langToggle" aria-label="Сменить язык">
+            <button class="header-action-btn" id="langToggle" aria-label="Change language">
                 <span class="material-icons-outlined">translate</span>
             </button>
-            <button class="header-action-btn" id="themeToggle" aria-label="Переключить тему">
+            <button class="header-action-btn" id="themeToggle" aria-label="Toggle theme">
                 <span class="material-icons-outlined theme-icon sun-icon">light_mode</span>
                 <span class="material-icons-outlined theme-icon moon-icon">dark_mode</span>
             </button>
         </div>
 
-        <h1 class="translate-element" id="main-header-title" data-key="main-title">ineedmypills</h1>
-        <p class="name-subtitle translate-element" id="main-header-name" data-key="full-name">Глухих Егор Алексеевич</p>
-        <p class="subtitle translate-element" id="header-subtitle" data-key="specialist">Начинающий многосторонне развитый IT-"специалист"</p>
+        <h1 class="translate-element" id="main-header-title" data-key="main-title"></h1>
+        <p class="name-subtitle translate-element" id="main-header-name" data-key="full-name"></p>
+        <p class="subtitle translate-element" id="header-subtitle" data-key="specialist"></p>
     </header>
 
     <main class="content">
-        <section id="skills-section">
-            <h2 class="section-title translate-element animate-on-scroll" data-key="skills-title">Технические навыки</h2>
-            <div class="content-group animate-on-scroll">
-                <div class="stagger-child">
-                    <h3 class="group-title translate-element" data-key="lang-title">Языки программирования</h3>
-                    <div class="skills-container">
-                        <a href="https://isocpp.org/" target="_blank" rel="noopener noreferrer" class="skill skill-cpp">C++</a>
-                        <a href="https://docs.microsoft.com/en-us/dotnet/csharp/" target="_blank" rel="noopener noreferrer" class="skill skill-csharp">C#</a>
-                        <a href="https://www.java.com/" target="_blank" rel="noopener noreferrer" class="skill skill-java">Java</a>
-                        <a href="https://www.python.org/" target="_blank" rel="noopener noreferrer" class="skill skill-python">Python</a>
-                        <a href="https://www.w3schools.com/sql/" target="_blank" rel="noopener noreferrer" class="skill skill-sql">SQL</a>
-                    </div>
-                </div>
-                <div class="content-divider stagger-child"></div>
-                <div class="stagger-child">
-                    <h3 class="group-title translate-element" data-key="software-title">Программное обеспечение</h3>
-                    <div class="skills-container">
-                        <a href="https://developer.android.com/studio" target="_blank" rel="noopener noreferrer" class="skill skill-android">Android Studio</a>
-                        <a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank" rel="noopener noreferrer" class="skill skill-davinci">Davinci Resolve</a>
-                        <a href="https://www.image-line.com/" target="_blank" rel="noopener noreferrer" class="skill skill-fl">FL Studio</a>
-                        <a href="https://unity.com/" target="_blank" rel="noopener noreferrer" class="skill skill-unity">Unity</a>
-                        <a href="https://www.unrealengine.com/" target="_blank" rel="noopener noreferrer" class="skill skill-unreal">Unreal Engine</a>
-                        <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" class="skill skill-ai">
-                            <span class="translate-element" data-key="ai-skill">Владение ИИ</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects-section">
-            <h2 class="section-title translate-element animate-on-scroll" data-key="projects-title">Ключевые проекты</h2>
-            <div class="content-group animate-on-scroll">
-                <div id="games-projects" class="stagger-child">
-                    <h3 class="group-title translate-element" data-key="games-category-title">Игры</h3>
-                    <div class="project-list">
-                        <article class="project-card">
-                            <div class="project-header">
-                                <div class="project-title-wrapper">
-                                    <h3 class="project-title translate-element"><a href="https://gamejolt.com/games/fh3redux/727752" target="_blank" rel="noopener noreferrer" class="stretched-link">Final Hours 3 REDUX</a></h3>
-                                    <svg class="platform-icon platform-icon--gamejolt" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6.353 0v2.824H4.94v2.823H3.53v2.824H2.118v2.823H.706v2.824h8.47v2.823H7.765v2.824H6.353v2.823h1.412v-1.412h1.411v-1.411h1.412v-1.412H12V16.94h1.412v-1.41h1.412v-1.411h1.411v-1.412h1.412v-1.412h1.412V9.882h1.412V8.471h1.411V7.059h-4.235V5.647h1.412V4.235h1.412V2.824h1.411V1.412h1.412V0zm0 22.588H4.94V24h1.412zM7.765 2.824h9.882v1.411h-1.412v1.412h-1.411V7.06h-1.412v1.41H12v1.411h1.412v1.412H12V9.882h-1.412v1.412H9.176V9.882H7.765v1.412H6.353V9.882H4.94V8.471h1.412V5.647h1.412zM6.353 8.47v1.411h1.412v-1.41zm2.823 1.411h1.412v-1.41H9.176zm5.648 0h1.411v1.412h-1.411z"/></svg>
-                                </div>
-                                <p class="project-desc translate-element" data-key="fh3-desc">Неофициальное переиздание игры Final Hours 3</p>
-                            </div>
-                            <div class="card-footer">
-                                <div class="footer-group-left">
-                                    <div class="tech-badge lts-badge">
-                                        <span class="material-icons-outlined" aria-hidden="true">update</span>
-                                        <span class="translate-element" data-key="lts">Долгосрочная поддержка</span>
-                                    </div>
-                                </div>
-                                <div class="status-badge status-badge--completed">
-                                    <span class="material-icons-outlined" aria-hidden="true">check</span>
-                                    <span class="translate-element" data-key="completed">Завершенный проект</span>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="project-card">
-                            <div class="awards-container">
-                                <a href="https://t.me/m4xter/81" target="_blank" rel="noopener noreferrer" class="award-badge" data-award-url="https://t.me/m4xter/81">
-                                    <span class="material-icons-outlined" aria-hidden="true">emoji_events</span>
-                                    <span class="translate-element" data-key="judges-5th">5 место (судьи)</span>
-                                </a>
-                                <a href="https://itch.io/jam/maxters-jam-2024/results?page=2#:~:text=%D0%BE%D1%82%20ineedmypills-,28th%20%D0%BC%D0%B5%D1%81%D1%82%D0%BE,-%D1%81%2014%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BA%D0%B0%D0%BC%D0%B8" target="_blank" rel="noopener noreferrer" class="award-badge" data-award-url="https://itch.io/jam/maxters-jam-2024/results?page=2#:~:text=%D0%BE%D1%82%20ineedmypills-,28th%20%D0%BC%D0%B5%D1%81%D1%82%D0%BE,-%D1%81%2014%20%D0%BE%D1%86%D0%B5%D0%BD%D0%BA%D0%B0%D0%BC%D0%B8">
-                                    <span class="material-icons-outlined" aria-hidden="true">star_border</span>
-                                    <span class="translate-element" data-key="players-28th">28 место (игроки)</span>
-                                </a>
-                            </div>
-                            <div class="project-header">
-                                <div class="project-title-wrapper">
-                                    <h3 class="project-title translate-element"><a href="https://ineedmypills.itch.io/non-playable-character" target="_blank" rel="noopener noreferrer" class="stretched-link">Non-Playable Character</a></h3>
-                                    <svg class="platform-icon platform-icon--itchio" viewBox="4 4 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M 16 5 C 12.748 5 8.3121094 5.0508594 7.4121094 5.1308594 C 6.4021094 5.7368594 4.4028125 8.0309531 4.3828125 8.6269531 L 4.3828125 9.6269531 C 4.3828125 10.889953 5.5657188 12 6.6367188 12 C 7.9197187 12 8.9902344 10.929969 8.9902344 9.6679688 C 8.9902344 10.929969 10.0305 12 11.3125 12 C 12.6055 12 13.605469 10.930969 13.605469 9.6679688 C 13.605469 10.929969 14.695281 12 15.988281 12 L 16.009766 12 C 17.302766 12 18.392578 10.930969 18.392578 9.6679688 C 18.392578 10.929969 19.402547 12 20.685547 12 C 21.968547 12 23.009766 10.930969 23.009766 9.6679688 C 23.009766 10.929969 24.080281 12 25.363281 12 C 26.434281 12 27.615234 10.889953 27.615234 9.6269531 L 27.615234 8.6269531 C 27.595234 8.0309531 25.595938 5.7368594 24.585938 5.1308594 C 21.443938 5.0198594 19.252 5 16 5 z M 13.550781 11.742188 C 12.497781 13.552188 9.8523125 13.573906 8.8203125 11.753906 C 8.1903125 12.845906 6.7642969 13.267547 6.1542969 13.060547 C 5.9762969 14.959547 5.8534844 24.70875 7.1464844 26.34375 C 10.943484 27.22875 21.164516 27.20975 24.853516 26.34375 C 26.348516 24.81975 26.013703 14.821547 25.845703 13.060547 C 25.235703 13.267547 23.809453 12.845906 23.189453 11.753906 C 22.146453 13.573906 19.501219 13.552188 18.449219 11.742188 C 18.124219 12.332187 17.367 13.109375 16 13.109375 C 14.997 13.148375 14.051781 12.607187 13.550781 11.742188 z M 11.419922 14 C 12.219922 14 12.950078 14.000469 13.830078 14.980469 C 15.280078 14.830469 16.719922 14.830469 18.169922 14.980469 C 19.059922 14.010469 19.780078 14.009766 20.580078 14.009766 C 23.160078 14.009766 23.780937 17.819609 24.710938 21.099609 C 25.550938 24.149609 24.429062 24.230469 23.039062 24.230469 C 20.969062 24.150469 19.820313 22.650625 19.820312 21.140625 C 17.890313 21.460625 14.809688 21.580625 12.179688 21.140625 C 12.179688 22.650625 11.030938 24.150469 8.9609375 24.230469 C 7.5709375 24.230469 6.4490625 24.149609 7.2890625 21.099609 C 8.2190625 17.799609 8.8399219 14.009766 11.419922 14.009766 L 11.419922 14 z M 16 16.876953 C 16 16.876953 14.306 18.439375 14 18.984375 L 15.107422 18.943359 L 15.107422 19.910156 C 15.107422 19.968156 15.926 19.917969 16 19.917969 C 16.447 19.934969 16.892578 19.951156 16.892578 19.910156 L 16.892578 18.943359 L 18 18.984375 C 17.694 18.438375 16 16.876953 16 16.876953 z"/></svg>
-                                </div>
-                                <p class="project-desc translate-element" data-key="npc-desc">"Почувствуйте, каково это - быть неигровым персонажем."</p>
-                                <div class="project-meta">
-                                    <p class="project-jam-info">
-                                        <span class="translate-element" data-key="npc-jam">Игра для</span>
-                                        <a href="https://itch.io/jam/maxters-jam-2024" target="_blank" rel="noopener noreferrer" class="jam-link">maxter's JAM 2024</a>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="footer-group-left"></div>
-                                <div class="status-badge status-badge--completed">
-                                    <span class="material-icons-outlined" aria-hidden="true">check</span>
-                                    <span class="translate-element" data-key="completed">Завершенный проект</span>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="project-card">
-                            <div class="project-header">
-                                <div class="project-title-wrapper">
-                                    <h3 class="project-title translate-element"><a href="https://ineedmypills.itch.io/kolobok" target="_blank" rel="noopener noreferrer" class="stretched-link">Kolobok</a></h3>
-                                    <svg class="platform-icon platform-icon--itchio" viewBox="4 4 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M 16 5 C 12.748 5 8.3121094 5.0508594 7.4121094 5.1308594 C 6.4021094 5.7368594 4.4028125 8.0309531 4.3828125 8.6269531 L 4.3828125 9.6269531 C 4.3828125 10.889953 5.5657188 12 6.6367188 12 C 7.9197187 12 8.9902344 10.929969 8.9902344 9.6679688 C 8.9902344 10.929969 10.0305 12 11.3125 12 C 12.6055 12 13.605469 10.930969 13.605469 9.6679688 C 13.605469 10.929969 14.695281 12 15.988281 12 L 16.009766 12 C 17.302766 12 18.392578 10.930969 18.392578 9.6679688 C 18.392578 10.929969 19.402547 12 20.685547 12 C 21.968547 12 23.009766 10.930969 23.009766 9.6679688 C 23.009766 10.929969 24.080281 12 25.363281 12 C 26.434281 12 27.615234 10.889953 27.615234 9.6269531 L 27.615234 8.6269531 C 27.595234 8.0309531 25.595938 5.7368594 24.585938 5.1308594 C 21.443938 5.0198594 19.252 5 16 5 z M 13.550781 11.742188 C 12.497781 13.552188 9.8523125 13.573906 8.8203125 11.753906 C 8.1903125 12.845906 6.7642969 13.267547 6.1542969 13.060547 C 5.9762969 14.959547 5.8534844 24.70875 7.1464844 26.34375 C 10.943484 27.22875 21.164516 27.20975 24.853516 26.34375 C 26.348516 24.81975 26.013703 14.821547 25.845703 13.060547 C 25.235703 13.267547 23.809453 12.845906 23.189453 11.753906 C 22.146453 13.573906 19.501219 13.552188 18.449219 11.742188 C 18.124219 12.332187 17.367 13.109375 16 13.109375 C 14.997 13.148375 14.051781 12.607187 13.550781 11.742188 z M 11.419922 14 C 12.219922 14 12.950078 14.000469 13.830078 14.980469 C 15.280078 14.830469 16.719922 14.830469 18.169922 14.980469 C 19.059922 14.010469 19.780078 14.009766 20.580078 14.009766 C 23.160078 14.009766 23.780937 17.819609 24.710938 21.099609 C 25.550938 24.149609 24.429062 24.230469 23.039062 24.230469 C 20.969062 24.150469 19.820313 22.650625 19.820312 21.140625 C 17.890313 21.460625 14.809688 21.580625 12.179688 21.140625 C 12.179688 22.650625 11.030938 24.150469 8.9609375 24.230469 C 7.5709375 24.230469 6.4490625 24.149609 7.2890625 21.099609 C 8.2190625 17.799609 8.8399219 14.009766 11.419922 14.009766 L 11.419922 14 z M 16 16.876953 C 16 16.876953 14.306 18.439375 14 18.984375 L 15.107422 18.943359 L 15.107422 19.910156 C 15.107422 19.968156 15.926 19.917969 16 19.917969 C 16.447 19.934969 16.892578 19.951156 16.892578 19.910156 L 16.892578 18.943359 L 18 18.984375 C 17.694 18.438375 16 16.876953 16 16.876953 z"/></svg>
-                                </div>
-                                <p class="project-desc translate-element" data-key="kolobok-desc">Увлекательный 3D шутер-платформер, вдохновлённый игрой "My Friend Pedro", с видом сбоку в стилистике "Киберпанка"</p>
-                                <div class="project-disclaimer">
-                                    <p class="translate-element" data-key="kolobok-disclaimer">Это учебный проект, демонстрирующий базовые навыки разработки на Unreal Engine. Это демо-версия, и дальнейшая разработка не планируется.</p>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="footer-group-left">
-                                    <a href="https://github.com/ineedmypills/Kolobok" target="_blank" rel="noopener noreferrer" class="github-badge">
-                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
-                                        GitHub
-                                    </a>
-                                </div>
-                                <div class="status-badge status-badge--completed">
-                                    <span class="material-icons-outlined" aria-hidden="true">shield</span>
-                                    <span class="translate-element" data-key="defended">Защищён</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-                <div class="content-divider stagger-child"></div>
-                <div id="software-projects" class="stagger-child">
-                    <h3 class="group-title translate-element" data-key="software-category-title">Программное обеспечение</h3>
-
-                    <div class="subgroup">
-                        <h4 class="subgroup-title">OpenBroadcastSoftware</h4>
-                        <div class="project-list">
-                            <article class="project-card">
-                                <div class="project-header">
-                                    <div class="project-title-wrapper">
-                                        <h3 class="project-title translate-element"><a href="https://github.com/ineedmypills/OBS-Indicator" target="_blank" rel="noopener noreferrer" class="stretched-link">OBS Indicator</a></h3>
-                                    </div>
-                                    <p class="project-desc translate-element" data-key="obs-desc">Компактный экранный индикатор для записи и буфера повтора в OBS Studio</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="footer-group-left">
-                                        <div class="tech-badge python-tech">
-                                            <span class="material-icons-outlined" aria-hidden="true">code</span>
-                                            Python
-                                        </div>
-                                    </div>
-                                    <div class="status-badge status-badge--ready">
-                                        <span class="material-icons-outlined" aria-hidden="true">rocket_launch</span>
-                                        <span class="translate-element" data-key="ready-to-use">Готово к использованию</span>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-
-                    <div class="subgroup">
-                        <h4 class="subgroup-title">Unity Engine</h4>
-                        <div class="project-list">
-                            <article class="project-card">
-                                <div class="project-header">
-                                    <div class="project-title-wrapper">
-                                        <h3 class="project-title translate-element"><a href="https://github.com/ineedmypills/UnityCensorEffect" target="_blank" rel="noopener noreferrer" class="stretched-link">Unity Censor Effect</a></h3>
-                                    </div>
-                                    <p class="project-desc translate-element" data-key="censor-effect-desc">Эффект постобработки для цензурирования объектов на определённом слое с помощью пикселизации</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="footer-group-left">
-                                        <div class="tech-badge csharp-tech">
-                                            <span class="material-icons-outlined" aria-hidden="true">code</span>
-                                            C#
-                                        </div>
-                                    </div>
-                                    <div class="status-badge status-badge--ready">
-                                        <span class="material-icons-outlined" aria-hidden="true">rocket_launch</span>
-                                        <span class="translate-element" data-key="ready-to-use">Готово к использованию</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="project-card">
-                                <div class="project-header">
-                                    <div class="project-title-wrapper">
-                                        <h3 class="project-title translate-element"><a href="https://github.com/ineedmypills/UnitySceneInspector" target="_blank" rel="noopener noreferrer" class="stretched-link">Unity Scene Inspector</a></h3>
-                                    </div>
-                                    <p class="project-desc translate-element" data-key="scene-inspector-desc">Расширение для тулбара Unity с утилитами для управления сценами</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="footer-group-left">
-                                        <div class="tech-badge csharp-tech">
-                                            <span class="material-icons-outlined" aria-hidden="true">code</span>
-                                            C#
-                                        </div>
-                                    </div>
-                                    <div class="status-badge status-badge--ready">
-                                        <span class="material-icons-outlined" aria-hidden="true">rocket_launch</span>
-                                        <span class="translate-element" data-key="ready-to-use">Готово к использованию</span>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="education-section">
-            <h2 class="section-title translate-element animate-on-scroll" data-key="education-title">Образование</h2>
-            <div class="content-group animate-on-scroll">
-                <div class="stagger-child">
-                    <h3 class="group-title translate-element" data-key="secondary-edu">Среднее общее образование</h3>
-                    <p class="secondary-edu-text translate-element" data-key="11-classes">11 классов</p>
-                </div>
-                <div class="content-divider stagger-child"></div>
-                <div class="stagger-child">
-                    <h3 class="group-title translate-element" data-key="computer-academy">Компьютерная Академия "ТОП"</h3>
-                    <p class="specialization-desc translate-element" data-key="specialization">Специализация: разработка программного обеспечения</p>
-                    <div class="course-container">
-                        <div class="course-item">
-                            <p class="course-year-title translate-element" data-key="first-year">1 курс</p>
-                            <div class="course-achievements">
-                                <div class="achievement-badge achievement-badge--first-place">
-                                    <span class="material-icons-outlined" aria-hidden="true">emoji_events</span>
-                                    <span class="translate-element" data-key="first-place">1 место в группе</span>
-                                </div>
-                                <div class="achievement-badge achievement-badge--defense">
-                                    <span class="material-icons-outlined" aria-hidden="true">shield</span>
-                                    <span class="translate-element" data-key="project-defense">Защитил проект по Unreal Engine</span>
-                                </div>
-                            </div>
-                            <div class="course-status course-status--completed">
-                                <span class="material-icons-outlined" aria-hidden="true">check</span>
-                                <span class="translate-element" data-key="course-completed">Окончил</span>
-                            </div>
-                        </div>
-                        <div class="course-item">
-                            <p class="course-year-title translate-element" data-key="second-year">2 курс</p>
-                            <div class="course-status course-status--in-progress">
-                                <span class="material-icons-outlined" aria-hidden="true">sync</span>
-                                <span class="translate-element" data-key="course-in-progress">В процессе</span>
-                            </div>
-                        </div>
-                        <div class="course-item">
-                            <p class="course-year-title translate-element" data-key="third-year">3 курс</p>
-                            <div class="course-status course-status--in-progress">
-                                <span class="material-icons-outlined" aria-hidden="true">sync</span>
-                                <span class="translate-element" data-key="course-in-progress">В процессе</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about-section">
-            <h2 class="section-title translate-element animate-on-scroll" data-key="about-title">О себе</h2>
-            <div class="content-group animate-on-scroll">
-                <p class="about-paragraph stagger-child translate-element" data-key="about-text">Энтузиаст разработки игр с разносторонним техническим опытом. Увлечен созданием игр на всех этапах, от идеи до финальной версии. Участвую в геймджемах, чтобы отточить навыки работы в сжатые сроки. Экспериментирую с применением искусственного интеллекта в творческих задачах. Обладаю упорством в доведении проектов до конца и подхожу к решению технических проблем творчески. В свободное время я создаю музыку в FL Studio и монтирую видео в DaVinci Resolve для своего YouTube-канала.</p>
-                <div class="interests-container stagger-child">
-                    <button type="button" class="interest-badge interest-badge--gamedev" id="gamedev-interest-badge">
-                        <span class="translate-element" data-key="interest-gamedev">Разработка инди-игр</span>
-                    </button>
-                    <button type="button" class="interest-badge interest-badge--software" id="software-interest-badge">
-                        <span class="translate-element" data-key="interest-software">Разработка ПО</span>
-                    </button>
-                    <button type="button" class="interest-badge interest-badge--ai">
-                        <span class="translate-element" data-key="interest-ai">Генеративное искусство и нейросети</span>
-                    </button>
-                    <a href="https://soundcloud.com/ineedmypills/" target="_blank" rel="noopener noreferrer" class="interest-badge interest-badge--music">
-                        <span class="translate-element" data-key="interest-music">Создание электронной музыки</span>
-                    </a>
-                    <a href="https://www.youtube.com/@ClubberryMilkShake" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                        <button type="button" class="interest-badge interest-badge--youtube" id="youtuber-button">
-                            <span class="translate-element" data-key="interest-youtuber">Ютубер</span>
-                        </button>
-                    </a>
-                </div>
-                <div class="personal-info stagger-child">
-                    <div class="info-item">
-                        <span class="material-icons-outlined" aria-hidden="true">cake</span>
-                        <span id="agePlaceholder">Возраст: 19 лет</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="material-icons-outlined" aria-hidden="true">location_on</span>
-                        <span class="translate-element" data-key="location">Полевской, Свердловская область</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contacts-section">
-            <h2 class="section-title translate-element animate-on-scroll" data-key="contacts-title">Контакты</h2>
-            <div class="content-group animate-on-scroll">
-                <div class="contacts-container stagger-child">
-                    <a href="https://t.me/ineedmypills" target="_blank" rel="noopener noreferrer" class="contact-card">
-                        <div class="contact-icon">
-                            <div class="icon-bg"></div>
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.140.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.640.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z"></path></svg>
-                        </div>
-                        <div>
-                            <p class="contact-label">Telegram</p>
-                            <p class="contact-value">@ineedmypills</p>
-                        </div>
-                    </a>
-                    <a href="https://github.com/ineedmypills" target="_blank" rel="noopener noreferrer" class="contact-card">
-                        <div class="contact-icon">
-                            <div class="icon-bg"></div>
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
-                        </div>
-                        <div>
-                            <p class="contact-label">GitHub</p>
-                            <p class="contact-value">@ineedmypills</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section id="support-section">
-            <h2 class="section-title translate-element animate-on-scroll" data-key="support-title">Поддержать</h2>
-            <div class="content-group animate-on-scroll">
-                <div class="stagger-child">
-                    <div class="support-title-wrapper">
-                        <h3 class="support-list-title group-title translate-element" data-key="bank-transfer-title">Банковский перевод</h3>
-                        <p class="support-category-desc translate-element" data-key="bank-desc">Самый удобный способ без комиссии</p>
-                    </div>
-                    <div class="support-list">
-                        <a href="https://www.tbank.ru/cf/3xlXUdjZzLW" target="_blank" rel="noopener noreferrer" class="support-item support-tbank">
-                            <div class="support-icon">
-                                <div class="icon-bg"></div>
-                                <svg viewBox="0 0 154 154" aria-hidden="true"><path d="m2.4 2.4h148.6v74.7c0 19.2-10.2 36.9-26.8 46.5l-47.5 27.4-47.5-27.4c-16.6-9.6-26.8-27.3-26.8-46.5zm40.8 39.4v23.2c3.2-3.6 8.9-6 15.6-6h7.1v27c0 7.2-1.9 13.5-4.8 17h31.2c-2.9-3.5-4.8-9.8-4.8-17v-27h7.2c6.6 0 12.3 2.4 15.5 6v-23.2z"/></svg>
-                            </div>
-                            <div class="support-details">
-                                <div class="support-label translate-element" data-key="t-bank">Т-Банк</div>
-                                <p class="support-commission tbank-commission translate-element" data-key="no-commission">Без комиссии</p>
-                            </div>
-                            <div class="side-badge side-badge--secondary">
-                                <span class="material-icons" aria-hidden="true">star</span>
-                                <span class="translate-element" data-key="recommended">Рекомендуется</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="stagger-child">
-                    <div class="support-title-wrapper">
-                        <h3 class="support-list-title group-title translate-element" data-key="donations-title">Донаты</h3>
-                        <p class="support-category-desc translate-element" data-key="donations-desc">Если хотите, чтобы ваше сообщение появилось на стриме</p>
-                    </div>
-                    <div class="support-list">
-                        <a href="https://donatty.com/clubberrymilkshake" target="_blank" rel="noopener noreferrer" class="support-item support-donatty">
-                            <div class="support-icon">
-                                <div class="icon-bg"></div>
-                                <svg viewBox="0 0 25 40" aria-hidden="true"><path d="M10.0766403,15 L9.44858903,12.9588334 C8.29279963,9.20251787 10.4009426,5.22047003 14.1572582,4.06468062 C14.5220274,3.95244393 14.8947226,3.86989034 15.2717002,3.81756769 C16.8475537,1.51266191 19.4971263,0 22.5,0 L25,0 L25,27.5 C25,34.4035594 19.4035594,40 12.5,40 C5.59644063,40 0,34.4035594 0,27.5 L0,18.75 L3.19444444,18.75 C3.41045403,18.75 3.62421943,18.7590917 3.83546161,18.776927 C3.77912351,18.3593971 3.75,17.932961 3.75,17.5 L3.75,15 L10.0766403,15 Z M22.5,27.5 L22.5,2.5 C19.0482203,2.5 16.25,5.29822031 16.25,8.75 L16.25,18.2268963 C15.0919607,17.7581339 13.8261256,17.5 12.5,17.5 L6.25,17.5 C6.25,20.9517797 8.73730695,23.75 11.8055556,23.75 L12.5,23.75 C14.5710678,23.75 16.25,25.4289322 16.25,27.5 C16.25,29.5710678 14.5710678,31.25 12.5,31.25 C10.4289322,31.25 8.75,29.5710678 8.75,27.5 C8.75,24.0482203 6.26269305,21.25 3.19444444,21.25 L2.5,21.25 L2.5,27.5 C2.5,33.0228475 6.9771525,37.5 12.5,37.5 C18.0228475,37.5 22.5,33.0228475 22.5,27.5 Z M12.8853265,15.0058259 C13.1761585,15.0146318 13.4644923,15.0333721 13.75,15.0617191 L13.75,8.75 C13.75,8.10107051 13.820642,7.46864033 13.9546554,6.85997999 C12.1211069,7.90828077 11.1909208,10.1204926 11.8380366,12.2236188 L12.8853265,15.0058259 L12.8853265,15.0058259 Z M11.25,27.5 C11.25,28.1903559 11.8096441,28.75 12.5,28.75 C13.1903559,28.75 13.75,28.1903559 13.75,27.5 C13.75,26.8096441 13.1903559,26.25 12.5,26.25 L11.8055556,26.25 C11.589546,26.25 11.3757806,26.2409083 11.1645384,26.223073 C11.2208765,26.6406029 11.25,27.067039 11.25,27.5 Z"/></svg>
-                            </div>
-                            <div class="support-details">
-                                <div class="support-label">Donatty</div>
-                                <p class="support-commission donatty-commission translate-element" data-key="commission-3.5">Комиссия 3,5%</p>
-                            </div>
-                            <div class="side-badge side-badge--warning">
-                                <span class="material-icons" aria-hidden="true">shield</span>
-                                <span class="translate-element" data-key="backup-option">Запасной вариант</span>
-                            </div>
-                        </a>
-                        <a href="https://donationalerts.com/r/shizaphaziya" target="_blank" rel="noopener noreferrer" class="support-item support-donationalerts">
-                            <div class="support-icon">
-                                <div class="icon-bg"></div>
-                                <svg viewBox="0 0 70 80" aria-hidden="true"><path d="M34.8586103,46.5882227 L29.4383109,46.5882227 C29.1227896,46.5896404 28.8214241,46.4709816 28.6091788,46.2617625 C28.3969336,46.0525435 28.2937566,45.7724279 28.325313,45.4910942 L28.8039021,40.6038855 C28.8504221,40.0844231 29.3353656,39.684617 29.9168999,39.6862871 L35.3371993,39.6862871 C35.6527206,39.6848694 35.9540862,39.8035282 36.1663314,40.0127473 C36.3785767,40.2219663 36.4817536,40.5020819 36.4501972,40.7834156 L35.9716081,45.6706244 C35.9250881,46.1900867 35.4401446,46.5898928 34.8586103,46.5882227 Z M35.7273704,37.0196078 L30.2062624,37.0196078 C29.5964177,37.0196078 29.1020408,36.5436108 29.1020408,35.9564386 L30.6037822,19.445421 C30.6711655,18.9085577 31.1463683,18.5059261 31.7080038,18.5098321 L37.2291117,18.5098321 C37.8389565,18.5098321 38.3333333,18.9858292 38.3333333,19.5730013 L36.7874231,36.0946506 C36.71732,36.6114677 36.2684318,37.0031485 35.7273704,37.0196078 Z M68.1907868,17.7655375 C68.7783609,18.4477209 69.0654113,19.3359027 68.9874243,20.2304671 L66.8294442,44.7595227 C66.7602449,45.5618649 66.4022166,46.3125114 65.8210422,46.8737509 L48.1740082,63.9078173 C47.5440361,64.5136721 46.7011436,64.8515656 45.8244317,64.849701 L27.0379034,64.849701 L10.5001116,80 L11.780782,64.8396809 L3.37070981,64.8396809 C2.42614186,64.8404154 1.52467299,64.4469919 0.886144518,63.7553546 C0.247616048,63.0637173 -0.0692823639,62.1374374 0.0127313353,61.2024067 L5.14549723,3.00601995 C5.32162283,1.29571214 6.77326374,-0.00377492304 8.50347571,8.23911697e-06 L51.3303063,8.23911697e-06 C52.3155567,-0.000274507348 53.2515294,0.428127083 53.8916472,1.17235281 L68.1907868,17.7655375 Z M55.1118136,40.0801644 L56.4832402,24.9398854 C56.5364472,24.0422509 56.2238954,23.1611024 55.6160145,22.4949959 L47.548799,13.2364798 C46.9095165,12.5050105 45.982605,12.084699 45.0076261,12.0841753 L19.5958971,12.0841753 C17.8656851,12.0803922 16.4140442,13.3798792 16.2379186,15.090187 L13.2127128,49.1583198 C13.1430685,50.0904539 13.4642119,51.0097453 14.1001037,51.6985265 C14.7359954,52.3873077 15.6300918,52.7843324 16.5706913,52.795594 L41.5588914,52.795594 C42.4258216,52.7976549 43.2601656,52.4674704 43.8882999,51.8737504 L54.1034116,42.2044127 C54.6867718,41.6406314 55.0449815,40.8860452 55.1118136,40.0801644 Z"/>
-</svg>
-                            </div>
-                            <div class="support-details">
-                                <div class="support-label">DonationAlerts</div>
-                                <p class="support-commission donationalerts-commission translate-element" data-key="commission-10">Комиссия 10%</p>
-                            </div>
-                            <div class="side-badge side-badge--danger">
-                                <span class="material-icons-outlined" aria-hidden="true">warning</span>
-                                <span class="translate-element" data-key="not-recommended-rf">не рекомендуется для РФ</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="stagger-child">
-                    <div class="support-title-wrapper">
-                        <h3 class="support-list-title group-title translate-element" data-key="crypto-title">Криптовалюта</h3>
-                        <p class="support-category-desc translate-element" data-key="crypto-desc">Для ценителей анонимности и современных технологий</p>
-                    </div>
-                    <div class="support-list">
-                        <button type="button" class="support-item support-crypto-ton" data-address="UQALAY9I3rkVFoJKZRSMH2ikuQZkcHPV318xZMiLiLtCPsi8" aria-label="Copy TON Space Address">
-                            <div class="support-icon">
-                                <div class="icon-bg"></div>
-                                <svg viewBox="12 14 32 32" aria-hidden="true"><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.6944 19.4202 14.4632 22.4861L26.2644 42.9409C27.0345 44.2765 28.9644 44.2765 29.7345 42.9409L41.5381 22.4861C43.3045 19.4251 41.0761 15.6277 37.5627 15.6277H37.5603ZM26.2548 36.8068L23.6847 31.8327L17.4833 20.7414C17.0742 20.0315 17.5795 19.1218 18.4362 19.1218H26.2524V36.8092L26.2548 36.8068ZM38.5108 20.739L32.3118 31.8351L29.7417 36.8068V19.1194H37.5579C38.4146 19.1194 38.9199 20.0291 38.5108 20.739Z" /></svg>
-                            </div>
-                            <div class="support-details">
-                                <p class="support-label">TON Space</p>
-                                <p class="support-commission crypto-commission translate-element" data-key="copy-to-clipboard">Нажмите, чтобы скопировать</p>
-                            </div>
-                            <div class="side-badge side-badge--success">
-                                <span class="material-icons" aria-hidden="true">check_circle</span>
-                                <span class="translate-element" data-key="optimal">Оптимально</span>
-                            </div>
-                        </button>
-                        <button type="button" class="support-item support-crypto-usdt" data-address="TGFT2Y9cwB5ipbScFmWqmAAwEyLU754PUL" aria-label="Copy USDT (TRC20) Address">
-                            <div class="support-icon">
-                                <div class="icon-bg"></div>
-                                <svg viewBox="0 0 112 90" aria-hidden="true">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M24.4825 0.862305H88.0496C89.5663 0.862305 90.9675 1.64827 91.7239 2.92338L110.244 34.1419C111.204 35.7609 110.919 37.8043 109.549 39.1171L58.5729 87.9703C56.9216 89.5528 54.2652 89.5528 52.6139 87.9703L1.70699 39.1831C0.305262 37.8398 0.0427812 35.7367 1.07354 34.1077L20.8696 2.82322C21.6406 1.60483 23.0087 0.862305 24.4825 0.862305ZM79.8419 14.8003V23.5597H61.7343V29.6329C74.4518 30.2819 83.9934 32.9475 84.0642 36.1425L84.0638 42.803C83.993 45.998 74.4518 48.6635 61.7343 49.3125V64.2168H49.7105V49.3125C36.9929 48.6635 27.4513 45.998 27.3805 42.803L27.381 36.1425C27.4517 32.9475 36.9929 30.2819 49.7105 29.6329V23.5597H31.6028V14.8003H79.8419ZM55.7224 44.7367C69.2943 44.7367 80.6382 42.4827 83.4143 39.4727C81.0601 36.9202 72.5448 34.9114 61.7343 34.3597V40.7183C59.7966 40.8172 57.7852 40.8693 55.7224 40.8693C53.6595 40.8693 51.6481 40.8172 49.7105 40.7183V34.3597C38.8999 34.9114 30.3846 36.9202 28.0304 39.4727C30.8066 42.4827 42.1504 44.7367 55.7224 44.7367Z" />
-                                </svg>
-                            </div>
-                            <div class="support-details">
-                                <p class="support-label">USDT (TRC20)</p>
-                                <p class="support-commission crypto-commission translate-element" data-key="copy-to-clipboard">Нажмите, чтобы скопировать</p>
-                            </div>
-                            <div class="side-badge side-badge--success">
-                                <span class="material-icons" aria-hidden="true">check_circle</span>
-                                <span class="translate-element" data-key="optimal">Оптимально</span>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section id="skills-section"></section>
+        <section id="projects-section"></section>
+        <section id="education-section"></section>
+        <section id="about-section"></section>
+        <section id="contacts-section"></section>
+        <section id="support-section"></section>
     </main>
 </div>
 
 <div id="shareModal" class="share-modal-container hidden">
     <div class="share-modal">
-        <button class="share-modal-close" id="shareModalCloseButton" aria-label="Закрыть модальное окно">&times;</button>
-        <h3 class="share-modal-title translate-element" data-key="share-title">Конструктор ссылки</h3>
-        <p class="share-modal-desc translate-element" data-key="share-desc">Выберите секции, которые хотите показать:</p>
+        <button class="share-modal-close" id="shareModalCloseButton" aria-label="Close modal">&times;</button>
+        <h3 class="share-modal-title translate-element" data-key="share-title"></h3>
+        <p class="share-modal-desc translate-element" data-key="share-desc"></p>
         <div class="share-options" id="shareOptions">
             <label class="custom-checkbox">
                 <input type="checkbox" value="header" checked>
                 <span class="checkbox-visual"><span class="material-icons-outlined check-icon" aria-hidden="true">check</span></span>
-                <span class="translate-element" data-key="share-header">Заголовок</span>
+                <span class="translate-element" data-key="share-header"></span>
             </label>
             <div class="share-options-subgroup" id="header-options-subgroup">
                 <label class="custom-checkbox">
                     <input type="checkbox" value="full_name" checked>
                     <span class="checkbox-visual"><span class="material-icons-outlined check-icon" aria-hidden="true">check</span></span>
-                    <span class="translate-element" data-key="share-full-name">ФИО</span>
+                    <span class="translate-element" data-key="share-full-name"></span>
                 </label>
                 <label class="custom-checkbox">
                     <input type="checkbox" value="subtitle" checked>
                     <span class="checkbox-visual"><span class="material-icons-outlined check-icon" aria-hidden="true">check</span></span>
-                    <span class="translate-element" data-key="share-subtitle">Подзаголовок</span>
+                    <span class="translate-element" data-key="share-subtitle"></span>
                 </label>
                 <label class="custom-checkbox">
                     <input type="checkbox" value="alt_header">
                     <span class="checkbox-visual"><span class="material-icons-outlined check-icon" aria-hidden="true">check</span></span>
-                    <span class="translate-element" data-key="share-alt-header">Альтернативный заголовок</span>
+                    <span class="translate-element" data-key="share-alt-header"></span>
                 </label>
             </div>
             <label class="custom-checkbox">
                 <input type="checkbox" value="skills" checked>
                 <span class="checkbox-visual"><span class="material-icons-outlined check-icon" aria-hidden="true">check</span></span>
-                <span class="translate-element" data-key="skills-title">Технические навыки</span>
+                <span class="translate-element" data-key="skills-title"></span>
             </label>
             <label class="custom-checkbox">
                 <input type="checkbox" value="projects" checked>
                 <span class="checkbox-visual"><span class="material-icons-outlined check-icon" aria-hidden="true">check</span></span>
-                <span class="translate-element" data-key="projects-title">Ключевые проекты</span>
+                <span class="translate-element" data-key="projects-title"></span>
             </label>
             <label class="custom-checkbox">
                 <input type="checkbox" value="education" checked>
                 <span class="checkbox-visual"><span class="material-icons-outlined check-icon" aria-hidden="true">check</span></span>
-                <span class="translate-element" data-key="education-title">Образование</span>
+                <span class="translate-element" data-key="education-title"></span>
             </label>
             <label class="custom-checkbox">
                 <input type="checkbox" value="about" checked>
                 <span class="checkbox-visual"><span class="material-icons-outlined check-icon" aria-hidden="true">check</span></span>
-                <span class="translate-element" data-key="about-title">О себе</span>
+                <span class="translate-element" data-key="about-title"></span>
             </label>
             <label class="custom-checkbox">
                 <input type="checkbox" value="contacts" checked>
                 <span class="checkbox-visual"><span class="material-icons-outlined check-icon" aria-hidden="true">check</span></span>
-                <span class="translate-element" data-key="contacts-title">Контакты</span>
+                <span class="translate-element" data-key="contacts-title"></span>
             </label>
             <label class="custom-checkbox">
                 <input type="checkbox" value="support" checked>
                 <span class="checkbox-visual"><span class="material-icons-outlined check-icon" aria-hidden="true">check</span></span>
-                <span class="translate-element" data-key="support-title">Поддержать</span>
+                <span class="translate-element" data-key="support-title"></span>
             </label>
         </div>
         <div class="share-link-wrapper">
             <input type="text" id="shareLinkInput" readonly>
-            <button id="copyLinkButton" class="translate-element" data-key="share-copy">Копировать</button>
+            <button id="copyLinkButton" class="translate-element" data-key="share-copy"></button>
         </div>
     </div>
 </div>

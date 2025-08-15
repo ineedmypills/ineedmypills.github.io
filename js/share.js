@@ -9,20 +9,17 @@ export const initShareModal = () => {
 
     const closeButton = getElement(selectors.shareModalClose);
     const options = getElement(selectors.shareOptions);
-    const checkboxes = options.querySelectorAll('input[type="checkbox"]');
+    const checkboxes = Array.from(options.querySelectorAll('input[type="checkbox"]'));
     const linkInput = getElement(selectors.shareLinkInput);
     const copyButton = getElement(selectors.copyLinkButton);
     const headerCheckbox = options.querySelector('input[value="header"]');
     const headerSubgroup = getElement(selectors.headerOptionsSubgroup);
 
-    const allCheckboxValues = new Set(Array.from(checkboxes).map(cb => cb.value));
-    const defaultValues = new Set(allCheckboxValues);
-    defaultValues.delete('alt_header');
+    const defaultValues = new Set(checkboxes.map(cb => cb.value).filter(val => val !== 'alt_header'));
 
     const generateShareLink = () => {
-        const selected = new Set(Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value));
-        const allSections = new Set(['skills', 'projects', 'education', 'about', 'contacts', 'support']);
-        const hasContent = [...selected].some(item => allSections.has(item));
+        const selected = new Set(checkboxes.filter(cb => cb.checked).map(cb => cb.value));
+        const hasContent = [...selected].some(item => !['header', 'full_name', 'subtitle', 'alt_header'].includes(item));
         const isInvalid = selected.size > 0 && !hasContent && selected.has('header');
         const shouldDisable = selected.size === 0 || isInvalid;
 
@@ -31,7 +28,7 @@ export const initShareModal = () => {
         copyButton.parentElement.style.pointerEvents = shouldDisable ? 'none' : 'auto';
 
         if (shouldDisable) {
-            linkInput.value = '';
+            linkInput.value = translations[state.lang]['share-invalid-selection'] || 'Select at least one content section.';
             return;
         }
 
@@ -50,24 +47,21 @@ export const initShareModal = () => {
         });
     };
 
-    const openModal = () => {
-        shareModal.classList.remove('hidden');
+    const toggleModal = (show) => {
+        shareModal.classList.toggle('hidden', !show);
     };
-    const closeModal = () => shareModal.classList.add('hidden');
 
-    shareButton.addEventListener('click', openModal);
-    closeButton.addEventListener('click', closeModal);
-    shareModal.addEventListener('click', e => e.target === shareModal && closeModal());
+    shareButton.addEventListener('click', () => toggleModal(true));
+    closeButton.addEventListener('click', () => toggleModal(false));
+    shareModal.addEventListener('click', e => e.target === shareModal && toggleModal(false));
+
     checkboxes.forEach(cb => cb.addEventListener('change', generateShareLink));
-    headerCheckbox.addEventListener('change', () => {
-        updateHeaderDependencies();
-        generateShareLink();
-    });
+    headerCheckbox.addEventListener('change', updateHeaderDependencies);
 
     copyButton.addEventListener('click', () => {
         if (!navigator.clipboard || copyButton.disabled) return;
         navigator.clipboard.writeText(linkInput.value).then(() => {
-            const originalText = translations[state.lang]['share-copy'];
+            const originalText = copyButton.textContent;
             copyButton.textContent = translations[state.lang]['share-copied'];
             copyButton.disabled = true;
             setTimeout(() => {
@@ -78,6 +72,7 @@ export const initShareModal = () => {
     });
 
     updateHeaderDependencies();
+    generateShareLink(); // Initial generation
 };
 
 export const handleSharedLinkView = () => {
@@ -90,14 +85,11 @@ export const handleSharedLinkView = () => {
 
     if (visibleItems.has('header')) {
         if (visibleItems.has('alt_header')) {
-            getElement('#main-header-title').textContent = translations[state.lang]['alt-header-title'];
+            const titleEl = getElement('#main-header-title');
+            if(titleEl) titleEl.dataset.key = 'alt-header-title';
         }
-        if (!visibleItems.has('full_name')) {
-            getElement('#main-header-name')?.remove();
-        }
-        if (!visibleItems.has('subtitle')) {
-            getElement('#header-subtitle')?.remove();
-        }
+        if (!visibleItems.has('full_name')) getElement('#main-header-name')?.remove();
+        if (!visibleItems.has('subtitle')) getElement('#header-subtitle')?.remove();
     } else {
         getElement('header')?.remove();
     }
