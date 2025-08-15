@@ -91,7 +91,7 @@ export const translations = {
         "page-title": "ineedmypills - Portfolio",
         "main-title": "ineedmypills",
         "alt-header-title": "Milky",
-        "full-name": "Egor Glukhikh",
+        "full-name": "Glukhikh Egor Alexeyevich",
         "specialist": "Aspiring multi-talented IT specialist",
         "skills-title": "Technical Skills",
         "lang-title": "Programming Languages",
