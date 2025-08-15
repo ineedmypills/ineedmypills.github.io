@@ -7,6 +7,7 @@ import {
 } from './ui.js';
 import { initScrollAnimations, initRunawayButton } from './animations.js';
 import { initShareModal, handleSharedLinkView } from './share.js';
+import { renderAll } from './renderer.js';
 
 const initInteractiveElements = () => {
     initClickDelegation();
@@ -16,9 +17,10 @@ const initInteractiveElements = () => {
 };
 
 const main = () => {
+    handleSharedLinkView();
+    renderAll();
     initTheme();
     initLanguage();
-    handleSharedLinkView();
     initScrollAnimations();
     initShareModal();
     initInteractiveElements();
