@@ -21,8 +21,12 @@
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=swap" media="print" onload="this.media='all'">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -123,7 +127,7 @@
     </div>
 </div>
 
-<script type="module" src="js/main.js"></script>
+<script type="module" src="js/main.js" defer></script>
 
 </body>
 </html>
