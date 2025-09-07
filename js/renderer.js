@@ -1,6 +1,5 @@
 import { state } from './state.js';
 import { getElement, applyLanguage, displayAge } from './ui.js';
-import { getVisibleSections } from './share.js';
 import { personalInfo, skills, projects, education, about, contacts, support } from './data.js';
 import { icons } from './icons.js';
 const renderSkills = () => {
@@ -169,8 +168,7 @@ footer.className = 'card-footer';
 const footerLeft = document.createElement('div');
 footerLeft.className = 'footer-group-left';
 const techBadge = document.createElement('div');
-const techClass = item.tech.toLowerCase().replace('#', 'sharp');
-techBadge.className = `tech-badge ${techClass}-tech`;
+techBadge.className = `tech-badge ${item.tech.toLowerCase()}-tech`;
 techBadge.innerHTML = `<span class="material-icons-outlined" aria-hidden="true">code</span>
 ${item.tech}`;
 footerLeft.append(techBadge);
@@ -450,19 +448,16 @@ export const renderNavLinks = (containerSelector) => {
     const navContainer = getElement(containerSelector);
     if (!navContainer) return;
 
-    const allSections = [
-        { id: 'skills-section', titleKey: 'skills-title', name: 'skills' },
-        { id: 'projects-section', titleKey: 'projects-title', name: 'projects' },
-        { id: 'education-section', titleKey: 'education-title', name: 'education' },
-        { id: 'about-section', titleKey: 'about-title', name: 'about' },
-        { id: 'contacts-section', titleKey: 'contacts-title', name: 'contacts' },
-        { id: 'support-section', titleKey: 'support-title', name: 'support' },
+    const sections = [
+        { id: 'skills-section', titleKey: 'skills-title' },
+        { id: 'projects-section', titleKey: 'projects-title' },
+        { id: 'education-section', titleKey: 'education-title' },
+        { id: 'about-section', titleKey: 'about-title' },
+        { id: 'contacts-section', titleKey: 'contacts-title' },
+        { id: 'support-section', titleKey: 'support-title' },
     ];
 
-    const visibleSections = getVisibleSections();
-    const sectionsToRender = allSections.filter(s => visibleSections.has(s.name));
-
-    sectionsToRender.forEach(section => {
+    sections.forEach(section => {
         const link = document.createElement('a');
         link.href = `#${section.id}`;
         link.className = 'side-nav-link translate-element';

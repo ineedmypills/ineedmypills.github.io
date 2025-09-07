@@ -8,8 +8,7 @@ import {
 import { initScrollAnimations, initRunawayButton } from './animations.js';
 import { initShareModal, handleSharedLinkView } from './share.js';
 import { renderAll, renderNavLinks } from './renderer.js';
-import { initSideNav } from './sideNav.js';
-import { initMobileNav } from './mobileNav.js';
+import { initNavigation } from './nav.js';
 
 const initInteractiveElements = () => {
     initClickDelegation();
@@ -28,8 +27,7 @@ const main = () => {
     initScrollAnimations();
     initShareModal();
     initInteractiveElements();
-    initSideNav();
-    initMobileNav();
+    initNavigation();
 };
 
 document.addEventListener('DOMContentLoaded', main);

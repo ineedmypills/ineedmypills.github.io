@@ -1,14 +1,5 @@
 ﻿
 
-html, body {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
-}
-
 :root {
     --primary: #8b5cf6;
     --primary-dark: #7c3aed;
@@ -1379,7 +1370,18 @@ a { text-decoration: none; color: inherit; }
     color: var(--text-secondary);
 }
 
-/* Side Navigation Panel */
+/* --- NAVIGATION STYLES --- */
+
+/* Scrollbar Hiding */
+html {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+html::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
+/* Desktop Side Navigation Panel */
 #side-nav-container {
     position: fixed;
     top: 0;
@@ -1421,17 +1423,21 @@ a { text-decoration: none; color: inherit; }
     font-weight: 700;
 }
 
+/* Mobile Hamburger Button */
 #mobileNavToggle {
-    display: none; /* Hidden by default */
+    display: none; /* Hidden by default, shown in media query */
     position: fixed;
     top: 20px;
     left: 20px;
     z-index: 1200; /* Above the overlay */
-    background-color: var(--card-bg-alpha);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    box-shadow: var(--shadow-md);
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    width: 48px;
+    height: 48px;
 }
 
 #mobileNavToggle .material-icons-outlined {
@@ -1442,6 +1448,7 @@ body.mobile-nav-open #mobileNavToggle .material-icons-outlined {
     transform: rotate(180deg);
 }
 
+/* Mobile Navigation Panel */
 #mobile-nav-overlay {
     position: fixed;
     inset: 0;
@@ -1463,10 +1470,10 @@ body.mobile-nav-open #mobile-nav-overlay {
     left: 0;
     bottom: 0;
     width: 280px;
-    background-color: var(--card-bg-alpha);
+    background-color: var(--header-bg); /* Use semi-transparent var */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    z-index: 1100; /* Above everything else */
+    z-index: 1100;
     transform: translateX(-100%);
     transition: transform 0.4s var(--easing-smooth);
     display: flex;
@@ -1481,22 +1488,12 @@ body.mobile-nav-open #mobile-nav-container {
     transform: translateX(0);
 }
 
-body.mobile-nav-open .container {
-    transform: translateX(50px) scale(0.95);
-    filter: blur(4px);
-    opacity: 0.8;
-}
-
-.container {
-    transition: transform 0.4s var(--easing-smooth), filter 0.4s var(--easing-smooth), opacity 0.4s var(--easing-smooth);
-}
-
-
+/* Responsive Visibility */
 @media (max-width: 1100px) {
     #side-nav-container {
         display: none;
     }
     #mobileNavToggle {
-        display: grid; /* Show on mobile */
+        display: grid; /* Assumes .header-action-btn has place-items:center */
     }
 }
