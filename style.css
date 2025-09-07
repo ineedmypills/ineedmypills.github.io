@@ -1423,7 +1423,15 @@ a { text-decoration: none; color: inherit; }
 
 #mobileNavToggle {
     display: none; /* Hidden by default */
+    position: fixed;
+    top: 20px;
+    left: 20px;
     z-index: 1200; /* Above the overlay */
+    background-color: var(--card-bg-alpha);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
 }
 
 #mobileNavToggle .material-icons-outlined {
@@ -1455,7 +1463,9 @@ body.mobile-nav-open #mobile-nav-overlay {
     left: 0;
     bottom: 0;
     width: 280px;
-    background-color: var(--card-bg);
+    background-color: var(--card-bg-alpha);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 1100; /* Above everything else */
     transform: translateX(-100%);
     transition: transform 0.4s var(--easing-smooth);

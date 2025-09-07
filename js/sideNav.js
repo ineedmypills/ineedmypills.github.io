@@ -22,8 +22,8 @@ export function initSideNav() {
     // Intersection Observer Logic
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: 0.5
+        rootMargin: '0px 0px -80% 0px',
+        threshold: 0
     };
 
     const observerCallback = (entries) => {
