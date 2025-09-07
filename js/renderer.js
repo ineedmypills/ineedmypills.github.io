@@ -444,13 +444,36 @@ createSupportCategory(support.crypto)
 );
 supportSection.append(title, contentGroup);
 };
+export const renderNavLinks = (containerSelector) => {
+    const navContainer = getElement(containerSelector);
+    if (!navContainer) return;
+
+    const sections = [
+        { id: 'skills-section', titleKey: 'skills-title' },
+        { id: 'projects-section', titleKey: 'projects-title' },
+        { id: 'education-section', titleKey: 'education-title' },
+        { id: 'about-section', titleKey: 'about-title' },
+        { id: 'contacts-section', titleKey: 'contacts-title' },
+        { id: 'support-section', titleKey: 'support-title' },
+    ];
+
+    sections.forEach(section => {
+        const link = document.createElement('a');
+        link.href = `#${section.id}`;
+        link.className = 'side-nav-link translate-element';
+        link.dataset.section = section.id;
+        link.dataset.key = section.titleKey;
+        navContainer.append(link);
+    });
+};
+
 export function renderAll() {
-renderSkills();
-renderProjects();
-renderEducation();
-renderAbout();
-renderContacts();
-renderSupport();
-applyLanguage(state.lang);
-displayAge();
+    renderSkills();
+    renderProjects();
+    renderEducation();
+    renderAbout();
+    renderContacts();
+    renderSupport();
+    applyLanguage(state.lang);
+    displayAge();
 }

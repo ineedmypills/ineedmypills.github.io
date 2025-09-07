@@ -6,8 +6,9 @@ import {
     setupInterestLink
 } from './ui.js';
 import { initScrollAnimations, initRunawayButton } from './animations.js';
-import { initShareModal, handleSharedLinkView } from './share.js';
-import { renderAll } from './renderer.js';
+import { initShareModal, handleSharedLinkView, getVisibleSections, ALL_SECTIONS } from './share.js';
+import { renderAll, renderNavLinks } from './renderer.js';
+import { initNavigation } from './nav.js';
 
 const initInteractiveElements = () => {
     initClickDelegation();
@@ -18,6 +19,19 @@ const initInteractiveElements = () => {
 
 const main = () => {
     handleSharedLinkView();
+
+    const visibleItems = getVisibleSections();
+    const visibleContentSections = ALL_SECTIONS.filter(s => visibleItems.has(s));
+
+    if (visibleContentSections.length > 1) {
+        renderNavLinks('#side-nav-container');
+        renderNavLinks('#mobile-nav-container');
+        initNavigation();
+    } else {
+        document.body.classList.add('hide-side-nav');
+        document.body.classList.add('hide-mobile-toggle');
+    }
+
     renderAll();
     initTheme();
     initLanguage();
