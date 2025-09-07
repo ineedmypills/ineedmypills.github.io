@@ -8,6 +8,7 @@ import {
 import { initScrollAnimations, initRunawayButton } from './animations.js';
 import { initShareModal, handleSharedLinkView } from './share.js';
 import { renderAll } from './renderer.js';
+import { initScrollbarNav } from './scrollbarNav.js';
 
 const initInteractiveElements = () => {
     initClickDelegation();
@@ -24,6 +25,7 @@ const main = () => {
     initScrollAnimations();
     initShareModal();
     initInteractiveElements();
+    initScrollbarNav();
 };
 
 document.addEventListener('DOMContentLoaded', main);

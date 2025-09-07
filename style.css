@@ -99,6 +99,12 @@ body {
     overflow-x: hidden;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
 }
 
 button {
@@ -229,48 +235,6 @@ h1 {
     text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
-.header-nav {
-    margin-top: 25px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px 15px;
-}
-
-.nav-link {
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: var(--font-size-base);
-    padding: 8px 12px;
-    border-radius: 8px;
-    position: relative;
-    transition: all 0.3s var(--easing-smooth);
-    opacity: 0.8;
-}
-
-.nav-link:hover {
-    opacity: 1;
-    background-color: var(--card-bg-alpha);
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background: var(--primary);
-    border-radius: 2px;
-    transition: width 0.3s var(--easing-smooth);
-}
-
-.nav-link:hover::after {
-    width: 50%;
-}
-
 .content {
     padding: 20px;
     background: rgba(255, 255, 255, 0.5);
@@ -387,24 +351,6 @@ section:last-child { margin-bottom: 0; }
     align-items: center;
     gap: 8px;
     margin-bottom: 8px;
-}
-
-.project-type-icon {
-    font-size: 1.5rem;
-    color: var(--text-secondary);
-    transition: color 0.3s ease;
-}
-
-.project-card:hover .project-type-icon {
-    color: var(--primary);
-}
-
-.project-card--game {
-    border-left: 3px solid var(--secondary);
-}
-
-.project-card--software {
-    border-left: 3px solid var(--warning);
 }
 
 .project-title {
@@ -1428,4 +1374,63 @@ a { text-decoration: none; color: inherit; }
     margin-top: 15px;
     font-size: var(--font-size-sm);
     color: var(--text-secondary);
+}
+
+/* Custom Scrollbar Navigation */
+#custom-scrollbar-nav {
+    position: fixed;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 100;
+}
+
+.scrollbar-marker {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--card-border);
+    border: 2px solid var(--bg);
+    cursor: pointer;
+    transition: all 0.3s var(--easing-smooth);
+    position: relative;
+}
+
+.scrollbar-marker:hover,
+.scrollbar-marker.active {
+    background-color: var(--primary);
+    transform: scale(1.2);
+}
+
+.scrollbar-tooltip {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%) translateX(-10px);
+    padding: 5px 10px;
+    background-color: var(--card-bg);
+    color: var(--text);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s var(--easing-smooth);
+    box-shadow: var(--shadow-md);
+}
+
+.scrollbar-marker:hover .scrollbar-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(-15px);
+}
+
+@media (max-width: 768px) {
+    #custom-scrollbar-nav {
+        display: none;
+    }
 }
