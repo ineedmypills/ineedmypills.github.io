@@ -444,9 +444,9 @@ createSupportCategory(support.crypto)
 );
 supportSection.append(title, contentGroup);
 };
-const renderScrollbarNav = () => {
-    const markersContainer = getElement('#scroll-nav-markers');
-    if (!markersContainer) return;
+export const renderSideNav = () => {
+    const navContainer = getElement('#side-nav-container');
+    if (!navContainer) return;
 
     const sections = [
         { id: 'skills-section', titleKey: 'skills-title' },
@@ -458,17 +458,12 @@ const renderScrollbarNav = () => {
     ];
 
     sections.forEach(section => {
-        const marker = document.createElement('a');
-        marker.href = `#${section.id}`;
-        marker.className = 'scroll-nav-marker';
-        marker.dataset.section = section.id;
-
-        const text = document.createElement('span');
-        text.className = 'marker-text translate-element';
-        text.dataset.key = section.titleKey;
-
-        marker.append(text);
-        markersContainer.append(marker);
+        const link = document.createElement('a');
+        link.href = `#${section.id}`;
+        link.className = 'side-nav-link translate-element';
+        link.dataset.section = section.id;
+        link.dataset.key = section.titleKey;
+        navContainer.append(link);
     });
 };
 
@@ -479,7 +474,6 @@ export function renderAll() {
     renderAbout();
     renderContacts();
     renderSupport();
-    renderScrollbarNav();
     applyLanguage(state.lang);
     displayAge();
 }
