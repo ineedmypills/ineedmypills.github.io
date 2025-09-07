@@ -168,7 +168,8 @@ footer.className = 'card-footer';
 const footerLeft = document.createElement('div');
 footerLeft.className = 'footer-group-left';
 const techBadge = document.createElement('div');
-techBadge.className = `tech-badge ${item.tech.toLowerCase()}-tech`;
+const techClass = item.tech.toLowerCase().replace('#', 'sharp');
+techBadge.className = `tech-badge ${techClass}-tech`;
 techBadge.innerHTML = `<span class="material-icons-outlined" aria-hidden="true">code</span>
 ${item.tech}`;
 footerLeft.append(techBadge);
@@ -444,8 +445,8 @@ createSupportCategory(support.crypto)
 );
 supportSection.append(title, contentGroup);
 };
-export const renderSideNav = () => {
-    const navContainer = getElement('#side-nav-container');
+export const renderNavLinks = (containerSelector) => {
+    const navContainer = getElement(containerSelector);
     if (!navContainer) return;
 
     const sections = [

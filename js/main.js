@@ -7,8 +7,9 @@ import {
 } from './ui.js';
 import { initScrollAnimations, initRunawayButton } from './animations.js';
 import { initShareModal, handleSharedLinkView } from './share.js';
-import { renderAll, renderSideNav } from './renderer.js';
+import { renderAll, renderNavLinks } from './renderer.js';
 import { initSideNav } from './sideNav.js';
+import { initMobileNav } from './mobileNav.js';
 
 const initInteractiveElements = () => {
     initClickDelegation();
@@ -19,7 +20,8 @@ const initInteractiveElements = () => {
 
 const main = () => {
     handleSharedLinkView();
-    renderSideNav();
+    renderNavLinks('#side-nav-container');
+    renderNavLinks('#mobile-nav-container');
     renderAll();
     initTheme();
     initLanguage();
@@ -27,6 +29,7 @@ const main = () => {
     initShareModal();
     initInteractiveElements();
     initSideNav();
+    initMobileNav();
 };
 
 document.addEventListener('DOMContentLoaded', main);
