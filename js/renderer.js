@@ -55,7 +55,7 @@ const projectsSection = getElement('#projects-section');
 if (!projectsSection) return;
 const createProjectCard = (project) => {
 const card = document.createElement('article');
-card.className = 'project-card';
+card.className = 'project-card project-card--game';
 const awardsContainer = document.createElement('div');
 awardsContainer.className = 'awards-container';
 if (project.awards) {
@@ -78,6 +78,9 @@ const titleWrapper = document.createElement('div');
 titleWrapper.className = 'project-title-wrapper';
 const title = document.createElement('h3');
 title.className = 'project-title';
+const icon = document.createElement('span');
+icon.className = 'material-icons-outlined project-type-icon';
+icon.textContent = 'sports_esports';
 const titleLink = document.createElement('a');
 titleLink.href = project.url;
 titleLink.target = '_blank';
@@ -85,7 +88,7 @@ titleLink.rel = 'noopener noreferrer';
 titleLink.className = 'stretched-link translate-element';
 titleLink.dataset.key = project.titleKey;
 title.append(titleLink);
-titleWrapper.append(title);
+titleWrapper.append(icon, title);
 if (icons[project.platform]) {
 titleWrapper.insertAdjacentHTML('beforeend', icons[project.platform]);
 }
@@ -144,13 +147,16 @@ return card;
 };
 const createSoftwareCard = (item) => {
 const card = document.createElement('article');
-card.className = 'project-card';
+card.className = 'project-card project-card--software';
 const header = document.createElement('div');
 header.className = 'project-header';
 const titleWrapper = document.createElement('div');
 titleWrapper.className = 'project-title-wrapper';
 const title = document.createElement('h3');
 title.className = 'project-title';
+const icon = document.createElement('span');
+icon.className = 'material-icons-outlined project-type-icon';
+icon.textContent = 'code';
 const titleLink = document.createElement('a');
 titleLink.href = item.url;
 titleLink.target = '_blank';
@@ -158,7 +164,7 @@ titleLink.rel = 'noopener noreferrer';
 titleLink.className = 'stretched-link translate-element';
 titleLink.dataset.key = item.titleKey;
 title.append(titleLink);
-titleWrapper.append(title);
+titleWrapper.append(icon, title);
 const desc = document.createElement('p');
 desc.className = 'project-desc translate-element';
 desc.dataset.key = item.descriptionKey;
