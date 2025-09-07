@@ -75,7 +75,7 @@ export const initShareModal = () => {
     generateShareLink(); // Initial generation
 };
 
-const ALL_SECTIONS = ['skills', 'projects', 'education', 'about', 'contacts', 'support'];
+export const ALL_SECTIONS = ['skills', 'projects', 'education', 'about', 'contacts', 'support'];
 
 export const getVisibleSections = () => {
     const params = new URLSearchParams(window.location.search);
