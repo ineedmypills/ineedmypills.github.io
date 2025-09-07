@@ -28,7 +28,8 @@ const main = () => {
         renderNavLinks('#mobile-nav-container');
         initNavigation();
     } else {
-        document.body.classList.add('single-section-view');
+        document.body.classList.add('hide-side-nav');
+        document.body.classList.add('hide-mobile-toggle');
     }
 
     renderAll();

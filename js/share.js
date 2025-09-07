@@ -92,23 +92,25 @@ export const handleSharedLinkView = () => {
 
     if (!isCustomView) return;
 
-    getElement(selectors.shareButton)?.remove();
+    // Add hide classes for sections not in view
+    ALL_SECTIONS.forEach(sectionName => {
+        if (!visibleItems.has(sectionName)) {
+            document.body.classList.add(`hide-${sectionName}`);
+        }
+    });
 
-    if (visibleItems.has('header')) {
+    // Handle header visibility
+    if (!visibleItems.has('header')) {
+        document.body.classList.add('hide-header');
+    } else {
         if (visibleItems.has('alt_header')) {
             const titleEl = getElement('#main-header-title');
             if(titleEl) titleEl.dataset.key = 'alt-header-title';
         }
-        if (!visibleItems.has('full_name')) getElement('#main-header-name')?.remove();
-        if (!visibleItems.has('subtitle')) getElement('#header-subtitle')?.remove();
-    } else {
-        getElement('header')?.remove();
+        if (!visibleItems.has('full_name')) document.body.classList.add('hide-main-header-name');
+        if (!visibleItems.has('subtitle')) document.body.classList.add('hide-header-subtitle');
     }
 
-    getElements(selectors.contentSection).forEach(section => {
-        const sectionId = section.id.replace('-section', '');
-        if (!visibleItems.has(sectionId)) {
-            section.remove();
-        }
-    });
+    // Always hide the share button in shared view
+    document.body.classList.add('hide-share-button');
 };

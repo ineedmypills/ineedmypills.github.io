@@ -1489,18 +1489,39 @@ body.mobile-nav-open #mobile-nav-container {
     transform: translateX(0);
 }
 
+/* --- Conditional Hiding via Body Classes --- */
+
+/* Hide nav for single-section view */
+.hide-side-nav #side-nav-container,
+.hide-mobile-toggle #mobileNavToggle {
+    display: none;
+}
+
+/* Hide elements based on Share Link */
+.hide-share-button #shareButton,
+.hide-header header,
+.hide-main-header-name #main-header-name,
+.hide-header-subtitle #header-subtitle,
+.hide-skills #skills-section,
+.hide-projects #projects-section,
+.hide-education #education-section,
+.hide-about #about-section,
+.hide-contacts #contacts-section,
+.hide-support #support-section {
+    display: none;
+}
+
+
 /* Responsive Visibility */
 @media (max-width: 1100px) {
     #side-nav-container {
         display: none;
     }
+    /* Show mobile toggle, unless it's meant to be hidden */
+    .hide-mobile-toggle #mobileNavToggle {
+        display: none;
+    }
     #mobileNavToggle {
         display: grid; /* Assumes .header-action-btn has place-items:center */
     }
-}
-
-/* Hide nav completely in single section view */
-.single-section-view #side-nav-container,
-.single-section-view #mobileNavToggle {
-    display: none !important;
 }
