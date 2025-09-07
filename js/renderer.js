@@ -445,8 +445,8 @@ createSupportCategory(support.crypto)
 supportSection.append(title, contentGroup);
 };
 const renderScrollbarNav = () => {
-    const scrollbarNav = getElement('#custom-scrollbar-nav');
-    if (!scrollbarNav) return;
+    const markersContainer = getElement('#scroll-nav-markers');
+    if (!markersContainer) return;
 
     const sections = [
         { id: 'skills-section', titleKey: 'skills-title' },
@@ -460,15 +460,15 @@ const renderScrollbarNav = () => {
     sections.forEach(section => {
         const marker = document.createElement('a');
         marker.href = `#${section.id}`;
-        marker.className = 'scrollbar-marker';
+        marker.className = 'scroll-nav-marker';
         marker.dataset.section = section.id;
 
-        const tooltip = document.createElement('span');
-        tooltip.className = 'scrollbar-tooltip translate-element';
-        tooltip.dataset.key = section.titleKey;
+        const text = document.createElement('span');
+        text.className = 'marker-text translate-element';
+        text.dataset.key = section.titleKey;
 
-        marker.append(tooltip);
-        scrollbarNav.append(marker);
+        marker.append(text);
+        markersContainer.append(marker);
     });
 };
 

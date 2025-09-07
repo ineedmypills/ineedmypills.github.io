@@ -1,22 +1,45 @@
 export function initScrollbarNav() {
-    const scrollbarNav = document.getElementById('custom-scrollbar-nav');
+    const container = document.getElementById('scroll-nav-container');
+    const toggleButton = document.getElementById('scroll-nav-toggle');
+    const markers = document.querySelectorAll('.scroll-nav-marker');
     const sections = document.querySelectorAll('main > section');
-    const markers = document.querySelectorAll('.scrollbar-marker');
 
-    if (!scrollbarNav || sections.length === 0 || markers.length === 0) {
+    if (!container || !toggleButton || markers.length === 0 || sections.length === 0) {
         return;
     }
 
+    // Expand/Collapse Logic
+    toggleButton.addEventListener('click', () => {
+        container.classList.toggle('is-expanded');
+    });
+
+    // Smooth Scrolling Logic
+    markers.forEach(marker => {
+        marker.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sectionId = marker.getAttribute('href');
+            const section = document.querySelector(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+            // Collapse the menu on selection (optional, but good for UX)
+            if (container.classList.contains('is-expanded')) {
+                container.classList.remove('is-expanded');
+            }
+        });
+    });
+
+    // Intersection Observer Logic
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: 0.5
+        rootMargin: '0px 0px -50% 0px', // Trigger when section is in the top half of the screen
+        threshold: 0
     };
 
     const observerCallback = (entries) => {
         entries.forEach(entry => {
             const sectionId = entry.target.id;
-            const marker = document.querySelector(`.scrollbar-marker[data-section="${sectionId}"]`);
+            const marker = document.querySelector(`.scroll-nav-marker[data-section="${sectionId}"]`);
 
             if (entry.isIntersecting) {
                 markers.forEach(m => m.classList.remove('active'));
@@ -28,19 +51,5 @@ export function initScrollbarNav() {
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-
-    markers.forEach(marker => {
-        marker.addEventListener('click', (e) => {
-            e.preventDefault();
-            const sectionId = marker.getAttribute('href');
-            const section = document.querySelector(sectionId);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
+    sections.forEach(section => observer.observe(section));
 }
