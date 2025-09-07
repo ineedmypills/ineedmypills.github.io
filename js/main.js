@@ -27,6 +27,10 @@ const main = () => {
         renderNavLinks('#side-nav-container');
         renderNavLinks('#mobile-nav-container');
         initNavigation();
+    } else {
+        document.getElementById('side-nav-container')?.remove();
+        document.getElementById('mobile-nav-container')?.remove();
+        document.getElementById('mobileNavToggle')?.remove();
     }
 
     renderAll();
