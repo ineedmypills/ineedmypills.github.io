@@ -28,9 +28,7 @@ const main = () => {
         renderNavLinks('#mobile-nav-container');
         initNavigation();
     } else {
-        document.getElementById('side-nav-container')?.remove();
-        document.getElementById('mobile-nav-container')?.remove();
-        document.getElementById('mobileNavToggle')?.remove();
+        document.body.classList.add('single-section-view');
     }
 
     renderAll();

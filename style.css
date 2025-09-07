@@ -1376,6 +1376,7 @@ a { text-decoration: none; color: inherit; }
 html {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    scroll-behavior: smooth;
 }
 html::-webkit-scrollbar {
     display: none; /* Safari and Chrome */
@@ -1496,4 +1497,10 @@ body.mobile-nav-open #mobile-nav-container {
     #mobileNavToggle {
         display: grid; /* Assumes .header-action-btn has place-items:center */
     }
+}
+
+/* Hide nav completely in single section view */
+.single-section-view #side-nav-container,
+.single-section-view #mobileNavToggle {
+    display: none !important;
 }

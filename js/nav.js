@@ -25,7 +25,7 @@ export function initNavigation() {
                         }
                     });
                 },
-                { root: null, rootMargin: '0px 0px -80% 0px', threshold: 0 }
+                { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 }
             );
             sections.forEach(section => observer.observe(section));
         }
@@ -44,7 +44,13 @@ export function initNavigation() {
         overlay.addEventListener('click', toggleMenu);
 
         mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = document.querySelector(link.getAttribute('href'));
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+
                 if (document.body.classList.contains('mobile-nav-open')) {
                     toggleMenu();
                 }
