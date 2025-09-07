@@ -75,12 +75,23 @@ export const initShareModal = () => {
     generateShareLink(); // Initial generation
 };
 
-export const handleSharedLinkView = () => {
+const ALL_SECTIONS = ['skills', 'projects', 'education', 'about', 'contacts', 'support'];
+
+export const getVisibleSections = () => {
     const params = new URLSearchParams(window.location.search);
     const showParam = params.get('show');
-    if (!showParam) return;
+    if (showParam) {
+        return new Set(showParam.split(','));
+    }
+    return new Set(ALL_SECTIONS.concat(['header', 'full_name', 'subtitle']));
+};
 
-    const visibleItems = new Set(showParam.split(','));
+export const handleSharedLinkView = () => {
+    const visibleItems = getVisibleSections();
+    const isCustomView = new URLSearchParams(window.location.search).has('show');
+
+    if (!isCustomView) return;
+
     getElement(selectors.shareButton)?.remove();
 
     if (visibleItems.has('header')) {
