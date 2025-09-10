@@ -449,6 +449,9 @@ const renderServices = () => {
     const servicesSection = getElement('#services-section');
     if (!servicesSection) return;
 
+    const telegramUrl = contacts.find(c => c.platform === 'Telegram')?.url;
+    if (!telegramUrl) return;
+
     servicesSection.innerHTML = '';
 
     const title = document.createElement('h2');
@@ -462,18 +465,32 @@ const renderServices = () => {
     servicesContainer.className = 'services-container stagger-child';
 
     services.items.forEach(item => {
-        const card = document.createElement('div');
+        const card = document.createElement('a');
         card.className = 'service-card';
+        card.href = telegramUrl;
+        card.target = '_blank';
+        card.rel = 'noopener noreferrer';
+
+        const details = document.createElement('div');
+        details.className = 'service-details';
 
         const name = document.createElement('p');
         name.className = 'service-name translate-element';
         name.dataset.key = item.nameKey;
+        details.append(name);
+
+        if (item.descriptionKey) {
+            const desc = document.createElement('p');
+            desc.className = 'service-desc translate-element';
+            desc.dataset.key = item.descriptionKey;
+            details.append(desc);
+        }
 
         const price = document.createElement('p');
         price.className = 'service-price translate-element';
         price.dataset.key = item.priceKey;
 
-        card.append(name, price);
+        card.append(details, price);
         servicesContainer.append(card);
     });
 

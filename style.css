@@ -1489,6 +1489,62 @@ body.mobile-nav-open #mobile-nav-container {
     transform: translateX(0);
 }
 
+/* --- Services Section --- */
+
+.services-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.service-card {
+    background: var(--card-bg-alpha);
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    padding: 20px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+    transition: var(--transition-lift);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    will-change: transform, box-shadow;
+}
+
+.service-card:hover {
+    transform: translateY(var(--hover-lift-amount));
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.service-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-name {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin: 0;
+    color: var(--text);
+}
+
+.service-desc {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    margin: 4px 0 0 0;
+}
+
+.service-price {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+    white-space: nowrap;
+    padding-left: 20px;
+}
+
 /* --- Conditional Hiding via Body Classes --- */
 
 /* Hide nav for single-section view */
