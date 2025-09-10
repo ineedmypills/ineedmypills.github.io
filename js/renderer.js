@@ -1,6 +1,6 @@
 import { state } from './state.js';
 import { getElement, applyLanguage, displayAge } from './ui.js';
-import { personalInfo, skills, projects, education, about, contacts, support } from './data.js';
+import { personalInfo, skills, projects, education, about, contacts, support, services } from './data.js';
 import { icons } from './icons.js';
 const renderSkills = () => {
 const skillsSection = getElement('#skills-section');
@@ -444,6 +444,42 @@ createSupportCategory(support.crypto)
 );
 supportSection.append(title, contentGroup);
 };
+
+const renderServices = () => {
+    const servicesSection = getElement('#services-section');
+    if (!servicesSection) return;
+
+    servicesSection.innerHTML = '';
+
+    const title = document.createElement('h2');
+    title.className = 'section-title translate-element animate-on-scroll';
+    title.dataset.key = 'services-title';
+
+    const contentGroup = document.createElement('div');
+    contentGroup.className = 'content-group animate-on-scroll';
+
+    const servicesContainer = document.createElement('div');
+    servicesContainer.className = 'services-container stagger-child';
+
+    services.items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'service-card';
+
+        const name = document.createElement('p');
+        name.className = 'service-name translate-element';
+        name.dataset.key = item.nameKey;
+
+        const price = document.createElement('p');
+        price.className = 'service-price translate-element';
+        price.dataset.key = item.priceKey;
+
+        card.append(name, price);
+        servicesContainer.append(card);
+    });
+
+    contentGroup.append(servicesContainer);
+    servicesSection.append(title, contentGroup);
+};
 export const renderNavLinks = (containerSelector) => {
     const navContainer = getElement(containerSelector);
     if (!navContainer) return;
@@ -454,6 +490,7 @@ export const renderNavLinks = (containerSelector) => {
         { id: 'education-section', titleKey: 'education-title' },
         { id: 'about-section', titleKey: 'about-title' },
         { id: 'contacts-section', titleKey: 'contacts-title' },
+        { id: 'services-section', titleKey: 'services-title' },
         { id: 'support-section', titleKey: 'support-title' },
     ];
 
@@ -473,6 +510,7 @@ export function renderAll() {
     renderEducation();
     renderAbout();
     renderContacts();
+    renderServices();
     renderSupport();
     applyLanguage(state.lang);
     displayAge();
