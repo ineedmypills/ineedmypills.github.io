@@ -24,8 +24,8 @@ const main = () => {
     const visibleContentSections = ALL_SECTIONS.filter(s => visibleItems.has(s));
 
     if (visibleContentSections.length > 1) {
-        renderNavLinks('#side-nav-container');
-        renderNavLinks('#mobile-nav-container');
+        renderNavLinks('#side-nav-container', visibleContentSections);
+        renderNavLinks('#mobile-nav-container', visibleContentSections);
         initNavigation();
     } else {
         document.body.classList.add('hide-side-nav');
