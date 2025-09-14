@@ -1563,6 +1563,7 @@ body.mobile-nav-open #mobile-nav-container {
 .hide-education #education-section,
 .hide-about #about-section,
 .hide-contacts #contacts-section,
+.hide-services #services-section,
 .hide-support #support-section {
     display: none;
 }
