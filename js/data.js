@@ -194,3 +194,13 @@ export const support = {
         ],
     },
 };
+
+export const services = {
+    titleKey: 'services-title',
+    items: [
+        { nameKey: 'service-video-editing', descriptionKey: 'service-video-editing-desc', priceKey: 'price-from-1500' },
+        { nameKey: 'service-video-thumbnail', descriptionKey: 'service-video-thumbnail-desc', priceKey: 'price-from-1000' },
+        { nameKey: 'service-static-website', descriptionKey: 'service-static-website-desc', priceKey: 'price-from-5000' },
+        { nameKey: 'service-offline-app', descriptionKey: 'service-offline-app-desc', priceKey: 'price-from-5000' },
+    ]
+};
